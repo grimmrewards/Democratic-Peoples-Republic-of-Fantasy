@@ -31,7 +31,51 @@ function toolResult(data) {
     ]
   };
 }
+async function getAvailableVeterans() {
+  const [players, rosters] = await Promise.all([
+    sleeperFetch("/players/nfl"),
+    sleeperFetch(`/league/${LEAGUE_ID}/rosters`)
+  ]);
 
+  const rosteredPlayerIds = new Set(
+    rosters.flatMap((roster) => [
+      ...(roster.players || []),
+      ...(roster.reserve || []),
+      ...(roster.taxi || [])
+    ])
+  );
+
+  return Object.entries(players)
+    .filter(([playerId, player]) => {
+      return (
+        !rosteredPlayerIds.has(playerId) &&
+        Number(player.years_exp) > 0 &&
+        ["QB", "RB", "WR", "TE"].includes(player.position) &&
+        player.active !== false
+      );
+    })
+    .map(([playerId, player]) => ({
+      player_id: playerId,
+      full_name: player.full_name,
+      position: player.position,
+      team: player.team,
+      depth_chart_position: player.depth_chart_position,
+      depth_chart_order: player.depth_chart_order,
+      injury_status: player.injury_status,
+      age: player.age,
+      years_exp: player.years_exp
+    }))
+    .sort((a, b) => {
+      if (a.position !== b.position) {
+        return a.position.localeCompare(b.position);
+      }
+
+      return (
+        (a.depth_chart_order ?? 99) -
+        (b.depth_chart_order ?? 99)
+      );
+    });
+}
 function createMcpServer() {
   const server = new McpServer(
     {
@@ -43,7 +87,27 @@ function createMcpServer() {
         "Use these read-only tools to retrieve live Sleeper data for the Democratic People's Republic of Fantasy dynasty league. Purdy13Good is the user's team."
     }
   );
-
+  server.registerTool(
+    "get_available_veterans",
+    {
+      description:
+        "Returns every available veteran QB, RB, WR, and TE not currently rostered, reserved, or on a taxi squad.",
+      inputSchema: {},
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: false
+      }
+    },
+    async () => ({
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(await getAvailableVeterans(), null, 2)
+        }
+      ]
+    })
+  );
   server.registerTool(
     "get_league_state",
     {
