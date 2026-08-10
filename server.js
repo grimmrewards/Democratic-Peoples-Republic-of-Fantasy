@@ -31,6 +31,56 @@ function toolResult(data) {
     ]
   };
 }
+async function getAvailablePlayers() {
+  const [players, rosters] = await Promise.all([
+    sleeperFetch("/players/nfl"),
+    sleeperFetch(`/league/${LEAGUE_ID}/rosters`)
+  ]);
+
+  const rosteredPlayerIds = new Set(
+    rosters.flatMap((roster) => [
+      ...(roster.players || []),
+      ...(roster.reserve || []),
+      ...(roster.taxi || [])
+    ])
+  );
+
+  return Object.entries(players)
+    .filter(([playerId, player]) => {
+      return (
+        !rosteredPlayerIds.has(playerId) &&
+        ["QB", "RB", "WR", "TE"].includes(player.position) &&
+        player.active !== false
+      );
+    })
+    .map(([playerId, player]) => {
+      const yearsExp = Number(player.years_exp) || 0;
+
+      return {
+        player_id: playerId,
+        full_name: player.full_name,
+        position: player.position,
+        team: player.team,
+        experience_type: yearsExp === 0 ? "rookie" : "veteran",
+        years_exp: yearsExp,
+        age: player.age,
+        depth_chart_position: player.depth_chart_position,
+        depth_chart_order: player.depth_chart_order,
+        injury_status: player.injury_status,
+        status: player.status
+      };
+    })
+    .sort((a, b) => {
+      if (a.position !== b.position) {
+        return a.position.localeCompare(b.position);
+      }
+
+      return (
+        (a.depth_chart_order ?? 99) -
+        (b.depth_chart_order ?? 99)
+      );
+    });
+}
 async function getAvailableVeterans() {
   const [players, rosters] = await Promise.all([
     sleeperFetch("/players/nfl"),
@@ -86,6 +136,27 @@ function createMcpServer() {
       instructions:
         "Use these read-only tools to retrieve live Sleeper data for the Democratic People's Republic of Fantasy dynasty league. Purdy13Good is the user's team."
     }
+  );
+    server.registerTool(
+    "get_available_players",
+    {
+      description:
+        "Returns every available rookie and veteran QB, RB, WR, and TE not currently rostered, reserved, or on a taxi squad.",
+      inputSchema: {},
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: false
+      }
+    },
+    async () => ({
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(await getAvailablePlayers(), null, 2)
+        }
+      ]
+    })
   );
   server.registerTool(
     "get_available_veterans",
