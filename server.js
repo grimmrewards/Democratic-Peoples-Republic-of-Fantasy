@@ -393,27 +393,7 @@ function createMcpServer() {
       ]
     })
   );
-  server.registerTool(
-    "get_available_veterans",
-    {
-      description:
-        "Returns every available veteran QB, RB, WR, and TE not currently rostered, reserved, or on a taxi squad.",
-      inputSchema: {},
-      annotations: {
-        readOnlyHint: true,
-        destructiveHint: false,
-        openWorldHint: false
-      }
-    },
-    async () => ({
-      content: [
-        {
-          type: "text",
-          text: JSON.stringify(await getAvailableVeterans(), null, 2)
-        }
-      ]
-    })
-  );
+  
   server.registerTool(
     "get_league_state",
     {
