@@ -31,6 +31,162 @@ function toolResult(data) {
     ]
   };
 }
+const VALUE_TIERS = [
+  { min: 95, tier: "Elite Cornerstone" },
+  { min: 90, tier: "Elite Asset" },
+  { min: 85, tier: "High-End Starter" },
+  { min: 80, tier: "Strong Starter" },
+  { min: 75, tier: "Quality Starter" },
+  { min: 70, tier: "Weekly Contributor" },
+  { min: 60, tier: "Flex or Developmental" },
+  { min: 50, tier: "Bench Depth" },
+  { min: 40, tier: "Deep Stash" },
+  { min: 20, tier: "Very Limited Value" },
+  { min: 0, tier: "Cut or Avoid" }
+];
+
+function clampRating(value) {
+  return Math.max(0, Math.min(100, Math.round(value)));
+}
+
+function getValueTier(rating) {
+  return VALUE_TIERS.find((tier) => rating >= tier.min).tier;
+}
+function calculateCombinedTradeValue(stv, ltv, stvWeight = 0.6) {
+  const ltvWeight = 1 - stvWeight;
+
+  return clampRating(
+    stv * stvWeight +
+    ltv * ltvWeight
+  );
+}
+function getAgeAdjustment(age, position, horizon) {
+  if (!age) return 0;
+
+  const primeAge = {
+    QB: 29,
+    RB: 24,
+    WR: 26,
+    TE: 27
+  }[position] || 26;
+
+  const yearsFromPrime = age - primeAge;
+
+  if (horizon === "STV") {
+    return yearsFromPrime <= 2
+      ? Math.max(-10, yearsFromPrime * -2)
+      : Math.max(-20, yearsFromPrime * -4);
+  }
+
+    return yearsFromPrime <= 0
+    ? Math.min(10, yearsFromPrime * -2)
+    : Math.max(-30, yearsFromPrime * -6);
+}
+function getExperienceAdjustment(yearsExp, horizon) {
+  const experience = Number(yearsExp) || 0;
+
+  if (horizon === "STV") {
+    if (experience === 0) return -8;
+    if (experience <= 2) return 2;
+    if (experience <= 6) return 5;
+    return 0;
+  }
+
+  if (experience === 0) return 8;
+  if (experience <= 2) return 6;
+  if (experience <= 5) return 2;
+  return -5;
+}
+function getDepthChartAdjustment(depthChartOrder, position, horizon) {
+  const order = Number(depthChartOrder);
+
+  if (!Number.isFinite(order) || order <= 0) return 0;
+
+  const positionWeight = position === "RB" ? 1.25 : 1;
+  const baseAdjustment =
+    order === 1 ? 10 :
+    order === 2 ? 5 :
+    order === 3 ? 1 :
+    order <= 5 ? -4 :
+    -8;
+
+  return Math.round(
+    baseAdjustment *
+    positionWeight *
+    (horizon === "STV" ? 1 : 0.6)
+  );
+}
+function getInjuryAdjustment(injuryStatus, horizon) {
+  if (!injuryStatus) return 0;
+
+  const status = String(injuryStatus).toLowerCase();
+
+  const baseAdjustment =
+    status === "out" ? -12 :
+    status === "doubtful" ? -8 :
+    status === "questionable" ? -4 :
+    status === "pup" ? -10 :
+    status === "ir" ? -15 :
+    0;
+
+  return horizon === "STV"
+    ? baseAdjustment
+    : Math.round(baseAdjustment * 0.5);
+}
+function getPositionAdjustment(position, horizon) {
+  const adjustments = {
+    QB: { STV: 8, LTV: 10 },
+    RB: { STV: 6, LTV: 2 },
+    WR: { STV: 4, LTV: 6 },
+    TE: { STV: 7, LTV: 8 }
+  };
+
+  return adjustments[position]?.[horizon] || 0;
+}
+function calculatePlayerRatings(player) {
+  const baseRating = 50;
+
+  const stv = clampRating(
+    baseRating +
+    getAgeAdjustment(player.age, player.position, "STV") +
+    getExperienceAdjustment(player.years_exp, "STV") +
+    getDepthChartAdjustment(
+      player.depth_chart_order,
+      player.position,
+      "STV"
+    ) +
+    getInjuryAdjustment(player.injury_status, "STV") +
+    getPositionAdjustment(player.position, "STV")
+  );
+
+  const ltv = clampRating(
+    baseRating +
+    getAgeAdjustment(player.age, player.position, "LTV") +
+    getExperienceAdjustment(player.years_exp, "LTV") +
+    getDepthChartAdjustment(
+      player.depth_chart_order,
+      player.position,
+      "LTV"
+    ) +
+    getInjuryAdjustment(player.injury_status, "LTV") +
+    getPositionAdjustment(player.position, "LTV")
+  );
+
+  const combinedTradeValue = calculateCombinedTradeValue(stv, ltv);
+
+  return {
+    short_term_value: stv,
+    long_term_value: ltv,
+    combined_trade_value: combinedTradeValue,
+    value_tier: getValueTier(combinedTradeValue)
+  };
+}
+function addPlayerRatings(player) {
+  return {
+    ...player,
+    ...calculatePlayerRatings(player)
+  };
+}
 async function getAvailablePlayers() {
   const [players, rosters] = await Promise.all([
     sleeperFetch("/players/nfl"),
@@ -56,7 +212,7 @@ async function getAvailablePlayers() {
     .map(([playerId, player]) => {
       const yearsExp = Number(player.years_exp) || 0;
 
-      return {
+      return addPlayerRatings({
         player_id: playerId,
         full_name: player.full_name,
         position: player.position,
@@ -68,7 +224,7 @@ async function getAvailablePlayers() {
         depth_chart_order: player.depth_chart_order,
         injury_status: player.injury_status,
         status: player.status
-      };
+      });
     })
     .sort((a, b) => {
       if (a.position !== b.position) {
@@ -104,7 +260,7 @@ async function getAvailableVeterans() {
         player.active !== false
       );
     })
-    .map(([playerId, player]) => ({
+    .map(([playerId, player]) => addPlayerRatings({
       player_id: playerId,
       full_name: player.full_name,
       position: player.position,
@@ -126,6 +282,66 @@ async function getAvailableVeterans() {
       );
     });
 }
+async function getLeaguePlayerRatings() {
+  const [players, rosters, users] = await Promise.all([
+    sleeperFetch("/players/nfl"),
+    sleeperFetch(`/league/${LEAGUE_ID}/rosters`),
+    sleeperFetch(`/league/${LEAGUE_ID}/users`)
+  ]);
+
+  const userMap = Object.fromEntries(
+    users.map((user) => [
+      user.user_id,
+      {
+        username: user.username,
+        display_name: user.display_name,
+        team_name: user.metadata?.team_name || user.display_name
+      }
+    ])
+  );
+
+  return rosters
+    .flatMap((roster) => {
+      const reserveIds = new Set(roster.reserve || []);
+      const taxiIds = new Set(roster.taxi || []);
+
+      return [...new Set(roster.players || [])]
+        .map((playerId) => {
+          const player = players[playerId];
+
+          if (
+            !player ||
+            !["QB", "RB", "WR", "TE"].includes(player.position)
+          ) {
+            return null;
+          }
+
+          return addPlayerRatings({
+            player_id: playerId,
+            full_name: player.full_name,
+            position: player.position,
+            team: player.team,
+            years_exp: Number(player.years_exp) || 0,
+            age: player.age,
+            depth_chart_position: player.depth_chart_position,
+            depth_chart_order: player.depth_chart_order,
+            injury_status: player.injury_status,
+            roster_id: roster.roster_id,
+            manager: userMap[roster.owner_id] || null,
+            roster_status: taxiIds.has(playerId)
+              ? "taxi"
+              : reserveIds.has(playerId)
+                ? "reserve"
+                : "active"
+          });
+        })
+        .filter(Boolean);
+    })
+    .sort(
+      (a, b) =>
+        b.combined_trade_value - a.combined_trade_value
+    );
+}
 function createMcpServer() {
   const server = new McpServer(
     {
@@ -136,6 +352,25 @@ function createMcpServer() {
       instructions:
         "Use these read-only tools to retrieve live Sleeper data for the Democratic People's Republic of Fantasy dynasty league. Purdy13Good is the user's team."
     }
+  );
+    server.registerTool(
+    "get_league_player_ratings",
+    {
+      title: "Get league-wide player ratings",
+      description:
+        "Returns every rostered QB, RB, WR, and TE with short-term value, long-term value, combined trade value, value tier, manager, and roster status.",
+      inputSchema: {},
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: false
+      }
+    },
+    async () =>
+      toolResult({
+        refreshed_at: new Date().toISOString(),
+        players: await getLeaguePlayerRatings()
+      })
   );
     server.registerTool(
     "get_available_players",
