@@ -13,6 +13,7 @@ Superflex PPR TE Premium Dynasty Fantasy Football League.
 - `GET /api/roster-values`
 - `GET /api/trade-targets?position=RB&limit=25`
 - `POST /api/trade-evaluator`
+- `GET /api/manager-tendencies?roster_id=5`
 - `GET /api/live`
 
 The waiver endpoint ranks the complete available QB/RB/WR/TE pool for DPRF,
@@ -67,6 +68,13 @@ specific proposal for lineup improvement, STV, LTV, CTV, roster-space impact,
 risk, upside, and opponent impact before returning accept, reject, or counter.
 No player is automatically protected from trade analysis; Nico Collins and
 David Montgomery may be included when the return justifies their value.
+
+The manager-tendency engine separates observed Sleeper behavior from inferred
+preferences. It profiles current trades, waiver/free-agent activity, rookie
+draft choices, roster construction, positional hoarding, linked prior-season
+lineup management, and 2027-2029 pick strategy. It returns trade receptiveness,
+pressure, leverage, evidence confidence, likely package preferences, opening
+strategy, timing, and walk-away guidance through `get_manager_tendencies`.
 
 ## Durable opportunity monitoring
 

@@ -15,6 +15,7 @@ const ROSTER_OPTIMIZER_VERSION = "dprf-roster-optimizer-v1";
 const OPPORTUNITY_ENGINE_VERSION = "dprf-opportunity-engine-v1.3";
 const ROSTER_VALUE_MODEL_VERSION = "dprf-roster-value-v1";
 const TRADE_ENGINE_VERSION = "dprf-trade-engine-v1";
+const MANAGER_TENDENCY_MODEL_VERSION = "dprf-manager-tendencies-v1";
 const USER_PROTECTED_PLAYERS = new Set();
 
 const DPRF_SCORING_PROFILE = {
@@ -1864,11 +1865,200 @@ async function getAutomatedTradeTargets({ position, limit = 25 } = {}) {
     disclaimer: "Generated packages are valuation starting points. Confirm current news, manager preferences, and lineup consequences before sending."
   };
 }
+
+function transactionRosterIds(transaction) {
+  return [...new Set([
+    ...(transaction.roster_ids || []),
+    ...Object.values(transaction.adds || {}),
+    ...Object.values(transaction.drops || {}),
+    ...(transaction.draft_picks || []).flatMap((pick) => [pick.owner_id, pick.previous_owner_id])
+  ].map(Number).filter(Boolean))];
+}
+
+function getManagerSampleConfidence({ trades, moves, draftPicks, lineupWeeks }) {
+  const evidencePoints = trades * 5 + Math.min(20, moves) + Math.min(12, draftPicks) + Math.min(18, lineupWeeks);
+  const score = clampRating(evidencePoints * 1.8);
+  return { score, level: score >= 75 ? "high" : score >= 45 ? "medium" : "low" };
+}
+
+function summarizeLineupBehavior(matchups, priorRosterId) {
+  if (!priorRosterId) return { coverage: "no_linked_prior_roster", weeks_observed: 0 };
+  const weekly = matchups
+    .map((week, index) => ({ week: index + 1, entry: week.find((row) => Number(row.roster_id) === Number(priorRosterId)) }))
+    .filter((row) => row.entry && Array.isArray(row.entry.starters));
+  let changes = 0;
+  let comparisons = 0;
+  for (let index = 1; index < weekly.length; index += 1) {
+    const prior = new Set(weekly[index - 1].entry.starters.filter((id) => id && id !== "0"));
+    const current = new Set(weekly[index].entry.starters.filter((id) => id && id !== "0"));
+    changes += [...current].filter((id) => !prior.has(id)).length;
+    comparisons += 1;
+  }
+  const incompleteWeeks = weekly.filter((row) => row.entry.starters.some((id) => !id || id === "0")).length;
+  return {
+    coverage: weekly.length ? "linked_2025_lineups" : "no_lineup_records",
+    weeks_observed: weekly.length,
+    average_starter_changes_per_week: comparisons ? Math.round(changes / comparisons * 10) / 10 : 0,
+    incomplete_lineup_weeks: incompleteWeeks,
+    lineup_management_style: incompleteWeeks > 1
+      ? "INCONSISTENT_LINEUP_COMPLETION"
+      : comparisons && changes / comparisons >= 2.5
+        ? "ACTIVE_MATCHUP_MANAGER"
+        : weekly.length ? "STABLE_LINEUP_MANAGER" : "INSUFFICIENT_EVIDENCE"
+  };
+}
+
+async function getManagerTendencies({ roster_id } = {}) {
+  const [league, users, rosters, players, rosterValues, drafts] = await Promise.all([
+    sleeperFetch(`/league/${LEAGUE_ID}`),
+    sleeperFetch(`/league/${LEAGUE_ID}/users`),
+    sleeperFetch(`/league/${LEAGUE_ID}/rosters`),
+    sleeperFetch("/players/nfl"),
+    getLiveRosterValues(),
+    sleeperFetch(`/league/${LEAGUE_ID}/drafts`)
+  ]);
+  const currentWeek = Math.max(1, Math.min(18, Number(league.settings?.leg) || 1));
+  const currentTransactionWeeks = await Promise.all(
+    Array.from({ length: currentWeek }, (_, index) => sleeperFetch(`/league/${LEAGUE_ID}/transactions/${index + 1}`).catch(() => []))
+  );
+  const transactions = currentTransactionWeeks.flat().filter((transaction) => transaction.status === "complete");
+  const draftResults = (await Promise.all(drafts.map((draft) => sleeperFetch(`/draft/${draft.draft_id}/picks`).catch(() => [])))).flat();
+  let priorUsers = [];
+  let priorRosters = [];
+  let priorMatchups = [];
+  if (league.previous_league_id) {
+    [priorUsers, priorRosters, priorMatchups] = await Promise.all([
+      sleeperFetch(`/league/${league.previous_league_id}/users`).catch(() => []),
+      sleeperFetch(`/league/${league.previous_league_id}/rosters`).catch(() => []),
+      Promise.all(Array.from({ length: 18 }, (_, index) => sleeperFetch(`/league/${league.previous_league_id}/matchups/${index + 1}`).catch(() => [])))
+    ]);
+  }
+  const currentUserMap = Object.fromEntries(users.map((user) => [user.user_id, user]));
+  const currentRosterById = Object.fromEntries(rosters.map((roster) => [roster.roster_id, roster]));
+  const priorRosterByOwner = Object.fromEntries(priorRosters.map((roster) => [roster.owner_id, roster.roster_id]));
+  const positionCounts = rosters.map((roster) => {
+    const counts = { QB: 0, RB: 0, WR: 0, TE: 0 };
+    for (const playerId of roster.players || []) {
+      const position = players[playerId]?.position;
+      if (position in counts) counts[position] += 1;
+    }
+    return counts;
+  });
+  const leaguePositionAverage = Object.fromEntries(["QB", "RB", "WR", "TE"].map((position) => [
+    position,
+    average(positionCounts.map((counts) => counts[position]))
+  ]));
+  const profiles = rosterValues.teams.map((team) => {
+    const roster = currentRosterById[team.roster_id];
+    const user = currentUserMap[roster.owner_id] || {};
+    const managerTransactions = transactions.filter((transaction) => transactionRosterIds(transaction).includes(team.roster_id));
+    const trades = managerTransactions.filter((transaction) => transaction.type === "trade");
+    const waivers = managerTransactions.filter((transaction) => transaction.type === "waiver");
+    const freeAgents = managerTransactions.filter((transaction) => transaction.type === "free_agent");
+    const commissionerMoves = managerTransactions.filter((transaction) => transaction.type === "commissioner");
+    const playerAssetsPerTrade = trades.map((transaction) => Object.values(transaction.adds || {}).filter((ownerId) => Number(ownerId) === team.roster_id).length + Object.values(transaction.drops || {}).filter((ownerId) => Number(ownerId) === team.roster_id).length);
+    const pickTrades = trades.filter((transaction) => (transaction.draft_picks || []).some((pick) => Number(pick.owner_id) === team.roster_id || Number(pick.previous_owner_id) === team.roster_id));
+    const picksAcquired = trades.flatMap((transaction) => transaction.draft_picks || []).filter((pick) => Number(pick.owner_id) === team.roster_id);
+    const picksSent = trades.flatMap((transaction) => transaction.draft_picks || []).filter((pick) => Number(pick.previous_owner_id) === team.roster_id);
+    const drafted = draftResults.filter((pick) => String(pick.picked_by || "") === String(roster.owner_id) || Number(pick.roster_id) === team.roster_id);
+    const draftedPositions = Object.fromEntries(["QB", "RB", "WR", "TE"].map((position) => [position, drafted.filter((pick) => players[pick.player_id]?.position === position).length]));
+    const counts = positionCounts[rosters.findIndex((item) => item.roster_id === team.roster_id)] || { QB: 0, RB: 0, WR: 0, TE: 0 };
+    const positionalHoarding = Object.entries(counts).filter(([position, count]) => count >= leaguePositionAverage[position] + 1.5).map(([position]) => position);
+    const lineupBehavior = summarizeLineupBehavior(priorMatchups, priorRosterByOwner[roster.owner_id]);
+    const totalMoves = trades.length + waivers.length + freeAgents.length;
+    const confidence = getManagerSampleConfidence({ trades: trades.length, moves: totalMoves, draftPicks: drafted.length, lineupWeeks: lineupBehavior.weeks_observed || 0 });
+    const tradeReceptiveness = clampRating(15 + trades.length * 14 + Math.min(20, totalMoves) * 1.2);
+    const pressureIndex = clampRating(team.roster_construction.required_reductions * 18 + team.needs.length * 8 + (team.competitive_window === "CONTENDER" ? 10 : 0) + (team.competitive_window === "REBUILDER" ? 6 : 0));
+    const leverageScore = clampRating(team.surpluses.length * 15 + team.draft_capital.first_round_picks * 8 + Math.max(0, 55 - pressureIndex) * 0.5);
+    const avgAssets = average(playerAssetsPerTrade);
+    const packagePreference = pickTrades.length >= Math.max(1, Math.ceil(trades.length / 2))
+      ? "PICK_INCLUSIVE"
+      : avgAssets >= 3 ? "MULTI_ASSET_PACKAGES" : trades.length ? "PLAYER_FOR_PLAYER" : "INSUFFICIENT_EVIDENCE";
+    const ageBias = team.average_core_age <= 25.5 ? "YOUTH_LEAN" : team.average_core_age >= 28 ? "VETERAN_LEAN" : "BALANCED_AGE_PROFILE";
+    const openingStrategy = pressureIndex >= 55
+      ? "Open below fair value and emphasize immediate roster relief."
+      : tradeReceptiveness >= 60
+        ? "Use a fair but favorable opening offer with two clear structures."
+        : "Lead with a simple player-for-player concept before adding picks or secondary assets.";
+    const walkAway = "Do not exceed the trade engine's maximum-acceptable outgoing value; preserve a positive lineup or long-term value case.";
+    return {
+      roster_id: team.roster_id,
+      manager: team.manager,
+      is_user_team: team.roster_id === USER_ROSTER_ID,
+      competitive_window: team.competitive_window,
+      evidence_period: {
+        current_league_transactions_through_week: currentWeek,
+        prior_lineup_season: league.previous_league_id ? String(Number(league.season) - 1) : null,
+        prior_manager_match: priorRosterByOwner[roster.owner_id] ? "matched_by_owner_id" : "not_matched"
+      },
+      observed_behavior: {
+        completed_trades: trades.length,
+        waiver_claims: waivers.length,
+        free_agent_transactions: freeAgents.length,
+        commissioner_transactions: commissionerMoves.length,
+        total_observed_moves: totalMoves,
+        trades_with_picks: pickTrades.length,
+        average_player_assets_per_trade: Math.round(avgAssets * 10) / 10,
+        picks_acquired_in_observed_trades: picksAcquired.length,
+        picks_sent_in_observed_trades: picksSent.length,
+        rookie_draft_selections_observed: drafted.length,
+        drafted_positions: draftedPositions,
+        lineup_behavior: lineupBehavior
+      },
+      roster_tendencies: {
+        roster_position_counts: counts,
+        league_position_averages: Object.fromEntries(Object.entries(leaguePositionAverage).map(([position, value]) => [position, Math.round(value * 10) / 10])),
+        positional_hoarding: positionalHoarding,
+        age_bias: ageBias,
+        needs: team.needs,
+        surpluses: team.surpluses,
+        injury_selling: "INSUFFICIENT_EVIDENCE"
+      },
+      negotiation_index: {
+        trade_receptiveness: tradeReceptiveness,
+        pressure_index: pressureIndex,
+        leverage_score: leverageScore,
+        confidence
+      },
+      inferred_preferences: {
+        package_preference: packagePreference,
+        rookie_vs_veteran_bias: ageBias,
+        preferred_incoming_positions: team.needs,
+        likely_movable_positions: team.surpluses,
+        inference_warning: "Preferences are inferred from observed transactions and current construction; they are not direct statements from the manager."
+      },
+      negotiation_plan: {
+        opening_strategy: openingStrategy,
+        best_timing: team.roster_construction.required_reductions > 0 ? "Before required roster cuts." : team.competitive_window === "CONTENDER" ? "After an injury or lineup need becomes urgent." : "During market-value or draft-pick consolidation windows.",
+        recommended_offer_shapes: packagePreference === "PICK_INCLUSIVE" ? ["FAIR_OPENING", "PICK_BASED", "MAXIMUM_ACCEPTABLE"] : packagePreference === "MULTI_ASSET_PACKAGES" ? ["AGGRESSIVE_VALUE", "CONSOLIDATION", "FAIR_OPENING"] : ["AGGRESSIVE_VALUE", "FAIR_OPENING", "MAXIMUM_ACCEPTABLE"],
+        walk_away_rule: walkAway
+      },
+      future_pick_strategy: {
+        current_2027_2029_inventory: team.draft_capital,
+        observed_picks_acquired: picksAcquired,
+        observed_picks_sent: picksSent
+      }
+    };
+  }).filter((profile) => !roster_id || profile.roster_id === Number(roster_id));
+  return {
+    generated_at: new Date().toISOString(),
+    league_id: LEAGUE_ID,
+    model: MANAGER_TENDENCY_MODEL_VERSION,
+    filters: { roster_id: roster_id ? Number(roster_id) : null },
+    methodology: {
+      observed_sources: ["Sleeper current-league transactions", "Sleeper rookie draft results", "Sleeper current rosters", "Sleeper linked 2025 lineups", "DPRF roster-value calculator"],
+      evidence_policy: "Observed behavior is separated from inference; low samples reduce confidence.",
+      current_history_limit: "Transaction tendency metrics cover the current 2026 league through the current Sleeper week; linked 2025 data currently supplies lineup behavior only."
+    },
+    profile_count: profiles.length,
+    profiles
+  };
+}
 function createMcpServer() {
   const server = new McpServer(
     {
       name: "democratic-peoples-republic-of-fantasy",
-      version: "1.8.0"
+      version: "1.9.0"
     },
     {
       instructions:
@@ -2057,6 +2247,24 @@ function createMcpServer() {
       }
     },
     async (input) => toolResult(await evaluateDprfTrade(input))
+  );
+
+  server.registerTool(
+    "get_manager_tendencies",
+    {
+      title: "Profile DPRF manager tendencies",
+      description:
+        "Profiles trade, waiver, free-agent, draft, lineup, positional-hoarding, and future-pick behavior; returns trade receptiveness, pressure, leverage, inferred package preferences, negotiation timing, opening strategy, and walk-away guidance.",
+      inputSchema: {
+        roster_id: z.number().int().min(1).max(10).optional()
+      },
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: false
+      }
+    },
+    async ({ roster_id }) => toolResult(await getManagerTendencies({ roster_id }))
   );
 
   server.registerTool(
@@ -2307,6 +2515,7 @@ app.get("/", (req, res) => {
       "/api/roster-values",
       "/api/trade-targets",
       "/api/trade-evaluator",
+      "/api/manager-tendencies",
       "/api/waivers",
       "/api/live"
     ]
@@ -2338,6 +2547,18 @@ app.post("/api/trade-evaluator", async (req, res) => {
     res.json(await evaluateDprfTrade(req.body || {}));
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+});
+
+app.get("/api/manager-tendencies", async (req, res) => {
+  try {
+    const rosterId = req.query.roster_id === undefined ? undefined : Number(req.query.roster_id);
+    if (rosterId !== undefined && (!Number.isInteger(rosterId) || rosterId < 1 || rosterId > 10)) {
+      return res.status(400).json({ error: "roster_id must be a whole number from 1 through 10." });
+    }
+    res.json(await getManagerTendencies({ roster_id: rosterId }));
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
