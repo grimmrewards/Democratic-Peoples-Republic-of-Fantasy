@@ -49,3 +49,15 @@ every request. Source-backed reports decay from current to recent to stale,
 stale reports stop changing scores, usage samples expire from scoring, and the
 engine emits live injury and stale-intelligence review alerts.
 The same output is exposed through `get_depth_chart_opportunities`.
+
+## Durable opportunity monitoring
+
+GitHub Actions runs `opportunity-monitor.mjs` every six hours and can also be
+started manually. The first run establishes a baseline. Later runs compare live
+Sleeper-driven opportunity data with `opportunity-monitor-snapshot.json`, append
+only meaningful changes to `opportunity-monitor-events.jsonl`, and commit the
+new snapshot. Team, DPRF availability, injury, depth order, estimated role,
+actionable label, new medium/high alerts, and opportunity-score moves of at
+least five points qualify as meaningful. Ordinary unchanged checks are never
+logged. Medium/high changes open a GitHub issue so repository notifications can
+surface the alert without a manual ChatGPT query.

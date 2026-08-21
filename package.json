@@ -1,10 +1,12 @@
 {
   "name": "democratic-peoples-republic-of-fantasy",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "private": false,
   "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "monitor": "node opportunity-monitor.mjs",
+    "test:monitor": "node opportunity-monitor.mjs --self-test"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.1",

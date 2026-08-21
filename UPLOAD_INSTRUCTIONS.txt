@@ -1,14 +1,18 @@
-Upload the four code files in this folder to the repository root on GitHub:
+DPRF DURABLE OPPORTUNITY MONITOR v1.4
 
-- server.js
-- package.json
-- package-lock.json
-- README.md
+1. Open grimmrewards/Democratic-Peoples-Republic-of-Fantasy on the main branch.
+2. Choose Add file > Upload files.
+3. Upload every extracted item except this instruction file.
+4. IMPORTANT: confirm this exact workflow path appears in the GitHub upload list:
+   .github/workflows/dprf-opportunity-monitor.yml
+5. Also confirm these root files appear:
+   opportunity-monitor.mjs
+   opportunity-monitor-snapshot.json
+   opportunity-monitor-events.jsonl
+6. Commit directly to main with:
+   Add durable opportunity monitoring
 
-Do not upload this instruction file.
-
-Commit message:
-Add dynamic opportunity refresh layer
-
-After Vercel deploys, verify:
-/api/opportunities?position=RB&scope=purdy_and_available&limit=25
+After Vercel/GitHub finishes, open the Actions tab and run
+"DPRF Opportunity Monitor" once with Run workflow. The first run establishes
+the baseline and deliberately creates no change alert. Future checks run every
+six hours and log only meaningful changes.

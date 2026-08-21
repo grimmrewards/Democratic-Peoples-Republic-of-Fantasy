@@ -1,0 +1,43 @@
+name: DPRF Opportunity Monitor
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: dprf-opportunity-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate monitor
+        run: npm run test:monitor
+      - name: Check live changes
+        id: monitor
+        run: npm run monitor
+      - name: Commit durable snapshot and meaningful events
+        if: steps.monitor.outputs.baseline == 'true' || steps.monitor.outputs.change_count != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add opportunity-monitor-snapshot.json opportunity-monitor-events.jsonl
+          git commit -m "Log DPRF opportunity changes" || exit 0
+          git push
+      - name: Open actionable alert
+        if: steps.monitor.outputs.actionable_count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue create --title "DPRF opportunity alert — ${{ steps.monitor.outputs.observed_at }}" --body-file opportunity-monitor-alert.md --label "dprf-monitor" || gh issue create --title "DPRF opportunity alert — ${{ steps.monitor.outputs.observed_at }}" --body-file opportunity-monitor-alert.md
