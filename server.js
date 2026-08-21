@@ -16,6 +16,7 @@ const OPPORTUNITY_ENGINE_VERSION = "dprf-opportunity-engine-v1.3";
 const ROSTER_VALUE_MODEL_VERSION = "dprf-roster-value-v1";
 const TRADE_ENGINE_VERSION = "dprf-trade-engine-v1";
 const MANAGER_TENDENCY_MODEL_VERSION = "dprf-manager-tendencies-v1";
+const WEEKLY_PROJECTION_MODEL_VERSION = "dprf-weekly-projection-v1";
 const USER_PROTECTED_PLAYERS = new Set();
 
 const DPRF_SCORING_PROFILE = {
@@ -44,6 +45,14 @@ async function sleeperFetch(path) {
     throw new Error(`Sleeper API returned ${response.status}`);
   }
 
+  return response.json();
+}
+
+async function sleeperProjectionFetch(season, week) {
+  const response = await fetch(
+    `https://api.sleeper.app/projections/nfl/${season}/${week}?season_type=regular`
+  );
+  if (!response.ok) throw new Error(`Sleeper projections API returned ${response.status}`);
   return response.json();
 }
 
@@ -2054,11 +2063,110 @@ async function getManagerTendencies({ roster_id } = {}) {
     profiles
   };
 }
+const WEEKLY_VOLATILITY = {
+  QB: { floor: 0.78, upside: 1.25 }, RB: { floor: 0.65, upside: 1.45 },
+  WR: { floor: 0.60, upside: 1.55 }, TE: { floor: 0.58, upside: 1.60 }
+};
+
+function roundProjection(value) {
+  return Math.round(Number(value || 0) * 100) / 100;
+}
+
+function scoreWeeklyStats(stats, scoringSettings) {
+  return roundProjection(Object.entries(scoringSettings || {}).reduce((total, [stat, points]) => {
+    const projectedStat = Number(stats?.[stat]);
+    return total + (Number.isFinite(projectedStat) ? projectedStat * Number(points || 0) : 0);
+  }, 0));
+}
+
+function selectWeeklyLineup(players, valueField) {
+  const available = players.filter((player) => player.roster_status === "active");
+  const selected = [];
+  const selectedIds = new Set();
+  const pick = (slot, count, eligiblePositions) => {
+    const choices = available
+      .filter((player) => eligiblePositions.includes(player.position) && !selectedIds.has(player.player_id))
+      .sort((a, b) => Number(b[valueField] ?? -1) - Number(a[valueField] ?? -1) || b.short_term_value - a.short_term_value)
+      .slice(0, count);
+    for (const player of choices) {
+      selected.push({ slot, ...player });
+      selectedIds.add(player.player_id);
+    }
+  };
+  pick("QB", 1, ["QB"]); pick("RB", 2, ["RB"]); pick("WR", 2, ["WR"]);
+  pick("TE", 1, ["TE"]); pick("RB/WR", 2, ["RB", "WR"]); pick("WR/TE", 2, ["WR", "TE"]);
+  pick("SUPER_FLEX", 1, ["QB", "RB", "WR", "TE"]);
+  return {
+    starters: selected, starter_ids: [...selectedIds], filled_slots: selected.length,
+    open_slots: Math.max(0, 11 - selected.length),
+    projected_total: roundProjection(selected.reduce((sum, player) => sum + Number(player[valueField] || 0), 0))
+  };
+}
+
+async function getWeeklyLineupProjections({ season, week } = {}) {
+  const [league, ratings] = await Promise.all([sleeperFetch(`/league/${LEAGUE_ID}`), getLeaguePlayerRatings()]);
+  const selectedSeason = Number(season || league.season || 2026);
+  const selectedWeek = Number(week || league.settings?.leg || 1);
+  const projections = await sleeperProjectionFetch(selectedSeason, selectedWeek);
+  const projectionMap = new Map(projections.map((projection) => [String(projection.player_id), projection]));
+  const roster = ratings.filter((player) => player.roster_id === USER_ROSTER_ID);
+  const players = roster.map((player) => {
+    const source = projectionMap.get(String(player.player_id));
+    if (!source) return {
+      ...player, projection_status: "PROVISIONAL_NO_PROVIDER_PROJECTION", projection_source: null,
+      opponent: null, game_date: null, projected_floor: null, projected_median: null,
+      projected_upside: null, projection_confidence: "LOW", scoring_components: null
+    };
+    const median = scoreWeeklyStats(source.stats, league.scoring_settings);
+    const volatility = WEEKLY_VOLATILITY[player.position] || { floor: 0.6, upside: 1.5 };
+    const injuryStatus = String(source.player?.injury_status || player.injury_status || "").toLowerCase();
+    const injuryMultiplier = injuryStatus === "out" ? 0 : injuryStatus === "doubtful" ? 0.65 : injuryStatus === "questionable" ? 0.85 : 1;
+    return {
+      ...player, projection_status: "VERIFIED_PROVIDER_MEDIAN_MODELED_RANGE",
+      projection_source: source.company || "Sleeper projection feed",
+      source_updated_at: source.updated_at ? new Date(Number(source.updated_at)).toISOString() : null,
+      opponent: source.opponent || null, game_date: source.date || null,
+      projected_floor: roundProjection(median * volatility.floor * injuryMultiplier),
+      projected_median: roundProjection(median * injuryMultiplier),
+      projected_upside: roundProjection(median * volatility.upside * injuryMultiplier),
+      projection_confidence: injuryMultiplier < 1 ? "MEDIUM" : "HIGH",
+      injury_adjustment: injuryMultiplier, scoring_components: source.stats
+    };
+  });
+  const missing = players.filter((player) => player.projection_status.startsWith("PROVISIONAL"));
+  return {
+    generated_at: new Date().toISOString(), league_id: LEAGUE_ID, roster_id: USER_ROSTER_ID,
+    season: selectedSeason, week: selectedWeek, model: WEEKLY_PROJECTION_MODEL_VERSION,
+    scoring_source: "Live Sleeper league scoring_settings", scoring_settings: league.scoring_settings,
+    methodology: {
+      provider_median: "Sleeper weekly projection feed; the provider is named in each player record.",
+      floor_upside: "Modeled position-volatility bands around the provider median; not provider-supplied percentiles.",
+      injury_policy: "Questionable receives a 15% availability discount, doubtful 35%, and out 100%.",
+      lineup_slots: DPRF_STARTER_SLOTS,
+      missing_data_policy: "No provider projection means no invented point estimate."
+    },
+    coverage: {
+      roster_players: players.length, provider_projections: players.length - missing.length,
+      provisional_players: missing.length, weather: "NOT_CONFIGURED",
+      betting_game_environment: "NOT_CONFIGURED", historical_projection_accuracy: "PENDING_COMPLETED_2026_GAMES",
+      kickoff_window_contingencies: "GAME_DATE_ONLY_NO_VERIFIED_KICKOFF_TIME"
+    },
+    recommended_posture: "Use median by default, safest when favored, and highest-upside when chasing points.",
+    lineups: {
+      safest: selectWeeklyLineup(players, "projected_floor"),
+      median: selectWeeklyLineup(players, "projected_median"),
+      highest_upside: selectWeeklyLineup(players, "projected_upside")
+    },
+    player_projections: [...players].sort((a, b) => Number(b.projected_median ?? -1) - Number(a.projected_median ?? -1)),
+    warnings: missing.map((player) => `${player.full_name}: no verified weekly provider projection.`)
+  };
+}
+
 function createMcpServer() {
   const server = new McpServer(
     {
       name: "democratic-peoples-republic-of-fantasy",
-      version: "1.9.0"
+      version: "1.10.0"
     },
     {
       instructions:
@@ -2265,6 +2373,20 @@ function createMcpServer() {
       }
     },
     async ({ roster_id }) => toolResult(await getManagerTendencies({ roster_id }))
+  );
+
+  server.registerTool(
+    "get_weekly_lineup_projections",
+    {
+      title: "Get DPRF weekly projections and lineups",
+      description: "Converts weekly projections through live DPRF scoring and returns safest, median, and highest-upside Purdy13Good lineups with confidence and missing-data warnings.",
+      inputSchema: {
+        season: z.number().int().min(2026).max(2030).optional(),
+        week: z.number().int().min(1).max(18).optional()
+      },
+      annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: true }
+    },
+    async ({ season, week }) => toolResult(await getWeeklyLineupProjections({ season, week }))
   );
 
   server.registerTool(
@@ -2516,6 +2638,7 @@ app.get("/", (req, res) => {
       "/api/trade-targets",
       "/api/trade-evaluator",
       "/api/manager-tendencies",
+      "/api/weekly-lineup?season=2026&week=1",
       "/api/waivers",
       "/api/live"
     ]
@@ -2557,6 +2680,22 @@ app.get("/api/manager-tendencies", async (req, res) => {
       return res.status(400).json({ error: "roster_id must be a whole number from 1 through 10." });
     }
     res.json(await getManagerTendencies({ roster_id: rosterId }));
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/weekly-lineup", async (req, res) => {
+  try {
+    const season = req.query.season === undefined ? undefined : Number(req.query.season);
+    const week = req.query.week === undefined ? undefined : Number(req.query.week);
+    if (season !== undefined && (!Number.isInteger(season) || season < 2026 || season > 2030)) {
+      return res.status(400).json({ error: "season must be a whole number from 2026 through 2030." });
+    }
+    if (week !== undefined && (!Number.isInteger(week) || week < 1 || week > 18)) {
+      return res.status(400).json({ error: "week must be a whole number from 1 through 18." });
+    }
+    res.json(await getWeeklyLineupProjections({ season, week }));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

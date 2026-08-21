@@ -14,6 +14,7 @@ Superflex PPR TE Premium Dynasty Fantasy Football League.
 - `GET /api/trade-targets?position=RB&limit=25`
 - `POST /api/trade-evaluator`
 - `GET /api/manager-tendencies?roster_id=5`
+- `GET /api/weekly-lineup?season=2026&week=1`
 - `GET /api/live`
 
 The waiver endpoint ranks the complete available QB/RB/WR/TE pool for DPRF,
@@ -75,6 +76,13 @@ draft choices, roster construction, positional hoarding, linked prior-season
 lineup management, and 2027-2029 pick strategy. It returns trade receptiveness,
 pressure, leverage, evidence confidence, likely package preferences, opening
 strategy, timing, and walk-away guidance through `get_manager_tendencies`.
+
+The weekly projection engine converts provider projections through the live
+DPRF scoring settings, including completion and carry points, positional
+reception bonuses, yardage bonuses, and turnover penalties. It returns safest,
+median, and highest-upside 11-player lineups through
+`get_weekly_lineup_projections`. Provider medians remain separate from modeled
+floor/upside bands, and missing evidence is explicitly labeled.
 
 ## Durable opportunity monitoring
 
