@@ -7,6 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const LEAGUE_ID = "1313708661209600000";
+const USER_ROSTER_ID = 2;
 const SLEEPER_API = "https://api.sleeper.app/v1";
 
 app.use(express.json({ limit: "2mb" }));
@@ -187,6 +188,180 @@ function addPlayerRatings(player) {
     ...calculatePlayerRatings(player)
   };
 }
+
+const WAIVER_SCARCITY_BONUS = {
+  QB: 5,
+  RB: 3,
+  WR: 0,
+  TE: 4
+};
+
+function getWaiverTrend(player) {
+  if (player.injury_status) return "down";
+
+  const depthOrder = Number(player.depth_chart_order);
+  if (depthOrder === 1 || depthOrder === 2 || Number(player.years_exp) === 0) {
+    return "up";
+  }
+
+  return "steady";
+}
+
+function getWaiverConfidence(player) {
+  const hasTeam = Boolean(player.team);
+  const hasDepthChart = Number.isFinite(Number(player.depth_chart_order));
+
+  if (hasTeam && hasDepthChart && !player.injury_status) return "high";
+  if (hasTeam || hasDepthChart) return "medium";
+  return "low";
+}
+
+function calculateWaiverScore(player) {
+  const depthOrder = Number(player.depth_chart_order);
+  const employmentAdjustment = player.team ? 0 : -25;
+  const opportunityBonus =
+    depthOrder === 1 ? 6 :
+    depthOrder === 2 ? 3 :
+    depthOrder === 3 ? 1 :
+    0;
+
+  return clampRating(
+    player.short_term_value * 0.55 +
+    player.long_term_value * 0.45 +
+    (WAIVER_SCARCITY_BONUS[player.position] || 0) +
+    opportunityBonus +
+    employmentAdjustment
+  );
+}
+
+function getWaiverRecommendation(valueGain) {
+  if (valueGain >= 12) return { action: "add", label: "Top waiver priority" };
+  if (valueGain >= 7) return { action: "add", label: "Immediate add" };
+  if (valueGain >= 3) return { action: "consider", label: "Roster-dependent add" };
+  if (valueGain >= 0) return { action: "watch", label: "Watch list" };
+  return { action: "pass", label: "Below roster replacement" };
+}
+
+function getFaabRange(waiverScore, valueGain) {
+  if (valueGain < 0) return { min_percent: 0, max_percent: 0 };
+
+  const midpoint = Math.max(
+    1,
+    Math.min(30, Math.round((waiverScore - 55) * 0.5 + valueGain * 0.15))
+  );
+
+  return {
+    min_percent: Math.max(0, midpoint - 3),
+    max_percent: Math.min(40, midpoint + 3)
+  };
+}
+
+function getRosterStatus(playerId, roster) {
+  if ((roster.taxi || []).includes(playerId)) return "taxi";
+  if ((roster.reserve || []).includes(playerId)) return "reserve";
+  return "active";
+}
+
+function findDisplacedPlayer(candidate, rosterPlayers) {
+  const droppablePlayers = rosterPlayers.filter(
+    (player) => player.roster_status !== "taxi"
+  );
+  const samePosition = droppablePlayers.filter(
+    (player) => player.position === candidate.position
+  );
+  const comparisonPool = samePosition.length > 0
+    ? samePosition
+    : droppablePlayers;
+
+  return [...comparisonPool].sort(
+    (a, b) =>
+      a.combined_trade_value - b.combined_trade_value ||
+      a.short_term_value - b.short_term_value
+  )[0] || null;
+}
+
+async function getWaiverWireRankings({ position, limit = 50 } = {}) {
+  const [availablePlayers, players, rosters] = await Promise.all([
+    getAvailablePlayers(),
+    sleeperFetch("/players/nfl"),
+    sleeperFetch(`/league/${LEAGUE_ID}/rosters`)
+  ]);
+
+  const userRoster = rosters.find(
+    (roster) => roster.roster_id === USER_ROSTER_ID
+  );
+
+  if (!userRoster) {
+    throw new Error(`Roster ${USER_ROSTER_ID} was not found in league ${LEAGUE_ID}`);
+  }
+
+  const rosterPlayers = [...new Set(userRoster.players || [])]
+    .map((playerId) => {
+      const player = players[playerId];
+      if (!player || !["QB", "RB", "WR", "TE"].includes(player.position)) {
+        return null;
+      }
+
+      return addPlayerRatings({
+        player_id: playerId,
+        full_name: player.full_name,
+        position: player.position,
+        team: player.team,
+        years_exp: Number(player.years_exp) || 0,
+        age: player.age,
+        depth_chart_position: player.depth_chart_position,
+        depth_chart_order: player.depth_chart_order,
+        injury_status: player.injury_status,
+        roster_status: getRosterStatus(playerId, userRoster)
+      });
+    })
+    .filter(Boolean);
+
+  return availablePlayers
+    .filter((player) => !position || player.position === position)
+    .map((player) => {
+      const waiverScore = calculateWaiverScore(player);
+      const displacedPlayer = findDisplacedPlayer(player, rosterPlayers);
+      const replacementValue = displacedPlayer?.combined_trade_value ?? 0;
+      const valueGain = waiverScore - replacementValue;
+      const recommendation = getWaiverRecommendation(valueGain);
+
+      return {
+        ...player,
+        waiver_score: waiverScore,
+        waiver_rank: null,
+        recommendation: recommendation.action,
+        label: recommendation.label,
+        trend: getWaiverTrend(player),
+        confidence: getWaiverConfidence(player),
+        faab: getFaabRange(waiverScore, valueGain),
+        roster_value_gain: valueGain,
+        displaced_player: displacedPlayer
+          ? {
+              player_id: displacedPlayer.player_id,
+              full_name: displacedPlayer.full_name,
+              position: displacedPlayer.position,
+              roster_status: displacedPlayer.roster_status,
+              short_term_value: displacedPlayer.short_term_value,
+              long_term_value: displacedPlayer.long_term_value,
+              combined_trade_value: displacedPlayer.combined_trade_value,
+              value_tier: displacedPlayer.value_tier
+            }
+          : null
+      };
+    })
+    .sort(
+      (a, b) =>
+        b.waiver_score - a.waiver_score ||
+        b.roster_value_gain - a.roster_value_gain ||
+        a.full_name.localeCompare(b.full_name)
+    )
+    .slice(0, limit)
+    .map((player, index) => ({
+      ...player,
+      waiver_rank: index + 1
+    }));
+}
 async function getAvailablePlayers() {
   const [players, rosters] = await Promise.all([
     sleeperFetch("/players/nfl"),
@@ -346,7 +521,7 @@ function createMcpServer() {
   const server = new McpServer(
     {
       name: "democratic-peoples-republic-of-fantasy",
-      version: "1.0.1"
+      version: "1.1.0"
     },
     {
       instructions:
@@ -372,7 +547,7 @@ function createMcpServer() {
         players: await getLeaguePlayerRatings()
       })
   );
-    server.registerTool(
+  server.registerTool(
     "get_available_players",
     {
       description:
@@ -392,6 +567,37 @@ function createMcpServer() {
         }
       ]
     })
+  );
+
+  server.registerTool(
+    "get_waiver_wire_rankings",
+    {
+      title: "Get custom waiver-wire rankings",
+      description:
+        "Ranks available DPRF players, compares them with Purdy13Good's roster, identifies the displaced player, and recommends add, watch, or pass with FAAB guidance.",
+      inputSchema: {
+        position: z.enum(["QB", "RB", "WR", "TE"]).optional(),
+        limit: z.number().int().min(1).max(200).default(50)
+      },
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: false
+      }
+    },
+    async ({ position, limit }) =>
+      toolResult({
+        refreshed_at: new Date().toISOString(),
+        league_id: LEAGUE_ID,
+        roster_id: USER_ROSTER_ID,
+        methodology: {
+          format: "10-team Superflex dynasty with TE premium",
+          horizon_weights: { short_term: 0.55, long_term: 0.45 },
+          position_scarcity_bonus: WAIVER_SCARCITY_BONUS,
+          faab_unit: "percent_of_budget"
+        },
+        players: await getWaiverWireRankings({ position, limit })
+      })
   );
   
   server.registerTool(
@@ -636,6 +842,7 @@ app.get("/", (req, res) => {
       "/api/draft-picks",
       "/api/traded-picks",
       "/api/transactions/:week",
+      "/api/waivers",
       "/api/live"
     ]
   });
@@ -765,6 +972,44 @@ app.get("/api/transactions/:week", async (req, res) => {
       refreshed_at: new Date().toISOString(),
       week,
       transactions
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/waivers", async (req, res) => {
+  try {
+    const position = req.query.position
+      ? String(req.query.position).toUpperCase()
+      : undefined;
+    const limit = req.query.limit === undefined
+      ? 50
+      : Number(req.query.limit);
+
+    if (position && !["QB", "RB", "WR", "TE"].includes(position)) {
+      return res.status(400).json({
+        error: "Position must be QB, RB, WR, or TE."
+      });
+    }
+
+    if (!Number.isInteger(limit) || limit < 1 || limit > 200) {
+      return res.status(400).json({
+        error: "Limit must be a whole number from 1 through 200."
+      });
+    }
+
+    res.json({
+      refreshed_at: new Date().toISOString(),
+      league_id: LEAGUE_ID,
+      roster_id: USER_ROSTER_ID,
+      methodology: {
+        format: "10-team Superflex dynasty with TE premium",
+        horizon_weights: { short_term: 0.55, long_term: 0.45 },
+        position_scarcity_bonus: WAIVER_SCARCITY_BONUS,
+        faab_unit: "percent_of_budget"
+      },
+      players: await getWaiverWireRankings({ position, limit })
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
