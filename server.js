@@ -2,7 +2,7 @@ import express from "express";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { z } from "zod";
-import PLAYER_INTELLIGENCE from "./data/player-intelligence.js";
+import PLAYER_INTELLIGENCE from "./player-intelligence.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;

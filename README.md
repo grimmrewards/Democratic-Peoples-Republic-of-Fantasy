@@ -36,7 +36,7 @@ estimated role, injury-away path, and opportunity score. It emits alerts when a
 starter injury creates an opportunity for Purdy13Good or an available player.
 Passing-down/goal-line projections are explicitly marked as depth-chart
 inferences when source-backed usage or role reporting is unavailable. The
-source-gated intelligence store in `data/player-intelligence.js` supplies
+source-gated intelligence store in `player-intelligence.js` supplies
 verified injury episodes, weekly usage samples, and role reports. The engine
 aggregates one-, three-, and five-year injury windows and automatically adjusts
 opportunity scores when new valid records are added. Records without a source
