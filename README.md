@@ -44,4 +44,8 @@ URL and date are ignored. Verified RB coverage now includes the initial
 Purdy13Good opportunity set plus Justice Hill, Devin Neal, LeQuint Allen, Nick
 Chubb, DJ Giddens, Emari Demercado, and Ty Johnson. Injury coverage remains
 explicitly partial rather than implying a complete medical history.
+The dynamic refresh layer re-reads Sleeper injury and depth-chart fields on
+every request. Source-backed reports decay from current to recent to stale,
+stale reports stop changing scores, usage samples expire from scoring, and the
+engine emits live injury and stale-intelligence review alerts.
 The same output is exposed through `get_depth_chart_opportunities`.

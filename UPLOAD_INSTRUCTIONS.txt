@@ -1,6 +1,5 @@
-Upload the five code files in this folder to the repository root on GitHub:
+Upload the four code files in this folder to the repository root on GitHub:
 
-- player-intelligence.js
 - server.js
 - package.json
 - package-lock.json
@@ -9,7 +8,7 @@ Upload the five code files in this folder to the repository root on GitHub:
 Do not upload this instruction file.
 
 Commit message:
-Expand verified RB opportunity intelligence
+Add dynamic opportunity refresh layer
 
-After Vercel finishes deploying, verify:
+After Vercel deploys, verify:
 /api/opportunities?position=RB&scope=purdy_and_available&limit=25
