@@ -2,6 +2,7 @@ import express from "express";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { z } from "zod";
+import PLAYER_INTELLIGENCE from "./data/player-intelligence.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,7 +12,7 @@ const USER_ROSTER_ID = 2;
 const SLEEPER_API = "https://api.sleeper.app/v1";
 const EVALUATION_MODEL_VERSION = "dprf-ratings-v2";
 const ROSTER_OPTIMIZER_VERSION = "dprf-roster-optimizer-v1";
-const OPPORTUNITY_ENGINE_VERSION = "dprf-opportunity-engine-v1";
+const OPPORTUNITY_ENGINE_VERSION = "dprf-opportunity-engine-v1.1";
 const USER_PROTECTED_PLAYERS = new Set(["Nico Collins", "David Montgomery"]);
 
 const DPRF_SCORING_PROFILE = {
@@ -944,6 +945,102 @@ function compactOpportunityPlayer(player) {
   };
 }
 
+function getVerifiedPlayerIntelligence(playerId) {
+  const record = PLAYER_INTELLIGENCE.players[playerId] || {
+    injury_episodes: [],
+    usage_samples: [],
+    role_reports: []
+  };
+  const hasSource = (item) =>
+    Boolean(item.source_name) && /^https:\/\//.test(String(item.source_url || ""));
+  return {
+    injury_episodes: (record.injury_episodes || []).filter((item) =>
+      hasSource(item) && item.start_date && item.source_published_at
+    ),
+    usage_samples: (record.usage_samples || []).filter((item) =>
+      hasSource(item) && item.recorded_at
+    ),
+    role_reports: (record.role_reports || []).filter((item) =>
+      hasSource(item) && item.published_at && item.summary
+    )
+  };
+}
+
+function summarizeInjuryWindow(episodes, years) {
+  const cutoff = new Date();
+  cutoff.setUTCFullYear(cutoff.getUTCFullYear() - years);
+  const matching = episodes.filter((episode) => new Date(episode.start_date) >= cutoff);
+  return {
+    window_years: years,
+    verified_injuries: matching.length,
+    known_games_missed: matching.reduce(
+      (sum, episode) => sum + (Number(episode.games_missed) || 0),
+      0
+    ),
+    major_injuries: matching.filter((episode) => episode.severity === "major").length,
+    episodes: matching
+  };
+}
+
+function summarizeUsage(samples) {
+  const latest = [...samples]
+    .sort((a, b) => new Date(b.recorded_at) - new Date(a.recorded_at))
+    .slice(0, 6);
+  const average = (field) => {
+    const values = latest
+      .map((sample) => sample[field])
+      .filter((value) => Number.isFinite(Number(value)));
+    if (!values.length) return null;
+    return Math.round(values.reduce((sum, value) => sum + Number(value), 0) / values.length * 100) / 100;
+  };
+  return {
+    coverage: latest.length ? "verified_samples" : "no_verified_samples",
+    sample_count: latest.length,
+    latest_samples: latest,
+    rolling_six: {
+      average_snap_share: average("snap_share"),
+      average_route_participation: average("route_participation"),
+      average_targets: average("targets"),
+      average_carries: average("carries"),
+      average_goal_line_carries: average("goal_line_carries"),
+      average_third_down_snaps: average("third_down_snaps")
+    }
+  };
+}
+
+function getRoleTags(playerId) {
+  return [...new Set(
+    getVerifiedPlayerIntelligence(playerId).role_reports.flatMap((report) => report.role_tags || [])
+  )];
+}
+
+function findTaggedRolePlayer(group, tag) {
+  return group
+    .filter((player) => getRoleTags(player.player_id).includes(tag))
+    .sort((a, b) =>
+      (Number(a.depth_chart_order) || 99) - (Number(b.depth_chart_order) || 99)
+    )[0] || null;
+}
+
+function getIntelligenceAdjustment(intelligence) {
+  const recentReports = intelligence.role_reports.filter((report) => {
+    const ageDays = (Date.now() - new Date(report.published_at).getTime()) / 86400000;
+    return ageDays <= 45;
+  });
+  const reportAdjustment = recentReports.reduce((sum, report) =>
+    sum + (report.signal === "positive" ? 3 : report.signal === "negative" ? -3 : 0), 0
+  );
+  const latestUsage = [...intelligence.usage_samples]
+    .sort((a, b) => new Date(b.recorded_at) - new Date(a.recorded_at))[0];
+  const usageAdjustment = latestUsage && (
+    Number(latestUsage.rushing_yards) >= 50 ||
+    Number(latestUsage.snap_share) >= 0.5 ||
+    Number(latestUsage.route_participation) >= 0.5
+  ) ? 3 : 0;
+  const recentInjuries = summarizeInjuryWindow(intelligence.injury_episodes, 1).verified_injuries;
+  return Math.max(-12, Math.min(12, reportAdjustment + usageAdjustment - recentInjuries * 2));
+}
+
 async function getDepthChartOpportunityEngine({
   position,
   team,
@@ -989,8 +1086,19 @@ async function getDepthChartOpportunityEngine({
         .filter((candidate) => candidate.player_id !== player.player_id)
         .slice(0, 4)
         .map(compactOpportunityPlayer);
-      const opportunityScore = calculateOpportunityScore(player, starter);
+      const intelligence = getVerifiedPlayerIntelligence(player.player_id);
+      const intelligenceAdjustment = getIntelligenceAdjustment(intelligence);
+      const opportunityScore = clampRating(
+        calculateOpportunityScore(player, starter) + intelligenceAdjustment
+      );
       const starterInjured = starter && starter.player_id !== player.player_id && isMeaningfullyInjured(starter);
+      const passingDownPlayer = player.position === "RB"
+        ? findTaggedRolePlayer(group, "passing_down")
+        : null;
+      const goalLinePlayer = player.position === "RB"
+        ? findTaggedRolePlayer(group, "goal_line")
+        : null;
+      const verifiedRoleTags = getRoleTags(player.player_id);
 
       return {
         ...compactOpportunityPlayer(player),
@@ -1003,6 +1111,7 @@ async function getDepthChartOpportunityEngine({
         role_confidence: getRoleConfidence(player),
         opportunity_type: getOpportunityType(player),
         opportunity_score: opportunityScore,
+        intelligence_adjustment: intelligenceAdjustment,
         starter_injured: Boolean(starterInjured),
         starter: compactOpportunityPlayer(starter),
         player_directly_ahead: compactOpportunityPlayer(playerAbove),
@@ -1022,21 +1131,29 @@ async function getDepthChartOpportunityEngine({
             Number(player.depth_chart_order) === 1 ? directReplacement : player
           ),
           passing_down_replacement: player.position === "RB"
-            ? compactOpportunityPlayer(directReplacement)
+            ? compactOpportunityPlayer(passingDownPlayer || directReplacement)
             : null,
           goal_line_replacement: player.position === "RB"
-            ? compactOpportunityPlayer(directReplacement)
+            ? compactOpportunityPlayer(goalLinePlayer || directReplacement)
             : null,
-          evidence_level: "depth_chart_inference_only"
+          verified_role_tags: verifiedRoleTags,
+          evidence_level: passingDownPlayer || goalLinePlayer || verifiedRoleTags.length
+            ? "sourced_role_reporting"
+            : "depth_chart_inference_only"
         },
         injury_history: {
-          one_year: null,
-          three_year: null,
-          five_year: null,
-          coverage: "not_configured"
+          one_year: summarizeInjuryWindow(intelligence.injury_episodes, 1),
+          three_year: summarizeInjuryWindow(intelligence.injury_episodes, 3),
+          five_year: summarizeInjuryWindow(intelligence.injury_episodes, 5),
+          coverage: intelligence.injury_episodes.length
+            ? "partial_verified_history"
+            : "no_verified_history"
         },
-        sourced_role_reports: [],
-        reporting_coverage: "not_configured"
+        usage: summarizeUsage(intelligence.usage_samples),
+        sourced_role_reports: intelligence.role_reports,
+        reporting_coverage: intelligence.role_reports.length
+          ? "verified_reports"
+          : "no_verified_reports"
       };
     })
     .sort((a, b) =>
@@ -1089,9 +1206,12 @@ async function getDepthChartOpportunityEngine({
     methodology: {
       current_depth_chart_source: "Sleeper NFL player data",
       opportunity_method: "Depth-chart order, current injury designation, DPRF scarcity, and roster availability",
-      role_inference_warning: "Passing-down and goal-line roles are provisional until sourced usage and reporting ingestion is configured.",
-      injury_history_coverage: "not_configured",
-      sourced_reporting_coverage: "not_configured"
+      role_inference_warning: "Passing-down and goal-line roles remain provisional for any player without a matching source-backed usage sample or role report.",
+      intelligence_store_schema: PLAYER_INTELLIGENCE.schema_version,
+      intelligence_policy: PLAYER_INTELLIGENCE.policy,
+      injury_history_coverage: "source-gated per player",
+      sourced_reporting_coverage: "source-gated per player",
+      usage_coverage: "source-gated per player"
     },
     alert_count: alerts.length,
     alerts,
@@ -1103,7 +1223,7 @@ function createMcpServer() {
   const server = new McpServer(
     {
       name: "democratic-peoples-republic-of-fantasy",
-      version: "1.3.0"
+      version: "1.4.0"
     },
     {
       instructions:
@@ -1209,7 +1329,7 @@ function createMcpServer() {
     {
       title: "Get depth-chart and injury opportunities",
       description:
-        "Maps Purdy13Good and available players to current depth-chart competition, starter and replacement paths, estimated roles, injury-away opportunity, handcuff alerts, and evidence-coverage flags.",
+        "Maps Purdy13Good and available players to current depth-chart competition, sourced injury history, verified role reports, usage samples, replacement paths, recalculated opportunity, and handcuff alerts.",
       inputSchema: {
         position: z.enum(["QB", "RB", "WR", "TE"]).optional(),
         team: z.string().trim().toUpperCase().min(2).max(3).optional(),

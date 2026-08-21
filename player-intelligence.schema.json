@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DPRF sourced player intelligence store",
+  "type": "object",
+  "required": ["schema_version", "policy", "players"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "policy": { "type": "string" },
+    "players": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["injury_episodes", "usage_samples", "role_reports"],
+        "properties": {
+          "injury_episodes": { "type": "array", "items": { "$ref": "#/$defs/injury" } },
+          "usage_samples": { "type": "array", "items": { "$ref": "#/$defs/usage" } },
+          "role_reports": { "type": "array", "items": { "$ref": "#/$defs/report" } }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": ["source_name", "source_url"],
+      "properties": {
+        "source_name": { "type": "string", "minLength": 1 },
+        "source_url": { "type": "string", "format": "uri" }
+      }
+    },
+    "injury": {
+      "allOf": [{ "$ref": "#/$defs/source" }],
+      "type": "object",
+      "required": ["injury_id", "body_part", "start_date", "source_name", "source_url", "source_published_at"],
+      "properties": {
+        "injury_id": { "type": "string" },
+        "body_part": { "type": "string" },
+        "start_date": { "type": "string", "format": "date" },
+        "end_date": { "type": ["string", "null"], "format": "date" },
+        "games_missed": { "type": ["integer", "null"], "minimum": 0 },
+        "severity": { "enum": ["minor", "moderate", "major", "unknown"] },
+        "source_published_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "usage": {
+      "allOf": [{ "$ref": "#/$defs/source" }],
+      "type": "object",
+      "required": ["sample_id", "season", "week", "season_type", "source_name", "source_url", "recorded_at"],
+      "properties": {
+        "sample_id": { "type": "string" },
+        "season": { "type": "integer" },
+        "week": { "type": "integer", "minimum": 1 },
+        "season_type": { "enum": ["preseason", "regular", "postseason"] },
+        "snap_share": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "route_participation": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "targets": { "type": ["integer", "null"], "minimum": 0 },
+        "carries": { "type": ["integer", "null"], "minimum": 0 },
+        "rushing_yards": { "type": ["integer", "null"] },
+        "goal_line_carries": { "type": ["integer", "null"], "minimum": 0 },
+        "third_down_snaps": { "type": ["integer", "null"], "minimum": 0 },
+        "source_name": { "type": "string" },
+        "source_url": { "type": "string", "format": "uri" },
+        "recorded_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "report": {
+      "allOf": [{ "$ref": "#/$defs/source" }],
+      "type": "object",
+      "required": ["report_id", "published_at", "source_name", "source_url", "source_type", "summary", "role_tags", "signal"],
+      "properties": {
+        "report_id": { "type": "string" },
+        "published_at": { "type": "string", "format": "date-time" },
+        "source_name": { "type": "string" },
+        "source_url": { "type": "string", "format": "uri" },
+        "source_type": { "enum": ["official_team", "coach_quote", "executive_quote", "player_quote", "beat_report", "game_report"] },
+        "summary": { "type": "string" },
+        "role_tags": { "type": "array", "items": { "type": "string" } },
+        "signal": { "enum": ["positive", "neutral", "negative"] }
+      }
+    }
+  }
+}
