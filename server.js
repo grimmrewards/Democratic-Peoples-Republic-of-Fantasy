@@ -10,6 +10,8 @@ const LEAGUE_ID = "1313708661209600000";
 const USER_ROSTER_ID = 2;
 const SLEEPER_API = "https://api.sleeper.app/v1";
 const EVALUATION_MODEL_VERSION = "dprf-ratings-v2";
+const ROSTER_OPTIMIZER_VERSION = "dprf-roster-optimizer-v1";
+const USER_PROTECTED_PLAYERS = new Set(["Nico Collins", "David Montgomery"]);
 
 const DPRF_SCORING_PROFILE = {
   teams: 10,
@@ -607,11 +609,255 @@ async function getLeaguePlayerRatings() {
     };
   });
 }
+
+function getActiveRosterLimit(league) {
+  return (league.roster_positions || []).length;
+}
+
+function isReserveEligible(player, league) {
+  const status = String(player.injury_status || "").toLowerCase();
+  const settings = league.settings || {};
+  return (
+    ["ir", "pup", "na"].includes(status) ||
+    (status === "out" && settings.reserve_allow_out === 1) ||
+    (status === "doubtful" && settings.reserve_allow_doubtful === 1) ||
+    (status === "suspended" && settings.reserve_allow_sus === 1)
+  );
+}
+
+function getCutPriorityScore(player) {
+  const scarcityProtection = { QB: 7, RB: 8, WR: 0, TE: 5 }[player.position] || 0;
+  const roleProtection = Number(player.depth_chart_order) === 1
+    ? 6
+    : Number(player.depth_chart_order) === 2
+      ? 3
+      : 0;
+  const preferenceProtection = USER_PROTECTED_PLAYERS.has(player.full_name) ? 100 : 0;
+  return player.combined_trade_value + scarcityProtection + roleProtection + preferenceProtection;
+}
+
+function getRosterDecision(player, context) {
+  const {
+    requiredMoveIds,
+    irMoveIds,
+    taxiSlots,
+    currentTaxiCount
+  } = context;
+
+  if (player.roster_status === "reserve" || irMoveIds.has(player.player_id)) {
+    return {
+      action: "IR",
+      label: player.roster_status === "reserve" ? "Keep on IR/reserve" : "Move to IR/reserve",
+      urgency: "immediate",
+      reason: "Player is reserve-eligible and using this slot preserves an active roster spot."
+    };
+  }
+
+  if (player.roster_status === "taxi") {
+    return {
+      action: "TAXI",
+      label: "Keep on taxi squad",
+      urgency: "hold",
+      reason: "Player already occupies a valid developmental taxi slot."
+    };
+  }
+
+  if (USER_PROTECTED_PLAYERS.has(player.full_name)) {
+    return {
+      action: "KEEP",
+      label: "Protected keep",
+      urgency: "hold",
+      reason: "Current Purdy13Good strategy protects this player from cut or trade recommendations."
+    };
+  }
+
+  if (requiredMoveIds.has(player.player_id)) {
+    const depthOrder = Number(player.depth_chart_order);
+    const veteranWithResidualMarket =
+      Boolean(player.team) &&
+      Number(player.years_exp) >= 5 &&
+      player.combined_trade_value >= 25;
+    const hasTradeValue =
+      player.combined_trade_value >= 40 ||
+      (player.team && depthOrder <= 2) ||
+      player.short_term_value >= 50 ||
+      veteranWithResidualMarket;
+    const developmentalHold =
+      Number(player.years_exp) <= 1 &&
+      player.long_term_value >= 55;
+
+    if (hasTradeValue) {
+      return {
+        action: "TRADE_BEFORE_CUT",
+        label: "Trade before cutting",
+        urgency: "before roster deadline",
+        reason: "The player is inside the roster-reduction group but retains enough role or dynasty value to shop first."
+      };
+    }
+
+    if (developmentalHold) {
+      return {
+        action: "HOLD_THROUGH_PRESEASON",
+        label: "Hold through preseason",
+        urgency: "reassess before final cuts",
+        reason: "Young-player LTV justifies delaying the final cut decision while roles are still developing."
+      };
+    }
+
+    return {
+      action: "CUT_NOW",
+      label: "Cut now",
+      urgency: "immediate",
+      reason: "The player is in the required roster-reduction group and lacks sufficient trade or developmental value."
+    };
+  }
+
+  if (
+    Number(player.years_exp) === 0 &&
+    player.long_term_value >= 55 &&
+    currentTaxiCount >= taxiSlots
+  ) {
+    return {
+      action: "HOLD_THROUGH_PRESEASON",
+      label: "Hold; taxi squad is full",
+      urgency: "reassess before final cuts",
+      reason: "The player is taxi-eligible, but all taxi slots are occupied; compare with the current taxi players later."
+    };
+  }
+
+  return {
+    action: "KEEP",
+    label: "Keep",
+    urgency: "hold",
+    reason: "Player ranks above the current active-roster reduction line."
+  };
+}
+
+function findBestAvailableReplacement(player, availablePlayers) {
+  const samePosition = availablePlayers.filter(
+    (candidate) => candidate.position === player.position && candidate.team
+  );
+  const replacement = samePosition[0] || null;
+  if (!replacement) return null;
+  return {
+    player_id: replacement.player_id,
+    full_name: replacement.full_name,
+    position: replacement.position,
+    team: replacement.team,
+    overall_rank: replacement.overall_rank,
+    position_rank: replacement.position_rank,
+    short_term_value: replacement.short_term_value,
+    long_term_value: replacement.long_term_value,
+    combined_trade_value: replacement.combined_trade_value,
+    actionable_label: replacement.actionable_label,
+    value_gain: replacement.combined_trade_value - player.combined_trade_value
+  };
+}
+
+async function getRosterCutOptimizer() {
+  const [league, rosters, rankedPlayers] = await Promise.all([
+    sleeperFetch(`/league/${LEAGUE_ID}`),
+    sleeperFetch(`/league/${LEAGUE_ID}/rosters`),
+    getLeaguePlayerRatings()
+  ]);
+  const userRoster = rosters.find((roster) => roster.roster_id === USER_ROSTER_ID);
+  if (!userRoster) throw new Error(`Roster ${USER_ROSTER_ID} was not found.`);
+
+  const rosterPlayers = rankedPlayers.filter((player) => player.roster_id === USER_ROSTER_ID);
+  const availablePlayers = rankedPlayers.filter((player) => player.roster_status === "available");
+  const activePlayers = rosterPlayers.filter((player) => player.roster_status === "active");
+  const activeLimit = getActiveRosterLimit(league);
+  const reserveSlots = Number(league.settings?.reserve_slots) || 0;
+  const taxiSlots = Number(league.settings?.taxi_slots) || 0;
+  const currentReserveCount = rosterPlayers.filter((player) => player.roster_status === "reserve").length;
+  const currentTaxiCount = rosterPlayers.filter((player) => player.roster_status === "taxi").length;
+  const openReserveSlots = Math.max(0, reserveSlots - currentReserveCount);
+
+  const irCandidates = activePlayers
+    .filter((player) => isReserveEligible(player, league))
+    .sort((a, b) => b.combined_trade_value - a.combined_trade_value)
+    .slice(0, openReserveSlots);
+  const irMoveIds = new Set(irCandidates.map((player) => player.player_id));
+  const activeAfterIr = activePlayers.filter((player) => !irMoveIds.has(player.player_id));
+  const reductionsRequired = Math.max(0, activeAfterIr.length - activeLimit);
+  const requiredMovePlayers = [...activeAfterIr]
+    .sort((a, b) =>
+      getCutPriorityScore(a) - getCutPriorityScore(b) ||
+      a.combined_trade_value - b.combined_trade_value
+    )
+    .slice(0, reductionsRequired);
+  const requiredMoveIds = new Set(requiredMovePlayers.map((player) => player.player_id));
+  const context = { requiredMoveIds, irMoveIds, taxiSlots, currentTaxiCount };
+
+  const decisions = rosterPlayers
+    .map((player) => {
+      const decision = getRosterDecision(player, context);
+      const replacement = findBestAvailableReplacement(player, availablePlayers);
+      return {
+        player_id: player.player_id,
+        full_name: player.full_name,
+        position: player.position,
+        team: player.team,
+        roster_status: player.roster_status,
+        short_term_value: player.short_term_value,
+        long_term_value: player.long_term_value,
+        combined_trade_value: player.combined_trade_value,
+        overall_rank: player.overall_rank,
+        position_rank: player.position_rank,
+        actionable_label: player.actionable_label,
+        trend: player.trend,
+        confidence: player.confidence,
+        decision: decision.action,
+        decision_label: decision.label,
+        urgency: decision.urgency,
+        reason: decision.reason,
+        required_to_clear_active_slot: requiredMoveIds.has(player.player_id),
+        best_available_replacement: replacement
+      };
+    })
+    .sort((a, b) => {
+      const actionOrder = {
+        CUT_NOW: 0,
+        TRADE_BEFORE_CUT: 1,
+        HOLD_THROUGH_PRESEASON: 2,
+        IR: 3,
+        TAXI: 4,
+        KEEP: 5
+      };
+      return actionOrder[a.decision] - actionOrder[b.decision] ||
+        a.combined_trade_value - b.combined_trade_value;
+    });
+
+  const decisionCounts = decisions.reduce((counts, player) => {
+    counts[player.decision] = (counts[player.decision] || 0) + 1;
+    return counts;
+  }, {});
+
+  return {
+    generated_at: new Date().toISOString(),
+    league_id: LEAGUE_ID,
+    roster_id: USER_ROSTER_ID,
+    model: ROSTER_OPTIMIZER_VERSION,
+    roster_limits: {
+      active_limit: activeLimit,
+      current_active: activePlayers.length,
+      reserve_slots: reserveSlots,
+      current_reserve: currentReserveCount,
+      taxi_slots: taxiSlots,
+      current_taxi: currentTaxiCount,
+      active_reductions_required: reductionsRequired,
+      capacity_override: Boolean(league.settings?.capacity_override)
+    },
+    protected_players: [...USER_PROTECTED_PLAYERS],
+    decision_counts: decisionCounts,
+    players: decisions
+  };
+}
 function createMcpServer() {
   const server = new McpServer(
     {
       name: "democratic-peoples-republic-of-fantasy",
-      version: "1.1.0"
+      version: "1.2.0"
     },
     {
       instructions:
@@ -694,6 +940,22 @@ function createMcpServer() {
         },
         players: await getWaiverWireRankings({ position, limit })
       })
+  );
+
+  server.registerTool(
+    "get_roster_cut_optimizer",
+    {
+      title: "Optimize the Purdy13Good roster",
+      description:
+        "Classifies every Purdy13Good QB, RB, WR, and TE as keep, cut now, hold through preseason, taxi, IR, or trade before cutting; identifies required roster reductions and the best available replacement.",
+      inputSchema: {},
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: false
+      }
+    },
+    async () => toolResult(await getRosterCutOptimizer())
   );
   
   server.registerTool(
@@ -939,6 +1201,7 @@ app.get("/", (req, res) => {
       "/api/traded-picks",
       "/api/transactions/:week",
       "/api/player-ratings",
+      "/api/roster-optimizer",
       "/api/waivers",
       "/api/live"
     ]
@@ -1094,6 +1357,14 @@ app.get("/api/player-ratings", async (req, res) => {
       },
       players
     });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/roster-optimizer", async (req, res) => {
+  try {
+    res.json(await getRosterCutOptimizer());
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

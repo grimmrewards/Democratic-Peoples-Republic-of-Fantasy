@@ -8,6 +8,7 @@ Superflex PPR TE Premium Dynasty Fantasy Football League.
 - `GET /api/rosters`
 - `GET /api/waivers?position=RB&limit=25`
 - `GET /api/player-ratings`
+- `GET /api/roster-optimizer`
 - `GET /api/live`
 
 The waiver endpoint ranks the complete available QB/RB/WR/TE pool for DPRF,
@@ -21,3 +22,9 @@ DPRF-normalized universe. Each player includes overall rank, position rank,
 actionable label, evaluation date, confidence, trend, and the applied league
 modifier. The append-only movement-log contract lives in `data/`; add an event
 only when STV, LTV, or CTV changes, with prior/current values, reason, and source.
+
+The Purdy13Good roster optimizer classifies every rostered player as keep, cut
+now, hold through preseason, taxi, IR, or trade before cutting. It calculates
+the active-roster overage, respects current reserve/taxi capacity and protected
+players, and compares each player with the best available same-position option.
+The same output is exposed through `get_roster_cut_optimizer`.
