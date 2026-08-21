@@ -9,6 +9,7 @@ Superflex PPR TE Premium Dynasty Fantasy Football League.
 - `GET /api/waivers?position=RB&limit=25`
 - `GET /api/player-ratings`
 - `GET /api/roster-optimizer`
+- `GET /api/opportunities?position=RB&scope=purdy_and_available&limit=100`
 - `GET /api/live`
 
 The waiver endpoint ranks the complete available QB/RB/WR/TE pool for DPRF,
@@ -28,3 +29,11 @@ now, hold through preseason, taxi, IR, or trade before cutting. It calculates
 the active-roster overage, respects current reserve/taxi capacity and protected
 players, and compares each player with the best available same-position option.
 The same output is exposed through `get_roster_cut_optimizer`.
+
+The depth-chart and injury-opportunity engine maps rostered and available
+players to their listed starter, direct competition, replacement chain,
+estimated role, injury-away path, and opportunity score. It emits alerts when a
+starter injury creates an opportunity for Purdy13Good or an available player.
+Passing-down/goal-line projections are explicitly marked as depth-chart
+inferences until usage, historical injury, and sourced reporting feeds are added.
+The same output is exposed through `get_depth_chart_opportunities`.

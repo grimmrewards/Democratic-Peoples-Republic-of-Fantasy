@@ -11,6 +11,7 @@ const USER_ROSTER_ID = 2;
 const SLEEPER_API = "https://api.sleeper.app/v1";
 const EVALUATION_MODEL_VERSION = "dprf-ratings-v2";
 const ROSTER_OPTIMIZER_VERSION = "dprf-roster-optimizer-v1";
+const OPPORTUNITY_ENGINE_VERSION = "dprf-opportunity-engine-v1";
 const USER_PROTECTED_PLAYERS = new Set(["Nico Collins", "David Montgomery"]);
 
 const DPRF_SCORING_PROFILE = {
@@ -853,11 +854,256 @@ async function getRosterCutOptimizer() {
     players: decisions
   };
 }
+
+function getDepthGroupKey(player) {
+  return `${player.team}:${player.depth_chart_position || player.position}`;
+}
+
+function isMeaningfullyInjured(player) {
+  return ["out", "doubtful", "ir", "pup", "na"].includes(
+    String(player.injury_status || "").toLowerCase()
+  );
+}
+
+function getEstimatedRole(player) {
+  const order = Number(player.depth_chart_order);
+  const roleByPosition = {
+    QB: {
+      1: "Starting quarterback",
+      2: "Direct quarterback replacement",
+      3: "Developmental or emergency quarterback"
+    },
+    RB: {
+      1: "Lead or primary committee running back",
+      2: "Primary handcuff or committee running back",
+      3: "Secondary handcuff or specialist running back"
+    },
+    WR: {
+      1: "Starting receiver in listed alignment",
+      2: "Direct alignment replacement or rotational receiver",
+      3: "Developmental depth receiver"
+    },
+    TE: {
+      1: "Starting tight end",
+      2: "Direct tight-end replacement or rotational tight end",
+      3: "Developmental depth tight end"
+    }
+  };
+  return roleByPosition[player.position]?.[order] || "Depth-chart reserve";
+}
+
+function getOpportunityType(player) {
+  const order = Number(player.depth_chart_order);
+  if (order === 1) return "current_role";
+  if (order === 2) {
+    if (player.position === "RB") return "primary_handcuff_or_committee";
+    if (player.position === "QB") return "direct_injury_replacement";
+    return "direct_role_replacement";
+  }
+  if (order === 3) return "secondary_injury_replacement";
+  return "multiple_events_away";
+}
+
+function getRoleConfidence(player) {
+  const hasOrder = Number.isFinite(Number(player.depth_chart_order));
+  const hasSpecificPosition = Boolean(player.depth_chart_position);
+  if (player.team && hasOrder && hasSpecificPosition) return "medium";
+  if (player.team && hasOrder) return "low";
+  return "very_low";
+}
+
+function calculateOpportunityScore(player, starter) {
+  const order = Number(player.depth_chart_order);
+  const validOrder = Number.isFinite(order) && order > 0;
+  const base = !validOrder ? 8 : order === 1 ? 82 : order === 2 ? 66 : order === 3 ? 46 : order <= 5 ? 28 : 12;
+  const positionBonus = { QB: 5, RB: 8, WR: 2, TE: 5 }[player.position] || 0;
+  const starterInjuryBonus = starter && starter.player_id !== player.player_id && isMeaningfullyInjured(starter)
+    ? 20
+    : 0;
+  const ownInjuryPenalty = isMeaningfullyInjured(player) ? -25 : 0;
+  const employmentPenalty = player.team ? 0 : -20;
+  return clampRating(base + positionBonus + starterInjuryBonus + ownInjuryPenalty + employmentPenalty);
+}
+
+function compactOpportunityPlayer(player) {
+  if (!player) return null;
+  return {
+    player_id: player.player_id,
+    full_name: player.full_name,
+    position: player.position,
+    team: player.team,
+    depth_chart_position: player.depth_chart_position,
+    depth_chart_order: player.depth_chart_order,
+    injury_status: player.injury_status,
+    roster_id: player.roster_id,
+    roster_status: player.roster_status,
+    manager: player.manager,
+    short_term_value: player.short_term_value,
+    long_term_value: player.long_term_value,
+    combined_trade_value: player.combined_trade_value
+  };
+}
+
+async function getDepthChartOpportunityEngine({
+  position,
+  team,
+  scope = "purdy_and_available",
+  limit = 100
+} = {}) {
+  const rankedPlayers = await getLeaguePlayerRatings();
+  const nflPlayers = rankedPlayers.filter((player) => player.team);
+  const groups = new Map();
+  for (const player of nflPlayers) {
+    const key = getDepthGroupKey(player);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(player);
+  }
+  for (const group of groups.values()) {
+    group.sort((a, b) =>
+      (Number(a.depth_chart_order) || 99) - (Number(b.depth_chart_order) || 99) ||
+      b.combined_trade_value - a.combined_trade_value
+    );
+  }
+
+  const scopeFilter = (player) => {
+    if (scope === "league") return true;
+    if (scope === "purdy") return player.roster_id === USER_ROSTER_ID;
+    if (scope === "available") return player.roster_status === "available";
+    return player.roster_id === USER_ROSTER_ID || player.roster_status === "available";
+  };
+
+  const targetPlayers = rankedPlayers.filter(
+    (player) => player.team || player.roster_id === USER_ROSTER_ID
+  );
+  const results = targetPlayers
+    .filter(scopeFilter)
+    .filter((player) => !position || player.position === position)
+    .filter((player) => !team || player.team === team)
+    .map((player) => {
+      const group = groups.get(getDepthGroupKey(player)) || [];
+      const playerIndex = group.findIndex((candidate) => candidate.player_id === player.player_id);
+      const starter = group.find((candidate) => Number(candidate.depth_chart_order) === 1) || null;
+      const playerAbove = playerIndex > 0 ? group[playerIndex - 1] : null;
+      const directReplacement = playerIndex >= 0 ? group[playerIndex + 1] || null : null;
+      const competition = group
+        .filter((candidate) => candidate.player_id !== player.player_id)
+        .slice(0, 4)
+        .map(compactOpportunityPlayer);
+      const opportunityScore = calculateOpportunityScore(player, starter);
+      const starterInjured = starter && starter.player_id !== player.player_id && isMeaningfullyInjured(starter);
+
+      return {
+        ...compactOpportunityPlayer(player),
+        overall_rank: player.overall_rank,
+        position_rank: player.position_rank,
+        actionable_label: player.actionable_label,
+        trend: player.trend,
+        confidence: player.confidence,
+        estimated_role: getEstimatedRole(player),
+        role_confidence: getRoleConfidence(player),
+        opportunity_type: getOpportunityType(player),
+        opportunity_score: opportunityScore,
+        starter_injured: Boolean(starterInjured),
+        starter: compactOpportunityPlayer(starter),
+        player_directly_ahead: compactOpportunityPlayer(playerAbove),
+        direct_replacement_if_player_is_out: compactOpportunityPlayer(directReplacement),
+        depth_chart_competition: competition,
+        injury_away_path: starterInjured
+          ? "Current starter injury creates an immediate opportunity increase."
+          : Number(player.depth_chart_order) === 2
+            ? "One injury or role change away from the listed starting role."
+            : Number(player.depth_chart_order) === 3
+              ? "Usually two events away or requires a committee-role expansion."
+              : Number(player.depth_chart_order) === 1
+                ? "Currently holds the listed starting role."
+                : "Requires multiple injuries, transactions, or a major role change.",
+        role_projection: {
+          direct_replacement: compactOpportunityPlayer(
+            Number(player.depth_chart_order) === 1 ? directReplacement : player
+          ),
+          passing_down_replacement: player.position === "RB"
+            ? compactOpportunityPlayer(directReplacement)
+            : null,
+          goal_line_replacement: player.position === "RB"
+            ? compactOpportunityPlayer(directReplacement)
+            : null,
+          evidence_level: "depth_chart_inference_only"
+        },
+        injury_history: {
+          one_year: null,
+          three_year: null,
+          five_year: null,
+          coverage: "not_configured"
+        },
+        sourced_role_reports: [],
+        reporting_coverage: "not_configured"
+      };
+    })
+    .sort((a, b) =>
+      b.starter_injured - a.starter_injured ||
+      b.opportunity_score - a.opportunity_score ||
+      b.combined_trade_value - a.combined_trade_value
+    );
+
+  const alerts = [];
+  for (const group of groups.values()) {
+    const starter = group.find((player) => Number(player.depth_chart_order) === 1);
+    if (!starter || !isMeaningfullyInjured(starter)) continue;
+    if (position && starter.position !== position) continue;
+    if (team && starter.team !== team) continue;
+    const replacement = group.find((player) =>
+      player.player_id !== starter.player_id && !isMeaningfullyInjured(player)
+    );
+    if (!replacement) continue;
+    const alertMatchesScope =
+      scope === "league" ||
+      (scope === "purdy" && (
+        starter.roster_id === USER_ROSTER_ID || replacement.roster_id === USER_ROSTER_ID
+      )) ||
+      (scope === "available" && replacement.roster_status === "available") ||
+      (scope === "purdy_and_available" && (
+        starter.roster_id === USER_ROSTER_ID ||
+        replacement.roster_id === USER_ROSTER_ID ||
+        replacement.roster_status === "available"
+      ));
+    if (!alertMatchesScope) continue;
+    alerts.push({
+      alert_type: "starter_injury_opportunity",
+      priority: replacement.roster_status === "available" ? "high" : "medium",
+      starter: compactOpportunityPlayer(starter),
+      opportunity_player: compactOpportunityPlayer(replacement),
+      recommendation: replacement.roster_status === "available"
+        ? "Review immediately as a waiver or free-agent target."
+        : replacement.roster_id === USER_ROSTER_ID
+          ? "Reassess Purdy13Good hold and lineup value."
+          : "Monitor the depth-chart change."
+    });
+  }
+
+  return {
+    generated_at: new Date().toISOString(),
+    league_id: LEAGUE_ID,
+    roster_id: USER_ROSTER_ID,
+    model: OPPORTUNITY_ENGINE_VERSION,
+    filters: { position: position || null, team: team || null, scope, limit },
+    methodology: {
+      current_depth_chart_source: "Sleeper NFL player data",
+      opportunity_method: "Depth-chart order, current injury designation, DPRF scarcity, and roster availability",
+      role_inference_warning: "Passing-down and goal-line roles are provisional until sourced usage and reporting ingestion is configured.",
+      injury_history_coverage: "not_configured",
+      sourced_reporting_coverage: "not_configured"
+    },
+    alert_count: alerts.length,
+    alerts,
+    total_matching_players: results.length,
+    players: results.slice(0, limit)
+  };
+}
 function createMcpServer() {
   const server = new McpServer(
     {
       name: "democratic-peoples-republic-of-fantasy",
-      version: "1.2.0"
+      version: "1.3.0"
     },
     {
       instructions:
@@ -956,6 +1202,29 @@ function createMcpServer() {
       }
     },
     async () => toolResult(await getRosterCutOptimizer())
+  );
+
+  server.registerTool(
+    "get_depth_chart_opportunities",
+    {
+      title: "Get depth-chart and injury opportunities",
+      description:
+        "Maps Purdy13Good and available players to current depth-chart competition, starter and replacement paths, estimated roles, injury-away opportunity, handcuff alerts, and evidence-coverage flags.",
+      inputSchema: {
+        position: z.enum(["QB", "RB", "WR", "TE"]).optional(),
+        team: z.string().trim().toUpperCase().min(2).max(3).optional(),
+        scope: z.enum(["purdy_and_available", "purdy", "available", "league"])
+          .default("purdy_and_available"),
+        limit: z.number().int().min(1).max(500).default(100)
+      },
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: false
+      }
+    },
+    async ({ position, team, scope, limit }) =>
+      toolResult(await getDepthChartOpportunityEngine({ position, team, scope, limit }))
   );
   
   server.registerTool(
@@ -1202,6 +1471,7 @@ app.get("/", (req, res) => {
       "/api/transactions/:week",
       "/api/player-ratings",
       "/api/roster-optimizer",
+      "/api/opportunities",
       "/api/waivers",
       "/api/live"
     ]
@@ -1365,6 +1635,29 @@ app.get("/api/player-ratings", async (req, res) => {
 app.get("/api/roster-optimizer", async (req, res) => {
   try {
     res.json(await getRosterCutOptimizer());
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/opportunities", async (req, res) => {
+  try {
+    const position = req.query.position
+      ? String(req.query.position).toUpperCase()
+      : undefined;
+    const team = req.query.team ? String(req.query.team).toUpperCase() : undefined;
+    const scope = req.query.scope ? String(req.query.scope) : "purdy_and_available";
+    const limit = req.query.limit === undefined ? 100 : Number(req.query.limit);
+    if (position && !["QB", "RB", "WR", "TE"].includes(position)) {
+      return res.status(400).json({ error: "Position must be QB, RB, WR, or TE." });
+    }
+    if (!["purdy_and_available", "purdy", "available", "league"].includes(scope)) {
+      return res.status(400).json({ error: "Invalid scope." });
+    }
+    if (!Number.isInteger(limit) || limit < 1 || limit > 500) {
+      return res.status(400).json({ error: "Limit must be a whole number from 1 through 500." });
+    }
+    res.json(await getDepthChartOpportunityEngine({ position, team, scope, limit }));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
