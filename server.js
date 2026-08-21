@@ -14,7 +14,8 @@ const EVALUATION_MODEL_VERSION = "dprf-ratings-v2";
 const ROSTER_OPTIMIZER_VERSION = "dprf-roster-optimizer-v1";
 const OPPORTUNITY_ENGINE_VERSION = "dprf-opportunity-engine-v1.3";
 const ROSTER_VALUE_MODEL_VERSION = "dprf-roster-value-v1";
-const USER_PROTECTED_PLAYERS = new Set(["Nico Collins", "David Montgomery"]);
+const TRADE_ENGINE_VERSION = "dprf-trade-engine-v1";
+const USER_PROTECTED_PLAYERS = new Set();
 
 const DPRF_SCORING_PROFILE = {
   teams: 10,
@@ -1571,11 +1572,303 @@ async function getLiveRosterValues() {
     teams: finalTeams
   };
 }
+
+function compactTradeAsset(player) {
+  return {
+    asset_type: "player",
+    player_id: player.player_id,
+    full_name: player.full_name,
+    position: player.position,
+    team: player.team,
+    age: player.age,
+    short_term_value: player.short_term_value,
+    long_term_value: player.long_term_value,
+    combined_trade_value: player.combined_trade_value,
+    confidence: player.confidence,
+    trend: player.trend,
+    actionable_label: player.actionable_label
+  };
+}
+
+function normalizeTradePick(pick) {
+  const projectedSlot = pick.projected_slot || "middle";
+  const value = pickBaseValue(Number(pick.round), projectedSlot);
+  return {
+    asset_type: "pick",
+    season: Number(pick.season),
+    round: Number(pick.round),
+    original_roster_id: pick.original_roster_id ? Number(pick.original_roster_id) : null,
+    projected_slot: projectedSlot,
+    combined_trade_value: value,
+    short_term_value: Math.round(value * 0.35 * 10) / 10,
+    long_term_value: value
+  };
+}
+
+function summarizeTradeSide(players, picks) {
+  const assets = [...players.map(compactTradeAsset), ...picks.map(normalizeTradePick)];
+  return {
+    assets,
+    player_count: players.length,
+    pick_count: picks.length,
+    short_term_value: Math.round(assets.reduce((sum, asset) => sum + Number(asset.short_term_value || 0), 0) * 10) / 10,
+    long_term_value: Math.round(assets.reduce((sum, asset) => sum + Number(asset.long_term_value || 0), 0) * 10) / 10,
+    combined_trade_value: Math.round(assets.reduce((sum, asset) => sum + Number(asset.combined_trade_value || 0), 0) * 10) / 10
+  };
+}
+
+function getTradeRisk(players) {
+  if (!players.length) return { score: 0, level: "none", drivers: [] };
+  const drivers = [];
+  let score = 0;
+  for (const player of players) {
+    if (player.injury_status) {
+      score += 18;
+      drivers.push(`${player.full_name}: ${player.injury_status} designation`);
+    }
+    if (Number(player.age) >= ({ QB: 34, RB: 28, WR: 30, TE: 31 }[player.position] || 30)) {
+      score += 12;
+      drivers.push(`${player.full_name}: age-curve risk`);
+    }
+    if (player.confidence === "low") {
+      score += 10;
+      drivers.push(`${player.full_name}: low-confidence valuation`);
+    }
+  }
+  const normalized = clampRating(score / players.length);
+  return { score: normalized, level: normalized >= 25 ? "high" : normalized >= 12 ? "medium" : "low", drivers };
+}
+
+async function evaluateDprfTrade({
+  opponent_roster_id,
+  user_gives_player_ids = [],
+  user_receives_player_ids = [],
+  user_gives_picks = [],
+  user_receives_picks = []
+}) {
+  const [rankedPlayers, rosterValues] = await Promise.all([getLeaguePlayerRatings(), getLiveRosterValues()]);
+  const opponentRosterId = Number(opponent_roster_id);
+  if (!rosterValues.teams.some((team) => team.roster_id === opponentRosterId) || opponentRosterId === USER_ROSTER_ID) {
+    throw new Error("opponent_roster_id must identify another DPRF team.");
+  }
+  const byId = Object.fromEntries(rankedPlayers.map((player) => [String(player.player_id), player]));
+  const resolvePlayers = (ids, expectedRosterId, label) => ids.map(String).map((id) => {
+    const player = byId[id];
+    if (!player) throw new Error(`${label} includes unknown player_id ${id}.`);
+    if (player.roster_id !== expectedRosterId) throw new Error(`${player.full_name} is not currently on roster ${expectedRosterId}.`);
+    return player;
+  });
+  const givesPlayers = resolvePlayers(user_gives_player_ids, USER_ROSTER_ID, "user_gives_player_ids");
+  const receivesPlayers = resolvePlayers(user_receives_player_ids, opponentRosterId, "user_receives_player_ids");
+  const protectedOutgoing = givesPlayers.filter((player) => USER_PROTECTED_PLAYERS.has(player.full_name));
+  const gives = summarizeTradeSide(givesPlayers, user_gives_picks);
+  const receives = summarizeTradeSide(receivesPlayers, user_receives_picks);
+  const userRoster = rankedPlayers.filter((player) => player.roster_id === USER_ROSTER_ID);
+  const opponentRoster = rankedPlayers.filter((player) => player.roster_id === opponentRosterId);
+  const beforeUser = buildOptimalDprfLineup(userRoster);
+  const afterUser = buildOptimalDprfLineup([
+    ...userRoster.filter((player) => !user_gives_player_ids.map(String).includes(String(player.player_id))),
+    ...receivesPlayers.map((player) => ({ ...player, roster_id: USER_ROSTER_ID, roster_status: "active" }))
+  ]);
+  const beforeOpponent = buildOptimalDprfLineup(opponentRoster);
+  const afterOpponent = buildOptimalDprfLineup([
+    ...opponentRoster.filter((player) => !user_receives_player_ids.map(String).includes(String(player.player_id))),
+    ...givesPlayers.map((player) => ({ ...player, roster_id: opponentRosterId, roster_status: "active" }))
+  ]);
+  const lineupDelta = afterUser.raw_starter_value - beforeUser.raw_starter_value;
+  const opponentLineupDelta = afterOpponent.raw_starter_value - beforeOpponent.raw_starter_value;
+  const ctvDelta = receives.combined_trade_value - gives.combined_trade_value;
+  const stvDelta = receives.short_term_value - gives.short_term_value;
+  const ltvDelta = receives.long_term_value - gives.long_term_value;
+  const rosterSpotsFreed = gives.player_count - receives.player_count;
+  const receiveRisk = getTradeRisk(receivesPlayers);
+  const giveRisk = getTradeRisk(givesPlayers);
+  const upsideDelta = Math.round((receivesPlayers.reduce((sum, player) => sum + Math.max(player.short_term_value, player.long_term_value), 0) - givesPlayers.reduce((sum, player) => sum + Math.max(player.short_term_value, player.long_term_value), 0)) * 10) / 10;
+  let recommendation = "COUNTER";
+  if (!protectedOutgoing.length && ctvDelta >= -3 && (lineupDelta > 0 || ltvDelta >= 0) && receiveRisk.score <= giveRisk.score + 15) recommendation = "ACCEPT";
+  if (ctvDelta < -12 || (lineupDelta < -8 && ltvDelta < 0) || protectedOutgoing.length) recommendation = "REJECT";
+  const counterGap = Math.max(0, Math.round((gives.combined_trade_value - receives.combined_trade_value) * 10) / 10);
+  return {
+    generated_at: new Date().toISOString(),
+    league_id: LEAGUE_ID,
+    model: TRADE_ENGINE_VERSION,
+    user_roster_id: USER_ROSTER_ID,
+    opponent_roster_id: opponentRosterId,
+    recommendation,
+    confidence: Math.abs(ctvDelta) >= 12 || Math.abs(lineupDelta) >= 8 ? "high" : "medium",
+    user_gives: gives,
+    user_receives: receives,
+    evaluation: {
+      current_lineup_improvement: Math.round(lineupDelta * 10) / 10,
+      opponent_lineup_improvement: Math.round(opponentLineupDelta * 10) / 10,
+      short_term_value_delta: Math.round(stvDelta * 10) / 10,
+      long_term_value_delta: Math.round(ltvDelta * 10) / 10,
+      combined_trade_value_delta: Math.round(ctvDelta * 10) / 10,
+      roster_spots_freed: rosterSpotsFreed,
+      upside_delta: upsideDelta,
+      incoming_risk: receiveRisk,
+      outgoing_risk: giveRisk,
+      protected_asset_violation: protectedOutgoing.map((player) => player.full_name)
+    },
+    counter_guidance: recommendation === "COUNTER"
+      ? { additional_value_needed: counterGap, instruction: counterGap > 0 ? "Ask the opponent to add value or reduce the outgoing package." : "Restructure for a clearer lineup or dynasty gain without increasing the maximum outgoing value." }
+      : null,
+    methodology: {
+      player_foundation: "DPRF STV, LTV, CTV, position scarcity, confidence, trend, age, and injury status",
+      roster_fit: "Exact 11-slot optimized starting lineup before and after the trade",
+      protected_players: [...USER_PROTECTED_PLAYERS],
+      posture: "Win now while preserving long-term dynasty value; draft picks are tradable assets."
+    }
+  };
+}
+
+function findClosestAssets(candidates, targetValue, maxCount = 2, ceilingMultiplier = 1.1) {
+  const valid = candidates.filter((player) => player.combined_trade_value <= targetValue * ceilingMultiplier);
+  const packages = valid.map((player) => ({ players: [player], value: player.combined_trade_value }));
+  if (maxCount >= 2) {
+    for (let i = 0; i < valid.length; i += 1) {
+      for (let j = i + 1; j < valid.length; j += 1) {
+        packages.push({ players: [valid[i], valid[j]], value: valid[i].combined_trade_value + valid[j].combined_trade_value });
+      }
+    }
+  }
+  return packages.sort((a, b) => Math.abs(a.value - targetValue) - Math.abs(b.value - targetValue))[0] || null;
+}
+
+function findAssetPackage(candidates, targetValue, { exactCount, minMultiplier = 0, maxMultiplier = 1.1 } = {}) {
+  const packages = [];
+  for (const player of candidates) packages.push({ players: [player], value: player.combined_trade_value });
+  for (let i = 0; i < candidates.length; i += 1) {
+    for (let j = i + 1; j < candidates.length; j += 1) {
+      packages.push({ players: [candidates[i], candidates[j]], value: candidates[i].combined_trade_value + candidates[j].combined_trade_value });
+    }
+  }
+  return packages
+    .filter((item) => !exactCount || item.players.length === exactCount)
+    .filter((item) => item.value >= targetValue * minMultiplier && item.value <= targetValue * maxMultiplier)
+    .sort((a, b) => Math.abs(a.value - targetValue) - Math.abs(b.value - targetValue))[0] || null;
+}
+
+function findPickPackage(picks, targetValue) {
+  const candidates = [];
+  for (const pick of picks) candidates.push({ picks: [pick], value: pick.value });
+  for (let i = 0; i < picks.length; i += 1) {
+    for (let j = i + 1; j < picks.length; j += 1) {
+      candidates.push({ picks: [picks[i], picks[j]], value: picks[i].value + picks[j].value });
+      for (let k = j + 1; k < picks.length; k += 1) {
+        candidates.push({ picks: [picks[i], picks[j], picks[k]], value: picks[i].value + picks[j].value + picks[k].value });
+      }
+    }
+  }
+  return candidates
+    .filter((item) => item.value >= targetValue * 0.68 && item.value <= targetValue * 1.08)
+    .sort((a, b) => Math.abs(a.value - targetValue) - Math.abs(b.value - targetValue))[0] || null;
+}
+
+function describeGeneratedPackage(style, target, outgoingPlayers = [], outgoingPicks = [], maxValue = null) {
+  const outgoingValue = outgoingPlayers.reduce((sum, player) => sum + player.combined_trade_value, 0) + outgoingPicks.reduce((sum, pick) => sum + pick.value, 0);
+  return {
+    style,
+    user_sends: [...outgoingPlayers.map(compactTradeAsset), ...outgoingPicks.map((pick) => ({ asset_type: "pick", ...pick }))],
+    user_receives: [compactTradeAsset(target)],
+    outgoing_value: Math.round(outgoingValue * 10) / 10,
+    target_value: target.combined_trade_value,
+    value_delta: Math.round((target.combined_trade_value - outgoingValue) * 10) / 10,
+    maximum_acceptable_outgoing_value: maxValue,
+    requires_manager_review: true
+  };
+}
+
+async function getAutomatedTradeTargets({ position, limit = 25 } = {}) {
+  const [rosterValues, rankedPlayers] = await Promise.all([getLiveRosterValues(), getLeaguePlayerRatings()]);
+  const userTeam = rosterValues.teams.find((team) => team.roster_id === USER_ROSTER_ID);
+  const userPlayers = rankedPlayers.filter((player) => player.roster_id === USER_ROSTER_ID && !USER_PROTECTED_PLAYERS.has(player.full_name));
+  const defaultNeeds = userTeam.needs.length ? userTeam.needs : ["RB"];
+  const targetPositions = position ? [position] : [...new Set(["RB", ...defaultNeeds])];
+  const userSurpluses = new Set(userTeam.surpluses);
+  const userPicks = userTeam.draft_capital.picks;
+  const results = rosterValues.teams
+    .filter((team) => team.roster_id !== USER_ROSTER_ID)
+    .flatMap((seller) => rankedPlayers
+      .filter((player) => player.roster_id === seller.roster_id && targetPositions.includes(player.position))
+      .filter((player) => player.combined_trade_value >= 35)
+      .map((target) => {
+        const sellerSurplus = seller.surpluses.includes(target.position);
+        const sellerPressure = seller.roster_construction.required_reductions > 0;
+        const buyLowGap = Math.max(0, target.long_term_value - target.short_term_value);
+        const needFit = target.position === "RB" ? 18 : userTeam.needs.includes(target.position) ? 14 : 0;
+        const availabilityScore = (sellerSurplus ? 12 : 0) + (sellerPressure ? 8 : 0) + (seller.competitive_window === "REBUILDER" && Number(target.age) >= 27 ? 8 : 0);
+        const targetScore = clampRating(target.combined_trade_value * 0.4 + target.short_term_value * 0.15 + target.long_term_value * 0.1 + needFit + availabilityScore + Math.min(8, buyLowGap));
+        const sellerNeeds = new Set(seller.needs);
+        const outgoingPool = [...userPlayers]
+          .filter((player) => sellerNeeds.has(player.position) || userSurpluses.has(player.position) || ["Trade Candidate", "Roster Bubble"].includes(player.actionable_label))
+          .sort((a, b) => b.combined_trade_value - a.combined_trade_value)
+          .slice(0, 14);
+        const fair = findClosestAssets(outgoingPool, target.combined_trade_value, 2, 1.05);
+        const aggressive = findAssetPackage(outgoingPool, target.combined_trade_value * 0.88, { minMultiplier: 0.72, maxMultiplier: 1 });
+        const consolidationPool = [...userPlayers]
+          .filter((player) => player.combined_trade_value >= 10 && player.combined_trade_value <= target.combined_trade_value)
+          .sort((a, b) => b.combined_trade_value - a.combined_trade_value)
+          .slice(0, 20);
+        const consolidation = findAssetPackage(consolidationPool, target.combined_trade_value, { exactCount: 2, minMultiplier: 0.65, maxMultiplier: 1.08 });
+        const pickPool = userPicks
+          .filter((pick) => pick.season <= 2028)
+          .sort((a, b) => b.value - a.value);
+        const pickPackage = findPickPackage(pickPool, target.combined_trade_value);
+        const maxAcceptable = Math.round(target.combined_trade_value * (target.position === "RB" ? 1.05 : 1.02) * 10) / 10;
+        const packages = [];
+        if (aggressive) packages.push(describeGeneratedPackage("AGGRESSIVE_VALUE", target, aggressive.players));
+        if (fair) packages.push(describeGeneratedPackage("FAIR_OPENING", target, fair.players));
+        if (consolidation && consolidation.players.length > 1) packages.push(describeGeneratedPackage("CONSOLIDATION", target, consolidation.players));
+        if (pickPackage) packages.push(describeGeneratedPackage("PICK_BASED", target, [], pickPackage.picks));
+        if (fair) packages.push(describeGeneratedPackage("MAXIMUM_ACCEPTABLE", target, fair.players, [], maxAcceptable));
+        return {
+          target_rank_score: targetScore,
+          target: compactTradeAsset(target),
+          seller: {
+            roster_id: seller.roster_id,
+            manager: seller.manager,
+            competitive_window: seller.competitive_window,
+            needs: seller.needs,
+            surpluses: seller.surpluses,
+            roster_reductions_required: seller.roster_construction.required_reductions
+          },
+          fit: {
+            fills_user_need: userTeam.needs.includes(target.position) || target.position === "RB",
+            seller_has_position_surplus: sellerSurplus,
+            seller_under_roster_pressure: sellerPressure,
+            buy_low_gap: buyLowGap,
+            rationale: `${target.position} target matched to Purdy13Good need; seller context and DPRF STV/LTV determine priority.`
+          },
+          generated_offers: packages
+        };
+      }))
+    .sort((a, b) => b.target_rank_score - a.target_rank_score || b.target.combined_trade_value - a.target.combined_trade_value)
+    .slice(0, limit);
+  return {
+    generated_at: new Date().toISOString(),
+    league_id: LEAGUE_ID,
+    model: TRADE_ENGINE_VERSION,
+    user_roster_id: USER_ROSTER_ID,
+    filters: { position: position || null, limit },
+    user_context: {
+      competitive_window: userTeam.competitive_window,
+      contender_score: userTeam.contender_score,
+      dynasty_score: userTeam.dynasty_score,
+      needs: userTeam.needs,
+      surpluses: userTeam.surpluses,
+      protected_players: [...USER_PROTECTED_PLAYERS]
+    },
+    target_count: results.length,
+    targets: results,
+    disclaimer: "Generated packages are valuation starting points. Confirm current news, manager preferences, and lineup consequences before sending."
+  };
+}
 function createMcpServer() {
   const server = new McpServer(
     {
       name: "democratic-peoples-republic-of-fantasy",
-      version: "1.7.0"
+      version: "1.8.0"
     },
     {
       instructions:
@@ -1713,6 +2006,57 @@ function createMcpServer() {
       }
     },
     async () => toolResult(await getLiveRosterValues())
+  );
+
+  server.registerTool(
+    "get_automated_trade_targets",
+    {
+      title: "Find DPRF trade targets and offers",
+      description:
+        "Finds opponent trade targets by Purdy13Good need, seller surplus, roster pressure, competitive window, and DPRF STV/LTV; generates aggressive-value, fair, consolidation, pick-based, and maximum-acceptable offer structures.",
+      inputSchema: {
+        position: z.enum(["QB", "RB", "WR", "TE"]).optional(),
+        limit: z.number().int().min(1).max(50).default(25)
+      },
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: false
+      }
+    },
+    async ({ position, limit }) => toolResult(await getAutomatedTradeTargets({ position, limit }))
+  );
+
+  server.registerTool(
+    "evaluate_dprf_trade",
+    {
+      title: "Evaluate a DPRF trade",
+      description:
+        "Evaluates a proposed trade for Purdy13Good using lineup improvement, STV, LTV, CTV, roster-space impact, risk, upside, and opponent impact; recommends accept, reject, or counter.",
+      inputSchema: {
+        opponent_roster_id: z.number().int().min(1).max(10),
+        user_gives_player_ids: z.array(z.string()).default([]),
+        user_receives_player_ids: z.array(z.string()).default([]),
+        user_gives_picks: z.array(z.object({
+          season: z.number().int().min(2027).max(2029),
+          round: z.number().int().min(1).max(6),
+          projected_slot: z.enum(["early", "middle", "late"]).default("middle"),
+          original_roster_id: z.number().int().min(1).max(10).optional()
+        })).default([]),
+        user_receives_picks: z.array(z.object({
+          season: z.number().int().min(2027).max(2029),
+          round: z.number().int().min(1).max(6),
+          projected_slot: z.enum(["early", "middle", "late"]).default("middle"),
+          original_roster_id: z.number().int().min(1).max(10).optional()
+        })).default([])
+      },
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: false
+      }
+    },
+    async (input) => toolResult(await evaluateDprfTrade(input))
   );
 
   server.registerTool(
@@ -1961,6 +2305,8 @@ app.get("/", (req, res) => {
       "/api/roster-optimizer",
       "/api/opportunities",
       "/api/roster-values",
+      "/api/trade-targets",
+      "/api/trade-evaluator",
       "/api/waivers",
       "/api/live"
     ]
@@ -1972,6 +2318,26 @@ app.get("/api/roster-values", async (req, res) => {
     res.json(await getLiveRosterValues());
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/trade-targets", async (req, res) => {
+  try {
+    const position = req.query.position ? String(req.query.position).toUpperCase() : undefined;
+    const limit = req.query.limit === undefined ? 25 : Number(req.query.limit);
+    if (position && !["QB", "RB", "WR", "TE"].includes(position)) return res.status(400).json({ error: "Position must be QB, RB, WR, or TE." });
+    if (!Number.isInteger(limit) || limit < 1 || limit > 50) return res.status(400).json({ error: "Limit must be a whole number from 1 through 50." });
+    res.json(await getAutomatedTradeTargets({ position, limit }));
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/api/trade-evaluator", async (req, res) => {
+  try {
+    res.json(await evaluateDprfTrade(req.body || {}));
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 });
 

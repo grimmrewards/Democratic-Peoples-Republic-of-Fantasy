@@ -11,6 +11,8 @@ Superflex PPR TE Premium Dynasty Fantasy Football League.
 - `GET /api/roster-optimizer`
 - `GET /api/opportunities?position=RB&scope=purdy_and_available&limit=100`
 - `GET /api/roster-values`
+- `GET /api/trade-targets?position=RB&limit=25`
+- `POST /api/trade-evaluator`
 - `GET /api/live`
 
 The waiver endpoint ranks the complete available QB/RB/WR/TE pool for DPRF,
@@ -56,6 +58,15 @@ starting lineup, bench depth, total roster value, age, positional scarcity,
 roster pressure, and 2027-2029 draft capital. It classifies each team as a
 contender, rebuilder, or in transition; identifies positional needs and
 surpluses; and exposes the results through `get_live_roster_values`.
+
+The trade engine matches Purdy13Good's needs and surpluses against every
+opponent's competitive window, positional construction, and roster pressure.
+`get_automated_trade_targets` generates aggressive-value, fair, consolidation,
+pick-based, and maximum-acceptable offers. `evaluate_dprf_trade` grades a
+specific proposal for lineup improvement, STV, LTV, CTV, roster-space impact,
+risk, upside, and opponent impact before returning accept, reject, or counter.
+No player is automatically protected from trade analysis; Nico Collins and
+David Montgomery may be included when the return justifies their value.
 
 ## Durable opportunity monitoring
 
