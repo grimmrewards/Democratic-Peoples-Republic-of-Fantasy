@@ -13,6 +13,7 @@ const SLEEPER_API = "https://api.sleeper.app/v1";
 const EVALUATION_MODEL_VERSION = "dprf-ratings-v2";
 const ROSTER_OPTIMIZER_VERSION = "dprf-roster-optimizer-v1";
 const OPPORTUNITY_ENGINE_VERSION = "dprf-opportunity-engine-v1.3";
+const ROSTER_VALUE_MODEL_VERSION = "dprf-roster-value-v1";
 const USER_PROTECTED_PLAYERS = new Set(["Nico Collins", "David Montgomery"]);
 
 const DPRF_SCORING_PROFILE = {
@@ -1322,11 +1323,259 @@ async function getDepthChartOpportunityEngine({
     players: results.slice(0, limit)
   };
 }
+
+const DPRF_STARTER_SLOTS = {
+  QB: 1,
+  RB: 2,
+  WR: 2,
+  TE: 1,
+  RB_WR: 2,
+  WR_TE: 2,
+  SUPER_FLEX: 1
+};
+
+function average(values) {
+  const valid = values.filter((value) => Number.isFinite(Number(value))).map(Number);
+  return valid.length ? valid.reduce((sum, value) => sum + value, 0) / valid.length : 0;
+}
+
+function normalizeAcrossTeams(value, values) {
+  const low = Math.min(...values);
+  const high = Math.max(...values);
+  if (high === low) return 50;
+  return clampRating(((value - low) / (high - low)) * 100);
+}
+
+function selectBest(players, count, eligiblePositions, selectedIds) {
+  return players
+    .filter((player) => eligiblePositions.includes(player.position) && !selectedIds.has(player.player_id))
+    .sort((a, b) => b.short_term_value - a.short_term_value || b.combined_trade_value - a.combined_trade_value)
+    .slice(0, count);
+}
+
+function buildOptimalDprfLineup(players) {
+  const active = players.filter((player) => player.roster_status === "active");
+  const selected = [];
+  const selectedIds = new Set();
+  const addSlot = (slot, count, positions) => {
+    const picks = selectBest(active, count, positions, selectedIds);
+    for (const player of picks) {
+      selected.push({ slot, ...player });
+      selectedIds.add(player.player_id);
+    }
+  };
+  addSlot("QB", DPRF_STARTER_SLOTS.QB, ["QB"]);
+  addSlot("RB", DPRF_STARTER_SLOTS.RB, ["RB"]);
+  addSlot("WR", DPRF_STARTER_SLOTS.WR, ["WR"]);
+  addSlot("TE", DPRF_STARTER_SLOTS.TE, ["TE"]);
+  addSlot("RB/WR", DPRF_STARTER_SLOTS.RB_WR, ["RB", "WR"]);
+  addSlot("WR/TE", DPRF_STARTER_SLOTS.WR_TE, ["WR", "TE"]);
+  addSlot("SUPER_FLEX", DPRF_STARTER_SLOTS.SUPER_FLEX, ["QB", "RB", "WR", "TE"]);
+  return {
+    starters: selected,
+    starter_ids: selectedIds,
+    filled_slots: selected.length,
+    open_slots: Math.max(0, 11 - selected.length),
+    raw_starter_value: selected.reduce((sum, player) => sum + player.short_term_value, 0),
+    average_starter_stv: Math.round(average(selected.map((player) => player.short_term_value)) * 10) / 10
+  };
+}
+
+function buildFuturePickInventory(rosters, tradedPicks, seasons = ["2027", "2028", "2029"], rounds = 6) {
+  const inventory = new Map(rosters.map((roster) => [roster.roster_id, []]));
+  const ownership = new Map();
+  for (const season of seasons) {
+    for (const roster of rosters) {
+      for (let round = 1; round <= rounds; round += 1) {
+        ownership.set(`${season}:${round}:${roster.roster_id}`, roster.roster_id);
+      }
+    }
+  }
+  for (const pick of tradedPicks) {
+    const season = String(pick.season);
+    const round = Number(pick.round);
+    if (!seasons.includes(season) || round < 1 || round > rounds) continue;
+    ownership.set(`${season}:${round}:${pick.roster_id}`, Number(pick.owner_id));
+  }
+  for (const [key, ownerId] of ownership.entries()) {
+    if (!inventory.has(ownerId)) continue;
+    const [season, round, originalRosterId] = key.split(":").map(Number);
+    inventory.get(ownerId).push({ season, round, original_roster_id: originalRosterId, owner_roster_id: ownerId });
+  }
+  return inventory;
+}
+
+function pickBaseValue(round, slotBand) {
+  const base = { 1: 34, 2: 20, 3: 12, 4: 7, 5: 4, 6: 2 }[round] || 0;
+  const multiplier = slotBand === "early" ? 1.25 : slotBand === "late" ? 0.8 : 1;
+  return Math.round(base * multiplier * 10) / 10;
+}
+
+async function getLiveRosterValues() {
+  const [league, users, rosters, tradedPicks, rankedPlayers] = await Promise.all([
+    sleeperFetch(`/league/${LEAGUE_ID}`),
+    sleeperFetch(`/league/${LEAGUE_ID}/users`),
+    sleeperFetch(`/league/${LEAGUE_ID}/rosters`),
+    sleeperFetch(`/league/${LEAGUE_ID}/traded_picks`),
+    getLeaguePlayerRatings()
+  ]);
+  const userMap = Object.fromEntries(users.map((user) => [user.user_id, {
+    username: user.username,
+    display_name: user.display_name,
+    team_name: user.metadata?.team_name || user.display_name
+  }]));
+  const rosterLimit = getActiveRosterLimit(league);
+  const preliminary = rosters.map((roster) => {
+    const players = rankedPlayers.filter((player) => player.roster_id === roster.roster_id);
+    const lineup = buildOptimalDprfLineup(players);
+    const bench = players.filter((player) => !lineup.starter_ids.has(player.player_id));
+    const activeCount = players.filter((player) => player.roster_status === "active").length;
+    const positionRaw = Object.fromEntries(["QB", "RB", "WR", "TE"].map((position) => {
+      const depthCount = { QB: 3, RB: 6, WR: 8, TE: 4 }[position];
+      const pool = players.filter((player) => player.position === position)
+        .sort((a, b) => b.combined_trade_value - a.combined_trade_value)
+        .slice(0, depthCount);
+      return [position, Math.round(pool.reduce((sum, player) => sum + player.combined_trade_value, 0) * 10) / 10];
+    }));
+    const core = [...players].sort((a, b) => b.combined_trade_value - a.combined_trade_value).slice(0, 15);
+    return {
+      roster_id: roster.roster_id,
+      owner_id: roster.owner_id,
+      manager: userMap[roster.owner_id] || null,
+      players,
+      lineup,
+      bench,
+      active_count: activeCount,
+      roster_limit: rosterLimit,
+      roster_pressure: Math.max(0, activeCount - rosterLimit),
+      raw_bench_value: bench.reduce((sum, player) => sum + player.combined_trade_value * (player.roster_status === "active" ? 1 : 0.75), 0),
+      raw_total_ctv: players.reduce((sum, player) => sum + player.combined_trade_value, 0),
+      average_core_age: Math.round(average(core.map((player) => player.age)) * 10) / 10,
+      youth_raw: average(core.map((player) => Math.max(0, 35 - Number(player.age || 35)))),
+      position_raw: positionRaw
+    };
+  });
+  const positionRanks = {};
+  for (const position of ["QB", "RB", "WR", "TE"]) {
+    positionRanks[position] = [...preliminary]
+      .sort((a, b) => b.position_raw[position] - a.position_raw[position])
+      .map((team, index) => [team.roster_id, index + 1]);
+  }
+  const rankMap = Object.fromEntries(Object.entries(positionRanks).map(([position, rows]) => [position, Object.fromEntries(rows)]));
+  const starterValues = preliminary.map((team) => team.lineup.raw_starter_value);
+  const benchValues = preliminary.map((team) => team.raw_bench_value);
+  const totalValues = preliminary.map((team) => team.raw_total_ctv);
+  const youthValues = preliminary.map((team) => team.youth_raw);
+  const withoutPicks = preliminary.map((team) => {
+    const lineupScore = normalizeAcrossTeams(team.lineup.raw_starter_value, starterValues);
+    const benchScore = normalizeAcrossTeams(team.raw_bench_value, benchValues);
+    const rosterValueScore = normalizeAcrossTeams(team.raw_total_ctv, totalValues);
+    const youthScore = normalizeAcrossTeams(team.youth_raw, youthValues);
+    const contenderCore = clampRating(lineupScore * 0.65 + benchScore * 0.25 + Math.min(100, rosterValueScore) * 0.1);
+    return { ...team, lineup_score: lineupScore, bench_score: benchScore, roster_value_score: rosterValueScore, youth_score: youthScore, contender_core: contenderCore };
+  });
+  const originBand = Object.fromEntries(withoutPicks.map((team) => [team.roster_id,
+    team.contender_core >= 67 ? "late" : team.contender_core <= 33 ? "early" : "middle"
+  ]));
+  const pickInventory = buildFuturePickInventory(rosters, tradedPicks);
+  const pickValues = withoutPicks.map((team) => (pickInventory.get(team.roster_id) || []).reduce((sum, pick) => sum + pickBaseValue(pick.round, originBand[pick.original_roster_id]), 0));
+  const finalTeams = withoutPicks.map((team, teamIndex) => {
+    const picks = (pickInventory.get(team.roster_id) || []).map((pick) => ({
+      ...pick,
+      projected_slot: originBand[pick.original_roster_id],
+      value: pickBaseValue(pick.round, originBand[pick.original_roster_id]),
+      fragile_origin: originBand[pick.original_roster_id] === "early"
+    })).sort((a, b) => a.season - b.season || a.round - b.round);
+    const draftCapitalScore = normalizeAcrossTeams(pickValues[teamIndex], pickValues);
+    const contenderScore = clampRating(team.contender_core * 0.9 + draftCapitalScore * 0.1);
+    const dynastyScore = clampRating(team.roster_value_score * 0.45 + team.youth_score * 0.3 + draftCapitalScore * 0.25);
+    const competitiveWindow = contenderScore >= 55
+      ? "CONTENDER"
+      : contenderScore <= 35
+        ? "REBUILDER"
+        : "IN_TRANSITION";
+    const positionRanksForTeam = Object.fromEntries(["QB", "RB", "WR", "TE"].map((position) => [position, rankMap[position][team.roster_id]]));
+    const needs = Object.entries(positionRanksForTeam).filter(([, rank]) => rank >= 8).map(([position]) => position);
+    const surpluses = Object.entries(positionRanksForTeam).filter(([, rank]) => rank <= 3).map(([position]) => position);
+    const buyLowCandidates = team.roster_id === USER_ROSTER_ID
+      ? []
+      : [...team.players]
+        .filter((player) => player.long_term_value - player.short_term_value >= 8 && player.combined_trade_value >= 35)
+        .sort((a, b) => (b.long_term_value - b.short_term_value) - (a.long_term_value - a.short_term_value))
+        .slice(0, 3)
+        .map((player) => ({ player_id: player.player_id, full_name: player.full_name, position: player.position, short_term_value: player.short_term_value, long_term_value: player.long_term_value, combined_trade_value: player.combined_trade_value, rationale: "Long-term value materially exceeds current short-term value." }));
+    const sellHighCandidates = team.roster_id === USER_ROSTER_ID
+      ? [...team.players]
+        .filter((player) => !USER_PROTECTED_PLAYERS.has(player.full_name) && player.short_term_value - player.long_term_value >= 8 && player.combined_trade_value >= 35)
+        .sort((a, b) => (b.short_term_value - b.long_term_value) - (a.short_term_value - a.long_term_value))
+        .slice(0, 5)
+        .map((player) => ({ player_id: player.player_id, full_name: player.full_name, position: player.position, short_term_value: player.short_term_value, long_term_value: player.long_term_value, combined_trade_value: player.combined_trade_value, rationale: "Short-term value materially exceeds long-term value; test the trade market before decline risk increases." }))
+      : [];
+    return {
+      roster_id: team.roster_id,
+      manager: team.manager,
+      is_purdy13good: team.roster_id === USER_ROSTER_ID,
+      competitive_window: competitiveWindow,
+      contender_score: contenderScore,
+      dynasty_score: dynastyScore,
+      lineup_score: team.lineup_score,
+      bench_score: team.bench_score,
+      roster_value_score: team.roster_value_score,
+      youth_score: team.youth_score,
+      draft_capital_score: draftCapitalScore,
+      average_core_age: team.average_core_age,
+      position_ranks: positionRanksForTeam,
+      needs,
+      surpluses,
+      trade_posture: {
+        opponent_buy_low_candidates: buyLowCandidates,
+        purdy13good_sell_high_candidates: sellHighCandidates,
+        protected_players_excluded_from_sell_high: team.roster_id === USER_ROSTER_ID ? [...USER_PROTECTED_PLAYERS] : []
+      },
+      roster_construction: {
+        active_players: team.active_count,
+        active_limit: team.roster_limit,
+        required_reductions: team.roster_pressure,
+        taxi_players: team.players.filter((player) => player.roster_status === "taxi").length,
+        reserve_players: team.players.filter((player) => player.roster_status === "reserve").length
+      },
+      optimal_lineup: {
+        filled_slots: team.lineup.filled_slots,
+        open_slots: team.lineup.open_slots,
+        average_starter_stv: team.lineup.average_starter_stv,
+        starters: team.lineup.starters.map((player) => ({ slot: player.slot, player_id: player.player_id, full_name: player.full_name, position: player.position, short_term_value: player.short_term_value, combined_trade_value: player.combined_trade_value }))
+      },
+      top_assets: [...team.players].sort((a, b) => b.combined_trade_value - a.combined_trade_value).slice(0, 8).map((player) => ({ player_id: player.player_id, full_name: player.full_name, position: player.position, age: player.age, short_term_value: player.short_term_value, long_term_value: player.long_term_value, combined_trade_value: player.combined_trade_value, actionable_label: player.actionable_label })),
+      draft_capital: {
+        seasons: [2027, 2028, 2029],
+        total_picks: picks.length,
+        first_round_picks: picks.filter((pick) => pick.round === 1).length,
+        estimated_value: Math.round(pickValues[teamIndex] * 10) / 10,
+        picks
+      }
+    };
+  }).sort((a, b) => b.contender_score - a.contender_score || b.dynasty_score - a.dynasty_score);
+  return {
+    generated_at: new Date().toISOString(),
+    league_id: LEAGUE_ID,
+    model: ROSTER_VALUE_MODEL_VERSION,
+    methodology: {
+      format: "10-team dynasty; 1 QB, 2 RB, 2 WR, 1 TE, 2 RB/WR, 2 WR/TE, 1 Superflex",
+      scoring_profile: DPRF_SCORING_PROFILE,
+      contender_weights: { optimized_starting_lineup: 0.585, bench_depth: 0.225, total_roster_value: 0.09, draft_capital: 0.1 },
+      dynasty_weights: { total_roster_value: 0.45, youth: 0.3, draft_capital: 0.25 },
+      pick_inventory: "2027-2029, six rounds per season, adjusted by Sleeper traded-pick ownership",
+      pick_slot_projection: "Origin roster strength estimates early, middle, or late; it is not a guaranteed draft slot."
+    },
+    team_count: finalTeams.length,
+    teams: finalTeams
+  };
+}
 function createMcpServer() {
   const server = new McpServer(
     {
       name: "democratic-peoples-republic-of-fantasy",
-      version: "1.6.0"
+      version: "1.7.0"
     },
     {
       instructions:
@@ -1450,6 +1699,22 @@ function createMcpServer() {
       toolResult(await getDepthChartOpportunityEngine({ position, team, scope, limit }))
   );
   
+  server.registerTool(
+    "get_live_roster_values",
+    {
+      title: "Grade every DPRF roster",
+      description:
+        "Grades all 10 DPRF teams using optimized starting-lineup strength, bench depth, total roster value, age, positional scarcity, roster pressure, and 2027-2029 draft capital; classifies each team as contender, rebuilder, or in transition.",
+      inputSchema: {},
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: false
+      }
+    },
+    async () => toolResult(await getLiveRosterValues())
+  );
+
   server.registerTool(
     "get_league_state",
     {
@@ -1695,10 +1960,19 @@ app.get("/", (req, res) => {
       "/api/player-ratings",
       "/api/roster-optimizer",
       "/api/opportunities",
+      "/api/roster-values",
       "/api/waivers",
       "/api/live"
     ]
   });
+});
+
+app.get("/api/roster-values", async (req, res) => {
+  try {
+    res.json(await getLiveRosterValues());
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.get("/api/league", async (req, res) => {

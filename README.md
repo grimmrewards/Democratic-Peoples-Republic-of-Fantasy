@@ -10,6 +10,7 @@ Superflex PPR TE Premium Dynasty Fantasy Football League.
 - `GET /api/player-ratings`
 - `GET /api/roster-optimizer`
 - `GET /api/opportunities?position=RB&scope=purdy_and_available&limit=100`
+- `GET /api/roster-values`
 - `GET /api/live`
 
 The waiver endpoint ranks the complete available QB/RB/WR/TE pool for DPRF,
@@ -49,6 +50,12 @@ every request. Source-backed reports decay from current to recent to stale,
 stale reports stop changing scores, usage samples expire from scoring, and the
 engine emits live injury and stale-intelligence review alerts.
 The same output is exposed through `get_depth_chart_opportunities`.
+
+The live roster-value calculator grades all 10 teams from an optimized DPRF
+starting lineup, bench depth, total roster value, age, positional scarcity,
+roster pressure, and 2027-2029 draft capital. It classifies each team as a
+contender, rebuilder, or in transition; identifies positional needs and
+surpluses; and exposes the results through `get_live_roster_values`.
 
 ## Durable opportunity monitoring
 
