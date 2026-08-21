@@ -12,7 +12,7 @@ const USER_ROSTER_ID = 2;
 const SLEEPER_API = "https://api.sleeper.app/v1";
 const EVALUATION_MODEL_VERSION = "dprf-ratings-v2";
 const ROSTER_OPTIMIZER_VERSION = "dprf-roster-optimizer-v1";
-const OPPORTUNITY_ENGINE_VERSION = "dprf-opportunity-engine-v1.1";
+const OPPORTUNITY_ENGINE_VERSION = "dprf-opportunity-engine-v1.2";
 const USER_PROTECTED_PLAYERS = new Set(["Nico Collins", "David Montgomery"]);
 
 const DPRF_SCORING_PROFILE = {
@@ -1223,7 +1223,7 @@ function createMcpServer() {
   const server = new McpServer(
     {
       name: "democratic-peoples-republic-of-fantasy",
-      version: "1.4.0"
+      version: "1.5.0"
     },
     {
       instructions:

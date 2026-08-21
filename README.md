@@ -40,5 +40,8 @@ source-gated intelligence store in `player-intelligence.js` supplies
 verified injury episodes, weekly usage samples, and role reports. The engine
 aggregates one-, three-, and five-year injury windows and automatically adjusts
 opportunity scores when new valid records are added. Records without a source
-URL and date are ignored.
+URL and date are ignored. Verified RB coverage now includes the initial
+Purdy13Good opportunity set plus Justice Hill, Devin Neal, LeQuint Allen, Nick
+Chubb, DJ Giddens, Emari Demercado, and Ty Johnson. Injury coverage remains
+explicitly partial rather than implying a complete medical history.
 The same output is exposed through `get_depth_chart_opportunities`.
