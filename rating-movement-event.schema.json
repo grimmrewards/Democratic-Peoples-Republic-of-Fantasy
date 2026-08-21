@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DPRF rating movement event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "player_id", "player_name", "evaluation_date", "prior", "current", "reason", "source"],
+  "properties": {
+    "event_id": { "type": "string", "minLength": 1 },
+    "player_id": { "type": "string", "minLength": 1 },
+    "player_name": { "type": "string", "minLength": 1 },
+    "evaluation_date": { "type": "string", "format": "date" },
+    "prior": { "$ref": "#/$defs/ratings" },
+    "current": { "$ref": "#/$defs/ratings" },
+    "reason": { "type": "string", "minLength": 1 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "url": { "type": ["string", "null"], "format": "uri" },
+        "published_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    }
+  },
+  "$defs": {
+    "ratings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["short_term_value", "long_term_value", "combined_trade_value"],
+      "properties": {
+        "short_term_value": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "long_term_value": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "combined_trade_value": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "overall_rank": { "type": ["integer", "null"], "minimum": 1 },
+        "position_rank": { "type": ["integer", "null"], "minimum": 1 },
+        "actionable_label": { "type": ["string", "null"] },
+        "trend": { "enum": ["up", "steady", "down", null] }
+      }
+    }
+  }
+}

@@ -9,6 +9,24 @@ const PORT = process.env.PORT || 3000;
 const LEAGUE_ID = "1313708661209600000";
 const USER_ROSTER_ID = 2;
 const SLEEPER_API = "https://api.sleeper.app/v1";
+const EVALUATION_MODEL_VERSION = "dprf-ratings-v2";
+
+const DPRF_SCORING_PROFILE = {
+  teams: 10,
+  superflex: true,
+  passing_touchdown_points: 5,
+  passing_yards_per_point: 25,
+  completion_points: 0.1,
+  points_per_carry: 0.1,
+  reception_points: { QB: 0, RB: 0.5, WR: 1, TE: 1.5 },
+  return_yard_points: 0,
+  positional_scarcity: {
+    QB: { STV: 10, LTV: 12, reason: "Superflex and five-point passing touchdowns" },
+    RB: { STV: 8, LTV: 4, reason: "Two RB starters, two RB/WR flexes, and points per carry" },
+    WR: { STV: 4, LTV: 6, reason: "Full PPR and up to six practical starting slots" },
+    TE: { STV: 10, LTV: 11, reason: "1.5 PPR TE premium and three TE-eligible slots" }
+  }
+};
 
 app.use(express.json({ limit: "2mb" }));
 
@@ -135,14 +153,46 @@ function getInjuryAdjustment(injuryStatus, horizon) {
     : Math.round(baseAdjustment * 0.5);
 }
 function getPositionAdjustment(position, horizon) {
-  const adjustments = {
-    QB: { STV: 8, LTV: 10 },
-    RB: { STV: 6, LTV: 2 },
-    WR: { STV: 4, LTV: 6 },
-    TE: { STV: 7, LTV: 8 }
-  };
+  return DPRF_SCORING_PROFILE.positional_scarcity[position]?.[horizon] || 0;
+}
 
-  return adjustments[position]?.[horizon] || 0;
+function getRatingTrend(player) {
+  if (player.injury_status) return "down";
+  const order = Number(player.depth_chart_order);
+  if (order <= 2 || Number(player.years_exp) === 0) return "up";
+  return "steady";
+}
+
+function getRatingConfidence(player) {
+  const inputs = [
+    Boolean(player.full_name),
+    Boolean(player.position),
+    Number.isFinite(Number(player.age)),
+    Number.isFinite(Number(player.years_exp)),
+    Boolean(player.team),
+    Number.isFinite(Number(player.depth_chart_order))
+  ];
+  const score = Math.round(inputs.filter(Boolean).length / inputs.length * 100);
+  return {
+    score,
+    level: score >= 85 ? "high" : score >= 60 ? "medium" : "low"
+  };
+}
+
+function getActionableLabel(player, ratings) {
+  const { short_term_value: stv, long_term_value: ltv, combined_trade_value: ctv } = ratings;
+  if (!player.team && ctv < 45) return "Cut Candidate";
+  if (ctv < 35) return "Cut Candidate";
+  if (player.roster_status !== "available" && stv - ltv >= 12 && stv >= 60) {
+    return "Trade Candidate";
+  }
+  if (ctv >= 90) return "Franchise Cornerstone";
+  if (ctv >= 80) return "Core Starter";
+  if (stv >= 70 && stv - ltv >= 8) return "Championship Piece";
+  if (ltv >= 65 && ltv - stv >= 8) return "Upside Stash";
+  if (ctv >= 60) return "Core Starter";
+  if (ltv >= 55) return "Upside Stash";
+  return player.roster_status === "available" ? "Waiver Watch" : "Roster Bubble";
 }
 function calculatePlayerRatings(player) {
   const baseRating = 50;
@@ -183,9 +233,22 @@ function calculatePlayerRatings(player) {
   };
 }
 function addPlayerRatings(player) {
+  const ratings = calculatePlayerRatings(player);
+  const confidence = getRatingConfidence(player);
   return {
     ...player,
-    ...calculatePlayerRatings(player)
+    ...ratings,
+    actionable_label: getActionableLabel(player, ratings),
+    evaluation_date: new Date().toISOString().slice(0, 10),
+    evaluation_model: EVALUATION_MODEL_VERSION,
+    confidence_score: confidence.score,
+    confidence: confidence.level,
+    trend: getRatingTrend(player),
+    league_modifier: {
+      short_term: getPositionAdjustment(player.position, "STV"),
+      long_term: getPositionAdjustment(player.position, "LTV"),
+      reason: DPRF_SCORING_PROFILE.positional_scarcity[player.position]?.reason || null
+    }
   };
 }
 
@@ -197,14 +260,7 @@ const WAIVER_SCARCITY_BONUS = {
 };
 
 function getWaiverTrend(player) {
-  if (player.injury_status) return "down";
-
-  const depthOrder = Number(player.depth_chart_order);
-  if (depthOrder === 1 || depthOrder === 2 || Number(player.years_exp) === 0) {
-    return "up";
-  }
-
-  return "steady";
+  return getRatingTrend(player);
 }
 
 function getWaiverConfidence(player) {
@@ -475,7 +531,7 @@ async function getLeaguePlayerRatings() {
     ])
   );
 
-  return rosters
+  const rosteredPlayers = rosters
     .flatMap((roster) => {
       const reserveIds = new Set(roster.reserve || []);
       const taxiIds = new Set(roster.taxi || []);
@@ -512,10 +568,44 @@ async function getLeaguePlayerRatings() {
         })
         .filter(Boolean);
     })
-    .sort(
-      (a, b) =>
-        b.combined_trade_value - a.combined_trade_value
-    );
+  const rosteredIds = new Set(rosteredPlayers.map((player) => player.player_id));
+  const availablePlayers = Object.entries(players)
+    .filter(([playerId, player]) =>
+      !rosteredIds.has(playerId) &&
+      ["QB", "RB", "WR", "TE"].includes(player.position) &&
+      player.active !== false
+    )
+    .map(([playerId, player]) => addPlayerRatings({
+      player_id: playerId,
+      full_name: player.full_name,
+      position: player.position,
+      team: player.team,
+      years_exp: Number(player.years_exp) || 0,
+      age: player.age,
+      depth_chart_position: player.depth_chart_position,
+      depth_chart_order: player.depth_chart_order,
+      injury_status: player.injury_status,
+      roster_id: null,
+      manager: null,
+      roster_status: "available"
+    }));
+
+  const rankedPlayers = [...rosteredPlayers, ...availablePlayers].sort(
+    (a, b) =>
+      b.combined_trade_value - a.combined_trade_value ||
+      b.long_term_value - a.long_term_value ||
+      a.full_name.localeCompare(b.full_name)
+  );
+  const positionRanks = {};
+
+  return rankedPlayers.map((player, index) => {
+    positionRanks[player.position] = (positionRanks[player.position] || 0) + 1;
+    return {
+      ...player,
+      overall_rank: index + 1,
+      position_rank: positionRanks[player.position]
+    };
+  });
 }
 function createMcpServer() {
   const server = new McpServer(
@@ -533,7 +623,7 @@ function createMcpServer() {
     {
       title: "Get league-wide player ratings",
       description:
-        "Returns every rostered QB, RB, WR, and TE with short-term value, long-term value, combined trade value, value tier, manager, and roster status.",
+        "Returns every rostered and available QB, RB, WR, and TE with DPRF-normalized STV, LTV, CTV, overall and position rank, actionable label, evaluation date, confidence, trend, manager, and roster status.",
       inputSchema: {},
       annotations: {
         readOnlyHint: true,
@@ -544,6 +634,12 @@ function createMcpServer() {
     async () =>
       toolResult({
         refreshed_at: new Date().toISOString(),
+        methodology: {
+          model: EVALUATION_MODEL_VERSION,
+          horizon_weights: { short_term: 0.6, long_term: 0.4 },
+          scoring_profile: DPRF_SCORING_PROFILE,
+          movement_log_policy: "Append only when a rating changes; never log unchanged ratings."
+        },
         players: await getLeaguePlayerRatings()
       })
   );
@@ -842,6 +938,7 @@ app.get("/", (req, res) => {
       "/api/draft-picks",
       "/api/traded-picks",
       "/api/transactions/:week",
+      "/api/player-ratings",
       "/api/waivers",
       "/api/live"
     ]
@@ -972,6 +1069,30 @@ app.get("/api/transactions/:week", async (req, res) => {
       refreshed_at: new Date().toISOString(),
       week,
       transactions
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/player-ratings", async (req, res) => {
+  try {
+    const players = await getLeaguePlayerRatings();
+    res.json({
+      refreshed_at: new Date().toISOString(),
+      league_id: LEAGUE_ID,
+      methodology: {
+        model: EVALUATION_MODEL_VERSION,
+        horizon_weights: { short_term: 0.6, long_term: 0.4 },
+        scoring_profile: DPRF_SCORING_PROFILE,
+        movement_log_policy: "Append only when a rating changes; never log unchanged ratings."
+      },
+      counts: {
+        total: players.length,
+        rostered: players.filter((player) => player.roster_status !== "available").length,
+        available: players.filter((player) => player.roster_status === "available").length
+      },
+      players
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

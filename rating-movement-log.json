@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "policy": "Append one event only when STV, LTV, or CTV changes. Never log inactivity or unchanged ratings.",
+  "required_fields": [
+    "event_id",
+    "player_id",
+    "player_name",
+    "evaluation_date",
+    "prior",
+    "current",
+    "reason",
+    "source"
+  ],
+  "events": []
+}
