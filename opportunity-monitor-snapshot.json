@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-08-26T03:38:36.379Z",
+  "observed_at": "2026-08-26T08:24:41.303Z",
   "source_endpoint": "https://democratic-peoples-republic-of-fant.vercel.app/api/opportunities?scope=purdy_and_available&limit=500",
   "model": "dprf-opportunity-engine-v1.3",
   "players": {
@@ -8914,6 +8914,14 @@
       "player_name": "Jeremiah Webb",
       "recommendation": "Reassess availability and the next healthy player in the replacement chain."
     },
+    "live_player_injury_designation:13392": {
+      "key": "live_player_injury_designation:13392",
+      "alert_type": "live_player_injury_designation",
+      "priority": "medium",
+      "player_id": "13392",
+      "player_name": "Jeff Caldwell",
+      "recommendation": "Reassess availability and the next healthy player in the replacement chain."
+    },
     "live_player_injury_designation:12374": {
       "key": "live_player_injury_designation:12374",
       "alert_type": "live_player_injury_designation",
@@ -9000,6 +9008,22 @@
       "priority": "medium",
       "player_id": "13967",
       "player_name": "Jimmy Kibble",
+      "recommendation": "Reassess availability and the next healthy player in the replacement chain."
+    },
+    "live_player_injury_designation:12479": {
+      "key": "live_player_injury_designation:12479",
+      "alert_type": "live_player_injury_designation",
+      "priority": "medium",
+      "player_id": "12479",
+      "player_name": "Ja'Quinden Jackson",
+      "recommendation": "Reassess availability and the next healthy player in the replacement chain."
+    },
+    "live_player_injury_designation:11589": {
+      "key": "live_player_injury_designation:11589",
+      "alert_type": "live_player_injury_designation",
+      "priority": "medium",
+      "player_id": "11589",
+      "player_name": "Trey Benson",
       "recommendation": "Reassess availability and the next healthy player in the replacement chain."
     },
     "live_player_injury_designation:9489": {
