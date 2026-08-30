@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-08-30T00:20:03.204Z",
+  "observed_at": "2026-08-30T06:20:06.784Z",
   "source_endpoint": "https://democratic-peoples-republic-of-fant.vercel.app/api/opportunities?scope=purdy_and_available&limit=500",
   "model": "dprf-opportunity-engine-v1.3",
   "players": {
@@ -35,7 +35,7 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2648,
+      "overall_rank": 2649,
       "position_rank": 329
     },
     "827": {
@@ -86,8 +86,8 @@
       "estimated_role": "Developmental depth receiver",
       "opportunity_score": 48,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 2807,
-      "position_rank": 1229
+      "overall_rank": 2809,
+      "position_rank": 1230
     },
     "1737": {
       "player_id": "1737",
@@ -103,7 +103,7 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2647,
+      "overall_rank": 2648,
       "position_rank": 328
     },
     "2078": {
@@ -120,8 +120,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3025,
-      "position_rank": 1354
+      "overall_rank": 3027,
+      "position_rank": 1355
     },
     "2216": {
       "player_id": "2216",
@@ -137,8 +137,8 @@
       "estimated_role": "Starting receiver in listed alignment",
       "opportunity_score": 84,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 2775,
-      "position_rank": 1215
+      "overall_rank": 2777,
+      "position_rank": 1216
     },
     "2334": {
       "player_id": "2334",
@@ -171,8 +171,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3027,
-      "position_rank": 671
+      "overall_rank": 3029,
+      "position_rank": 672
     },
     "3048": {
       "player_id": "3048",
@@ -188,7 +188,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 2797,
+      "overall_rank": 2799,
       "position_rank": 644
     },
     "3155": {
@@ -222,7 +222,7 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2491,
+      "overall_rank": 2493,
       "position_rank": 316
     },
     "3200": {
@@ -256,7 +256,7 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2443,
+      "overall_rank": 2446,
       "position_rank": 566
     },
     "3258": {
@@ -273,25 +273,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2682,
+      "overall_rank": 2683,
       "position_rank": 597
-    },
-    "3269": {
-      "player_id": "3269",
-      "full_name": "Chris Moore",
-      "position": "WR",
-      "team": "BAL",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "SWR",
-      "depth_chart_order": 6,
-      "injury_status": null,
-      "change_detection_key": "BAL:SWR:6:healthy",
-      "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 14,
-      "actionable_label": "Cut Candidate",
-      "overall_rank": 3033,
-      "position_rank": 1356
     },
     "3271": {
       "player_id": "3271",
@@ -307,7 +290,7 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2690,
+      "overall_rank": 2691,
       "position_rank": 599
     },
     "3286": {
@@ -341,8 +324,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2460,
-      "position_rank": 485
+      "overall_rank": 2463,
+      "position_rank": 487
     },
     "3357": {
       "player_id": "3357",
@@ -358,7 +341,7 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2490,
+      "overall_rank": 2492,
       "position_rank": 315
     },
     "3634": {
@@ -375,8 +358,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3022,
-      "position_rank": 1351
+      "overall_rank": 3024,
+      "position_rank": 1352
     },
     "3868": {
       "player_id": "3868",
@@ -409,7 +392,7 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2469,
+      "overall_rank": 2472,
       "position_rank": 314
     },
     "4054": {
@@ -443,7 +426,7 @@
       "estimated_role": "Starting tight end",
       "opportunity_score": 87,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2303,
+      "overall_rank": 2306,
       "position_rank": 547
     },
     "4080": {
@@ -477,8 +460,8 @@
       "estimated_role": "Primary handcuff or committee running back",
       "opportunity_score": 74,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2656,
-      "position_rank": 552
+      "overall_rank": 2657,
+      "position_rank": 553
     },
     "4177": {
       "player_id": "4177",
@@ -494,8 +477,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3023,
-      "position_rank": 1352
+      "overall_rank": 3025,
+      "position_rank": 1353
     },
     "4179": {
       "player_id": "4179",
@@ -511,8 +494,8 @@
       "estimated_role": "Direct quarterback replacement",
       "opportunity_score": 71,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1760,
-      "position_rank": 275
+      "overall_rank": 1762,
+      "position_rank": 274
     },
     "4189": {
       "player_id": "4189",
@@ -528,7 +511,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 2798,
+      "overall_rank": 2800,
       "position_rank": 645
     },
     "4219": {
@@ -545,8 +528,8 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 54,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3012,
-      "position_rank": 667
+      "overall_rank": 3015,
+      "position_rank": 668
     },
     "4263": {
       "player_id": "4263",
@@ -562,8 +545,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2342,
-      "position_rank": 434
+      "overall_rank": 2346,
+      "position_rank": 436
     },
     "4274": {
       "player_id": "4274",
@@ -596,7 +579,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2645,
+      "overall_rank": 2646,
       "position_rank": 595
     },
     "4349": {
@@ -613,8 +596,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2526,
-      "position_rank": 509
+      "overall_rank": 2528,
+      "position_rank": 511
     },
     "4351": {
       "player_id": "4351",
@@ -630,8 +613,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3026,
-      "position_rank": 1355
+      "overall_rank": 3028,
+      "position_rank": 1356
     },
     "4443": {
       "player_id": "4443",
@@ -647,7 +630,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 2799,
+      "overall_rank": 2801,
       "position_rank": 646
     },
     "4454": {
@@ -664,8 +647,8 @@
       "estimated_role": "Developmental depth receiver",
       "opportunity_score": 48,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 2808,
-      "position_rank": 1230
+      "overall_rank": 2810,
+      "position_rank": 1231
     },
     "4464": {
       "player_id": "4464",
@@ -675,14 +658,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "QB",
-      "depth_chart_order": 2,
+      "depth_chart_order": 3,
       "injury_status": null,
-      "change_detection_key": "JAX:QB:2:healthy",
-      "estimated_role": "Direct quarterback replacement",
-      "opportunity_score": 71,
+      "change_detection_key": "JAX:QB:3:healthy",
+      "estimated_role": "Developmental or emergency quarterback",
+      "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1762,
-      "position_rank": 277
+      "overall_rank": 2050,
+      "position_rank": 285
     },
     "4490": {
       "player_id": "4490",
@@ -698,8 +681,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 17,
       "actionable_label": "Upside Stash",
-      "overall_rank": 532,
-      "position_rank": 261
+      "overall_rank": 533,
+      "position_rank": 262
     },
     "4574": {
       "player_id": "4574",
@@ -715,7 +698,7 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2383,
+      "overall_rank": 2387,
       "position_rank": 296
     },
     "4602": {
@@ -732,7 +715,7 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2684,
+      "overall_rank": 2685,
       "position_rank": 598
     },
     "4683": {
@@ -749,7 +732,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
-      "overall_rank": 999,
+      "overall_rank": 1000,
       "position_rank": 253
     },
     "4718": {
@@ -766,8 +749,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3030,
-      "position_rank": 674
+      "overall_rank": 3032,
+      "position_rank": 675
     },
     "4744": {
       "player_id": "4744",
@@ -800,8 +783,25 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 82,
-      "position_rank": 62
+      "overall_rank": 83,
+      "position_rank": 63
+    },
+    "4926": {
+      "player_id": "4926",
+      "full_name": "Nick Schuessler",
+      "position": "QB",
+      "team": "PIT",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": null,
+      "depth_chart_order": null,
+      "injury_status": null,
+      "change_detection_key": "PIT:QB:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 13,
+      "actionable_label": "Core Starter",
+      "overall_rank": 624,
+      "position_rank": 236
     },
     "4930": {
       "player_id": "4930",
@@ -834,8 +834,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 42,
-      "position_rank": 31
+      "overall_rank": 43,
+      "position_rank": 32
     },
     "4972": {
       "player_id": "4972",
@@ -851,8 +851,8 @@
       "estimated_role": "Direct quarterback replacement",
       "opportunity_score": 71,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1761,
-      "position_rank": 276
+      "overall_rank": 1763,
+      "position_rank": 275
     },
     "4984": {
       "player_id": "4984",
@@ -868,25 +868,8 @@
       "estimated_role": "Starting quarterback",
       "opportunity_score": 87,
       "actionable_label": "Core Starter",
-      "overall_rank": 736,
+      "overall_rank": 737,
       "position_rank": 245
-    },
-    "4992": {
-      "player_id": "4992",
-      "full_name": "Dante Pettis",
-      "position": "WR",
-      "team": "BUF",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "SWR",
-      "depth_chart_order": 8,
-      "injury_status": null,
-      "change_detection_key": "BUF:SWR:8:healthy",
-      "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 14,
-      "actionable_label": "Cut Candidate",
-      "overall_rank": 3014,
-      "position_rank": 1346
     },
     "4993": {
       "player_id": "4993",
@@ -902,8 +885,8 @@
       "estimated_role": "Starting tight end",
       "opportunity_score": 87,
       "actionable_label": "Roster Bubble",
-      "overall_rank": 2155,
-      "position_rank": 522
+      "overall_rank": 2159,
+      "position_rank": 523
     },
     "4995": {
       "player_id": "4995",
@@ -919,7 +902,7 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2388,
+      "overall_rank": 2391,
       "position_rank": 552
     },
     "5004": {
@@ -936,8 +919,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2056,
-      "position_rank": 344
+      "overall_rank": 2061,
+      "position_rank": 345
     },
     "5008": {
       "player_id": "5008",
@@ -953,7 +936,7 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2444,
+      "overall_rank": 2447,
       "position_rank": 567
     },
     "5086": {
@@ -970,8 +953,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3024,
-      "position_rank": 1353
+      "overall_rank": 3026,
+      "position_rank": 1354
     },
     "5096": {
       "player_id": "5096",
@@ -998,14 +981,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "SWR",
-      "depth_chart_order": 8,
+      "depth_chart_order": 7,
       "injury_status": null,
-      "change_detection_key": "NYG:SWR:8:healthy",
+      "change_detection_key": "NYG:SWR:7:healthy",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3013,
-      "position_rank": 1345
+      "overall_rank": 3016,
+      "position_rank": 1347
     },
     "5127": {
       "player_id": "5127",
@@ -1021,8 +1004,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1756,
-      "position_rank": 274
+      "overall_rank": 1758,
+      "position_rank": 273
     },
     "5133": {
       "player_id": "5133",
@@ -1055,8 +1038,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3017,
-      "position_rank": 1349
+      "overall_rank": 3019,
+      "position_rank": 1350
     },
     "5374": {
       "player_id": "5374",
@@ -1072,8 +1055,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3016,
-      "position_rank": 1348
+      "overall_rank": 3018,
+      "position_rank": 1349
     },
     "5409": {
       "player_id": "5409",
@@ -1089,7 +1072,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2646,
+      "overall_rank": 2647,
       "position_rank": 596
     },
     "5773": {
@@ -1123,7 +1106,7 @@
       "estimated_role": "Direct quarterback replacement",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 783,
+      "overall_rank": 784,
       "position_rank": 248
     },
     "5857": {
@@ -1140,7 +1123,7 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1486,
+      "overall_rank": 1490,
       "position_rank": 447
     },
     "5892": {
@@ -1157,8 +1140,8 @@
       "estimated_role": "Lead or primary committee running back",
       "opportunity_score": 93,
       "actionable_label": "Roster Bubble",
-      "overall_rank": 2529,
-      "position_rank": 512
+      "overall_rank": 2531,
+      "position_rank": 514
     },
     "5906": {
       "player_id": "5906",
@@ -1174,8 +1157,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1921,
-      "position_rank": 495
+      "overall_rank": 1924,
+      "position_rank": 496
     },
     "5938": {
       "player_id": "5938",
@@ -1208,8 +1191,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 269,
-      "position_rank": 97
+      "overall_rank": 272,
+      "position_rank": 98
     },
     "5970": {
       "player_id": "5970",
@@ -1225,8 +1208,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2470,
-      "position_rank": 1097
+      "overall_rank": 2473,
+      "position_rank": 1098
     },
     "5973": {
       "player_id": "5973",
@@ -1242,8 +1225,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1922,
-      "position_rank": 496
+      "overall_rank": 1925,
+      "position_rank": 497
     },
     "5985": {
       "player_id": "5985",
@@ -1259,7 +1242,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2295,
+      "overall_rank": 2298,
       "position_rank": 543
     },
     "5995": {
@@ -1293,7 +1276,7 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2387,
+      "overall_rank": 2390,
       "position_rank": 551
     },
     "6012": {
@@ -1310,25 +1293,25 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3019,
-      "position_rank": 668
+      "overall_rank": 3021,
+      "position_rank": 669
     },
-    "6037": {
-      "player_id": "6037",
-      "full_name": "Brett Rypien",
-      "position": "QB",
-      "team": "HOU",
+    "6016": {
+      "player_id": "6016",
+      "full_name": "Dax Raymond",
+      "position": "TE",
+      "team": "PIT",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "QB",
-      "depth_chart_order": 3,
+      "depth_chart_position": null,
+      "depth_chart_order": null,
       "injury_status": null,
-      "change_detection_key": "HOU:QB:3:healthy",
-      "estimated_role": "Developmental or emergency quarterback",
-      "opportunity_score": 51,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 1754,
-      "position_rank": 272
+      "change_detection_key": "PIT:TE:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 13,
+      "actionable_label": "Core Starter",
+      "overall_rank": 693,
+      "position_rank": 319
     },
     "6039": {
       "player_id": "6039",
@@ -1344,8 +1327,8 @@
       "estimated_role": "Primary handcuff or committee running back",
       "opportunity_score": 73,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2638,
-      "position_rank": 543
+      "overall_rank": 2639,
+      "position_rank": 544
     },
     "6111": {
       "player_id": "6111",
@@ -1361,7 +1344,7 @@
       "estimated_role": "Direct quarterback replacement",
       "opportunity_score": 71,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1484,
+      "overall_rank": 1488,
       "position_rank": 269
     },
     "6130": {
@@ -1378,8 +1361,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 2800,
-      "position_rank": 576
+      "overall_rank": 2802,
+      "position_rank": 577
     },
     "6136": {
       "player_id": "6136",
@@ -1395,7 +1378,7 @@
       "estimated_role": "Direct quarterback replacement",
       "opportunity_score": 71,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1485,
+      "overall_rank": 1489,
       "position_rank": 270
     },
     "6144": {
@@ -1412,8 +1395,8 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 54,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2654,
-      "position_rank": 550
+      "overall_rank": 2655,
+      "position_rank": 551
     },
     "6147": {
       "player_id": "6147",
@@ -1429,7 +1412,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 187,
+      "overall_rank": 188,
       "position_rank": 124
     },
     "6154": {
@@ -1446,8 +1429,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3015,
-      "position_rank": 1347
+      "overall_rank": 3017,
+      "position_rank": 1348
     },
     "6167": {
       "player_id": "6167",
@@ -1463,8 +1446,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2066,
-      "position_rank": 354
+      "overall_rank": 2071,
+      "position_rank": 355
     },
     "6175": {
       "player_id": "6175",
@@ -1480,8 +1463,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1680,
-      "position_rank": 221
+      "overall_rank": 1684,
+      "position_rank": 222
     },
     "6185": {
       "player_id": "6185",
@@ -1497,7 +1480,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2127,
+      "overall_rank": 2130,
       "position_rank": 286
     },
     "6271": {
@@ -1514,7 +1497,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2660,
+      "overall_rank": 2661,
       "position_rank": 1183
     },
     "6290": {
@@ -1531,8 +1514,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 2793,
-      "position_rank": 1221
+      "overall_rank": 2795,
+      "position_rank": 1222
     },
     "6323": {
       "player_id": "6323",
@@ -1548,8 +1531,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3028,
-      "position_rank": 672
+      "overall_rank": 3030,
+      "position_rank": 673
     },
     "6427": {
       "player_id": "6427",
@@ -1565,7 +1548,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2657,
+      "overall_rank": 2658,
       "position_rank": 1180
     },
     "6451": {
@@ -1582,8 +1565,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2149,
-      "position_rank": 519
+      "overall_rank": 2153,
+      "position_rank": 520
     },
     "6453": {
       "player_id": "6453",
@@ -1599,8 +1582,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 2792,
-      "position_rank": 1220
+      "overall_rank": 2794,
+      "position_rank": 1221
     },
     "6588": {
       "player_id": "6588",
@@ -1616,8 +1599,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 2804,
-      "position_rank": 1226
+      "overall_rank": 2806,
+      "position_rank": 1227
     },
     "6598": {
       "player_id": "6598",
@@ -1633,8 +1616,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3018,
-      "position_rank": 1350
+      "overall_rank": 3020,
+      "position_rank": 1351
     },
     "6659": {
       "player_id": "6659",
@@ -1650,8 +1633,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3029,
-      "position_rank": 673
+      "overall_rank": 3031,
+      "position_rank": 674
     },
     "6694": {
       "player_id": "6694",
@@ -1684,8 +1667,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2385,
-      "position_rank": 1075
+      "overall_rank": 2388,
+      "position_rank": 1076
     },
     "6803": {
       "player_id": "6803",
@@ -1701,8 +1684,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Roster Bubble",
-      "overall_rank": 2395,
-      "position_rank": 1077
+      "overall_rank": 2397,
+      "position_rank": 1078
     },
     "6843": {
       "player_id": "6843",
@@ -1718,8 +1701,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1918,
-      "position_rank": 492
+      "overall_rank": 1921,
+      "position_rank": 493
     },
     "6847": {
       "player_id": "6847",
@@ -1735,25 +1718,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2475,
+      "overall_rank": 2477,
       "position_rank": 1099
-    },
-    "6849": {
-      "player_id": "6849",
-      "full_name": "Denzel Mims",
-      "position": "WR",
-      "team": "DAL",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "SWR",
-      "depth_chart_order": 8,
-      "injury_status": null,
-      "change_detection_key": "DAL:SWR:8:healthy",
-      "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 14,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 2474,
-      "position_rank": 1098
     },
     "6853": {
       "player_id": "6853",
@@ -1769,8 +1735,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 2810,
-      "position_rank": 1232
+      "overall_rank": 2812,
+      "position_rank": 1233
     },
     "6865": {
       "player_id": "6865",
@@ -1786,8 +1752,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Championship Piece",
-      "overall_rank": 522,
-      "position_rank": 254
+      "overall_rank": 524,
+      "position_rank": 256
     },
     "6869": {
       "player_id": "6869",
@@ -1803,7 +1769,7 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1609,
+      "overall_rank": 1614,
       "position_rank": 463
     },
     "6918": {
@@ -1823,23 +1789,6 @@
       "overall_rank": 2577,
       "position_rank": 523
     },
-    "6920": {
-      "player_id": "6920",
-      "full_name": "Isaiah Hodgins",
-      "position": "WR",
-      "team": "NYG",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "SWR",
-      "depth_chart_order": 6,
-      "injury_status": null,
-      "change_detection_key": "NYG:SWR:6:healthy",
-      "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 14,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 2384,
-      "position_rank": 1074
-    },
     "6927": {
       "player_id": "6927",
       "full_name": "Quez Watkins",
@@ -1854,7 +1803,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2478,
+      "overall_rank": 2480,
       "position_rank": 1102
     },
     "6931": {
@@ -1871,8 +1820,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2692,
-      "position_rank": 554
+      "overall_rank": 2693,
+      "position_rank": 555
     },
     "6960": {
       "player_id": "6960",
@@ -1888,7 +1837,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2479,
+      "overall_rank": 2481,
       "position_rank": 1103
     },
     "6992": {
@@ -1905,7 +1854,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Core Starter",
-      "overall_rank": 958,
+      "overall_rank": 959,
       "position_rank": 63
     },
     "6996": {
@@ -1915,15 +1864,15 @@
       "team": "NE",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "RB",
-      "depth_chart_order": 7,
+      "depth_chart_position": null,
+      "depth_chart_order": null,
       "injury_status": null,
-      "change_detection_key": "NE:RB:7:healthy",
+      "change_detection_key": "NE:RB:NA:healthy",
       "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 20,
+      "opportunity_score": 16,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3031,
-      "position_rank": 675
+      "overall_rank": 2789,
+      "position_rank": 572
     },
     "7039": {
       "player_id": "7039",
@@ -1939,8 +1888,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2382,
-      "position_rank": 1073
+      "overall_rank": 2386,
+      "position_rank": 1075
     },
     "7048": {
       "player_id": "7048",
@@ -1956,25 +1905,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Core Starter",
-      "overall_rank": 1215,
+      "overall_rank": 1217,
       "position_rank": 101
-    },
-    "7050": {
-      "player_id": "7050",
-      "full_name": "Josiah Deguara",
-      "position": "TE",
-      "team": "NYG",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "TE",
-      "depth_chart_order": 5,
-      "injury_status": null,
-      "change_detection_key": "NYG:TE:5:healthy",
-      "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 33,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 2218,
-      "position_rank": 536
     },
     "7066": {
       "player_id": "7066",
@@ -1990,7 +1922,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2661,
+      "overall_rank": 2662,
       "position_rank": 1184
     },
     "7075": {
@@ -2007,7 +1939,7 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1487,
+      "overall_rank": 1491,
       "position_rank": 448
     },
     "7083": {
@@ -2024,8 +1956,8 @@
       "estimated_role": "Direct quarterback replacement",
       "opportunity_score": 71,
       "actionable_label": "Championship Piece",
-      "overall_rank": 395,
-      "position_rank": 186
+      "overall_rank": 400,
+      "position_rank": 189
     },
     "7087": {
       "player_id": "7087",
@@ -2034,15 +1966,15 @@
       "team": "BAL",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "RB",
-      "depth_chart_order": 5,
+      "depth_chart_position": null,
+      "depth_chart_order": null,
       "injury_status": null,
-      "change_detection_key": "BAL:RB:5:healthy",
+      "change_detection_key": "BAL:RB:NA:healthy",
       "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 36,
-      "actionable_label": "Cut Candidate",
-      "overall_rank": 2776,
-      "position_rank": 563
+      "opportunity_score": 16,
+      "actionable_label": "Waiver Watch",
+      "overall_rank": 2621,
+      "position_rank": 534
     },
     "7093": {
       "player_id": "7093",
@@ -2058,7 +1990,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Core Starter",
-      "overall_rank": 1211,
+      "overall_rank": 1213,
       "position_rank": 97
     },
     "7103": {
@@ -2075,7 +2007,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Core Starter",
-      "overall_rank": 1267,
+      "overall_rank": 1269,
       "position_rank": 153
     },
     "7106": {
@@ -2092,7 +2024,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2220,
+      "overall_rank": 2223,
       "position_rank": 537
     },
     "7149": {
@@ -2109,8 +2041,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 370,
-      "position_rank": 159
+      "overall_rank": 375,
+      "position_rank": 161
     },
     "7204": {
       "player_id": "7204",
@@ -2126,7 +2058,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3032,
+      "overall_rank": 3033,
       "position_rank": 676
     },
     "7262": {
@@ -2143,8 +2075,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 68,
-      "position_rank": 48
+      "overall_rank": 69,
+      "position_rank": 49
     },
     "7436": {
       "player_id": "7436",
@@ -2160,7 +2092,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2477,
+      "overall_rank": 2479,
       "position_rank": 1101
     },
     "7496": {
@@ -2194,8 +2126,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2291,
-      "position_rank": 1045
+      "overall_rank": 2294,
+      "position_rank": 1047
     },
     "7529": {
       "player_id": "7529",
@@ -2211,8 +2143,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2632,
-      "position_rank": 541
+      "overall_rank": 2633,
+      "position_rank": 542
     },
     "7531": {
       "player_id": "7531",
@@ -2228,8 +2160,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 17,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1948,
-      "position_rank": 499
+      "overall_rank": 1951,
+      "position_rank": 500
     },
     "7535": {
       "player_id": "7535",
@@ -2245,8 +2177,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 976,
-      "position_rank": 372
+      "overall_rank": 977,
+      "position_rank": 373
     },
     "7536": {
       "player_id": "7536",
@@ -2262,8 +2194,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 1021,
-      "position_rank": 384
+      "overall_rank": 1022,
+      "position_rank": 385
     },
     "7537": {
       "player_id": "7537",
@@ -2279,8 +2211,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2246,
-      "position_rank": 409
+      "overall_rank": 2248,
+      "position_rank": 410
     },
     "7538": {
       "player_id": "7538",
@@ -2296,8 +2228,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 273,
-      "position_rank": 153
+      "overall_rank": 276,
+      "position_rank": 155
     },
     "7554": {
       "player_id": "7554",
@@ -2313,8 +2245,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 1025,
-      "position_rank": 386
+      "overall_rank": 1026,
+      "position_rank": 387
     },
     "7559": {
       "player_id": "7559",
@@ -2330,8 +2262,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2373,
-      "position_rank": 1065
+      "overall_rank": 2377,
+      "position_rank": 1067
     },
     "7562": {
       "player_id": "7562",
@@ -2347,8 +2279,8 @@
       "estimated_role": "Developmental depth receiver",
       "opportunity_score": 48,
       "actionable_label": "Core Starter",
-      "overall_rank": 1281,
-      "position_rank": 450
+      "overall_rank": 1283,
+      "position_rank": 452
     },
     "7565": {
       "player_id": "7565",
@@ -2364,7 +2296,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2117,
+      "overall_rank": 2119,
       "position_rank": 933
     },
     "7568": {
@@ -2381,7 +2313,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 1205,
+      "overall_rank": 1207,
       "position_rank": 413
     },
     "7569": {
@@ -2398,7 +2330,7 @@
       "estimated_role": "Starting receiver in listed alignment",
       "opportunity_score": 84,
       "actionable_label": "Core Starter",
-      "overall_rank": 787,
+      "overall_rank": 788,
       "position_rank": 140
     },
     "7583": {
@@ -2415,8 +2347,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 272,
-      "position_rank": 152
+      "overall_rank": 275,
+      "position_rank": 154
     },
     "7587": {
       "player_id": "7587",
@@ -2432,8 +2364,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1807,
-      "position_rank": 740
+      "overall_rank": 1808,
+      "position_rank": 742
     },
     "7595": {
       "player_id": "7595",
@@ -2449,8 +2381,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2290,
-      "position_rank": 1044
+      "overall_rank": 2293,
+      "position_rank": 1046
     },
     "7599": {
       "player_id": "7599",
@@ -2466,8 +2398,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2391,
-      "position_rank": 467
+      "overall_rank": 2393,
+      "position_rank": 468
     },
     "7602": {
       "player_id": "7602",
@@ -2483,8 +2415,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 980,
-      "position_rank": 374
+      "overall_rank": 981,
+      "position_rank": 375
     },
     "7605": {
       "player_id": "7605",
@@ -2500,8 +2432,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 386,
-      "position_rank": 184
+      "overall_rank": 391,
+      "position_rank": 187
     },
     "7607": {
       "player_id": "7607",
@@ -2517,8 +2449,8 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 54,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2309,
-      "position_rank": 416
+      "overall_rank": 2313,
+      "position_rank": 418
     },
     "7608": {
       "player_id": "7608",
@@ -2534,7 +2466,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 2779,
+      "overall_rank": 2780,
       "position_rank": 565
     },
     "7694": {
@@ -2551,8 +2483,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 275,
-      "position_rank": 101
+      "overall_rank": 278,
+      "position_rank": 102
     },
     "7716": {
       "player_id": "7716",
@@ -2568,8 +2500,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 978,
-      "position_rank": 373
+      "overall_rank": 979,
+      "position_rank": 374
     },
     "7720": {
       "player_id": "7720",
@@ -2585,8 +2517,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2633,
-      "position_rank": 542
+      "overall_rank": 2634,
+      "position_rank": 543
     },
     "7746": {
       "player_id": "7746",
@@ -2602,8 +2534,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2375,
-      "position_rank": 1066
+      "overall_rank": 2379,
+      "position_rank": 1068
     },
     "7757": {
       "player_id": "7757",
@@ -2619,7 +2551,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2487,
+      "overall_rank": 2489,
       "position_rank": 1107
     },
     "7812": {
@@ -2636,8 +2568,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2378,
-      "position_rank": 1069
+      "overall_rank": 2382,
+      "position_rank": 1071
     },
     "7828": {
       "player_id": "7828",
@@ -2653,8 +2585,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 394,
-      "position_rank": 180
+      "overall_rank": 399,
+      "position_rank": 182
     },
     "7842": {
       "player_id": "7842",
@@ -2670,7 +2602,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1644,
+      "overall_rank": 1647,
       "position_rank": 470
     },
     "7891": {
@@ -2687,8 +2619,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 392,
-      "position_rank": 178
+      "overall_rank": 397,
+      "position_rank": 180
     },
     "8002": {
       "player_id": "8002",
@@ -2704,7 +2636,7 @@
       "estimated_role": "Direct quarterback replacement",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 203,
+      "overall_rank": 204,
       "position_rank": 139
     },
     "8013": {
@@ -2721,25 +2653,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2380,
-      "position_rank": 1071
-    },
-    "8041": {
-      "player_id": "8041",
-      "full_name": "Shane Zylstra",
-      "position": "TE",
-      "team": "BUF",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "TE",
-      "depth_chart_order": 5,
-      "injury_status": null,
-      "change_detection_key": "BUF:TE:5:healthy",
-      "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 33,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 1953,
-      "position_rank": 501
+      "overall_rank": 2384,
+      "position_rank": 1073
     },
     "8076": {
       "player_id": "8076",
@@ -2755,8 +2670,25 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2377,
-      "position_rank": 1068
+      "overall_rank": 2381,
+      "position_rank": 1070
+    },
+    "8088": {
+      "player_id": "8088",
+      "full_name": "Kalif Jackson",
+      "position": "TE",
+      "team": "MIA",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": null,
+      "depth_chart_order": null,
+      "injury_status": null,
+      "change_detection_key": "MIA:TE:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 13,
+      "actionable_label": "Core Starter",
+      "overall_rank": 662,
+      "position_rank": 295
     },
     "8110": {
       "player_id": "8110",
@@ -2789,8 +2721,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2111,
-      "position_rank": 927
+      "overall_rank": 2115,
+      "position_rank": 929
     },
     "8116": {
       "player_id": "8116",
@@ -2806,8 +2738,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2472,
-      "position_rank": 490
+      "overall_rank": 2475,
+      "position_rank": 492
     },
     "8119": {
       "player_id": "8119",
@@ -2823,7 +2755,7 @@
       "estimated_role": "Direct alignment replacement or rotational receiver",
       "opportunity_score": 68,
       "actionable_label": "Core Starter",
-      "overall_rank": 778,
+      "overall_rank": 779,
       "position_rank": 132
     },
     "8122": {
@@ -2840,8 +2772,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2134,
-      "position_rank": 392
+      "overall_rank": 2137,
+      "position_rank": 394
     },
     "8123": {
       "player_id": "8123",
@@ -2850,15 +2782,15 @@
       "team": "NE",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "RB",
-      "depth_chart_order": 7,
+      "depth_chart_position": null,
+      "depth_chart_order": null,
       "injury_status": null,
-      "change_detection_key": "NE:RB:7:healthy",
+      "change_detection_key": "NE:RB:NA:healthy",
       "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 20,
+      "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2390,
-      "position_rank": 466
+      "overall_rank": 2060,
+      "position_rank": 344
     },
     "8127": {
       "player_id": "8127",
@@ -2874,7 +2806,7 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 548,
+      "overall_rank": 547,
       "position_rank": 269
     },
     "8129": {
@@ -2891,8 +2823,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2245,
-      "position_rank": 408
+      "overall_rank": 2247,
+      "position_rank": 409
     },
     "8135": {
       "player_id": "8135",
@@ -2908,7 +2840,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2118,
+      "overall_rank": 2120,
       "position_rank": 934
     },
     "8139": {
@@ -2925,8 +2857,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2393,
-      "position_rank": 469
+      "overall_rank": 2395,
+      "position_rank": 470
     },
     "8143": {
       "player_id": "8143",
@@ -2942,8 +2874,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2233,
-      "position_rank": 401
+      "overall_rank": 2236,
+      "position_rank": 403
     },
     "8145": {
       "player_id": "8145",
@@ -2959,8 +2891,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 424,
-      "position_rank": 190
+      "overall_rank": 428,
+      "position_rank": 192
     },
     "8157": {
       "player_id": "8157",
@@ -2969,15 +2901,15 @@
       "team": "NYJ",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "QB",
-      "depth_chart_order": 4,
+      "depth_chart_position": null,
+      "depth_chart_order": null,
       "injury_status": null,
-      "change_detection_key": "NYJ:QB:4:healthy",
+      "change_detection_key": "NYJ:QB:NA:healthy",
       "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 33,
+      "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 542,
-      "position_rank": 214
+      "overall_rank": 303,
+      "position_rank": 165
     },
     "8160": {
       "player_id": "8160",
@@ -2993,7 +2925,7 @@
       "estimated_role": "Direct quarterback replacement",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 202,
+      "overall_rank": 203,
       "position_rank": 138
     },
     "8162": {
@@ -3010,8 +2942,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 86,
-      "position_rank": 64
+      "overall_rank": 87,
+      "position_rank": 65
     },
     "8168": {
       "player_id": "8168",
@@ -3027,8 +2959,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1944,
-      "position_rank": 853
+      "overall_rank": 1947,
+      "position_rank": 856
     },
     "8170": {
       "player_id": "8170",
@@ -3044,8 +2976,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 1016,
-      "position_rank": 380
+      "overall_rank": 1017,
+      "position_rank": 381
     },
     "8172": {
       "player_id": "8172",
@@ -3061,7 +2993,7 @@
       "estimated_role": "Starting tight end",
       "opportunity_score": 87,
       "actionable_label": "Core Starter",
-      "overall_rank": 57,
+      "overall_rank": 58,
       "position_rank": 17
     },
     "8176": {
@@ -3078,8 +3010,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2284,
-      "position_rank": 1038
+      "overall_rank": 2287,
+      "position_rank": 1040
     },
     "8177": {
       "player_id": "8177",
@@ -3095,8 +3027,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 948,
-      "position_rank": 370
+      "overall_rank": 949,
+      "position_rank": 371
     },
     "8181": {
       "player_id": "8181",
@@ -3112,7 +3044,7 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 549,
+      "overall_rank": 548,
       "position_rank": 270
     },
     "8188": {
@@ -3129,8 +3061,8 @@
       "estimated_role": "Developmental depth receiver",
       "opportunity_score": 48,
       "actionable_label": "Core Starter",
-      "overall_rank": 1282,
-      "position_rank": 451
+      "overall_rank": 1284,
+      "position_rank": 453
     },
     "8194": {
       "player_id": "8194",
@@ -3146,8 +3078,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2062,
-      "position_rank": 350
+      "overall_rank": 2067,
+      "position_rank": 351
     },
     "8195": {
       "player_id": "8195",
@@ -3163,8 +3095,8 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 54,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2310,
-      "position_rank": 417
+      "overall_rank": 2314,
+      "position_rank": 419
     },
     "8200": {
       "player_id": "8200",
@@ -3174,14 +3106,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "LWR",
-      "depth_chart_order": 6,
+      "depth_chart_order": 5,
       "injury_status": null,
-      "change_detection_key": "NO:LWR:6:healthy",
+      "change_detection_key": "NO:LWR:5:healthy",
       "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 14,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 2112,
-      "position_rank": 928
+      "opportunity_score": 30,
+      "actionable_label": "Upside Stash",
+      "overall_rank": 1813,
+      "position_rank": 747
     },
     "8204": {
       "player_id": "8204",
@@ -3197,7 +3129,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2124,
+      "overall_rank": 2127,
       "position_rank": 936
     },
     "8206": {
@@ -3214,8 +3146,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 26,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1940,
-      "position_rank": 285
+      "overall_rank": 1943,
+      "position_rank": 284
     },
     "8207": {
       "player_id": "8207",
@@ -3231,8 +3163,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2133,
-      "position_rank": 391
+      "overall_rank": 2136,
+      "position_rank": 393
     },
     "8208": {
       "player_id": "8208",
@@ -3248,8 +3180,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2392,
-      "position_rank": 468
+      "overall_rank": 2394,
+      "position_rank": 469
     },
     "8219": {
       "player_id": "8219",
@@ -3265,8 +3197,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 1017,
-      "position_rank": 381
+      "overall_rank": 1018,
+      "position_rank": 382
     },
     "8220": {
       "player_id": "8220",
@@ -3282,8 +3214,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2294,
-      "position_rank": 413
+      "overall_rank": 2297,
+      "position_rank": 414
     },
     "8223": {
       "player_id": "8223",
@@ -3299,7 +3231,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2631,
+      "overall_rank": 2632,
       "position_rank": 1172
     },
     "8225": {
@@ -3317,7 +3249,7 @@
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
       "overall_rank": 167,
-      "position_rank": 49
+      "position_rank": 50
     },
     "8227": {
       "player_id": "8227",
@@ -3333,8 +3265,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 759,
-      "position_rank": 365
+      "overall_rank": 760,
+      "position_rank": 366
     },
     "8249": {
       "player_id": "8249",
@@ -3350,8 +3282,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 17,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1950,
-      "position_rank": 500
+      "overall_rank": 1953,
+      "position_rank": 501
     },
     "8250": {
       "player_id": "8250",
@@ -3367,8 +3299,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2379,
-      "position_rank": 1070
+      "overall_rank": 2383,
+      "position_rank": 1072
     },
     "8253": {
       "player_id": "8253",
@@ -3384,8 +3316,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2109,
-      "position_rank": 925
+      "overall_rank": 2113,
+      "position_rank": 927
     },
     "8254": {
       "player_id": "8254",
@@ -3401,8 +3333,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2293,
-      "position_rank": 412
+      "overall_rank": 2296,
+      "position_rank": 413
     },
     "8413": {
       "player_id": "8413",
@@ -3418,8 +3350,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 379,
-      "position_rank": 183
+      "overall_rank": 384,
+      "position_rank": 186
     },
     "8414": {
       "player_id": "8414",
@@ -3435,7 +3367,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2628,
+      "overall_rank": 2629,
       "position_rank": 1169
     },
     "8423": {
@@ -3452,8 +3384,8 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 54,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2480,
-      "position_rank": 492
+      "overall_rank": 2482,
+      "position_rank": 494
     },
     "8484": {
       "player_id": "8484",
@@ -3469,7 +3401,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1643,
+      "overall_rank": 1646,
       "position_rank": 469
     },
     "8489": {
@@ -3486,8 +3418,25 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1640,
+      "overall_rank": 1643,
       "position_rank": 467
+    },
+    "8523": {
+      "player_id": "8523",
+      "full_name": "Nick Muse",
+      "position": "TE",
+      "team": "ATL",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": "TE",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "change_detection_key": "ATL:TE:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 13,
+      "actionable_label": "Core Starter",
+      "overall_rank": 713,
+      "position_rank": 339
     },
     "8527": {
       "player_id": "8527",
@@ -3503,8 +3452,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2285,
-      "position_rank": 1039
+      "overall_rank": 2288,
+      "position_rank": 1041
     },
     "8583": {
       "player_id": "8583",
@@ -3520,8 +3469,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 1023,
-      "position_rank": 385
+      "overall_rank": 1024,
+      "position_rank": 386
     },
     "8745": {
       "player_id": "8745",
@@ -3537,8 +3486,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2288,
-      "position_rank": 1042
+      "overall_rank": 2291,
+      "position_rank": 1044
     },
     "8755": {
       "player_id": "8755",
@@ -3554,8 +3503,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2287,
-      "position_rank": 1041
+      "overall_rank": 2290,
+      "position_rank": 1043
     },
     "8783": {
       "player_id": "8783",
@@ -3571,8 +3520,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2376,
-      "position_rank": 1067
+      "overall_rank": 2380,
+      "position_rank": 1069
     },
     "8799": {
       "player_id": "8799",
@@ -3581,15 +3530,15 @@
       "team": "NO",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "TE",
-      "depth_chart_order": 5,
+      "depth_chart_position": null,
+      "depth_chart_order": null,
       "injury_status": null,
-      "change_detection_key": "NO:TE:5:healthy",
+      "change_detection_key": "NO:TE:NA:healthy",
       "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 33,
+      "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 1027,
-      "position_rank": 387
+      "overall_rank": 728,
+      "position_rank": 354
     },
     "8800": {
       "player_id": "8800",
@@ -3605,8 +3554,8 @@
       "estimated_role": "Primary handcuff or committee running back",
       "opportunity_score": 74,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2221,
-      "position_rank": 399
+      "overall_rank": 2224,
+      "position_rank": 401
     },
     "8849": {
       "player_id": "8849",
@@ -3622,8 +3571,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 983,
-      "position_rank": 375
+      "overall_rank": 984,
+      "position_rank": 376
     },
     "8861": {
       "player_id": "8861",
@@ -3639,7 +3588,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2629,
+      "overall_rank": 2630,
       "position_rank": 1170
     },
     "8917": {
@@ -3656,7 +3605,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2642,
+      "overall_rank": 2643,
       "position_rank": 1179
     },
     "8921": {
@@ -3673,7 +3622,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2489,
+      "overall_rank": 2491,
       "position_rank": 1109
     },
     "9220": {
@@ -3690,8 +3639,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1671,
-      "position_rank": 212
+      "overall_rank": 1675,
+      "position_rank": 213
     },
     "9227": {
       "player_id": "9227",
@@ -3707,7 +3656,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1949,
+      "overall_rank": 1952,
       "position_rank": 310
     },
     "9230": {
@@ -3725,7 +3674,7 @@
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
       "overall_rank": 165,
-      "position_rank": 111
+      "position_rank": 110
     },
     "9479": {
       "player_id": "9479",
@@ -3742,7 +3691,7 @@
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
       "overall_rank": 168,
-      "position_rank": 50
+      "position_rank": 51
     },
     "9483": {
       "player_id": "9483",
@@ -3758,7 +3707,7 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 559,
+      "overall_rank": 558,
       "position_rank": 272
     },
     "9484": {
@@ -3792,7 +3741,7 @@
       "estimated_role": "Starting receiver in listed alignment",
       "opportunity_score": 84,
       "actionable_label": "Core Starter",
-      "overall_rank": 208,
+      "overall_rank": 209,
       "position_rank": 8
     },
     "9490": {
@@ -3809,8 +3758,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1721,
-      "position_rank": 725
+      "overall_rank": 1725,
+      "position_rank": 727
     },
     "9492": {
       "player_id": "9492",
@@ -3820,14 +3769,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "SWR",
-      "depth_chart_order": 10,
+      "depth_chart_order": 9,
       "injury_status": null,
-      "change_detection_key": "NO:SWR:10:healthy",
+      "change_detection_key": "NO:SWR:9:healthy",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1945,
-      "position_rank": 854
+      "overall_rank": 1948,
+      "position_rank": 857
     },
     "9497": {
       "player_id": "9497",
@@ -3837,14 +3786,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "RWR",
-      "depth_chart_order": 7,
+      "depth_chart_order": 6,
       "injury_status": "Questionable",
-      "change_detection_key": "NYG:RWR:7:Questionable",
+      "change_detection_key": "NYG:RWR:6:Questionable",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2030,
-      "position_rank": 905
+      "overall_rank": 2033,
+      "position_rank": 908
     },
     "9505": {
       "player_id": "9505",
@@ -3853,15 +3802,15 @@
       "team": "HOU",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "RB",
-      "depth_chart_order": 4,
+      "depth_chart_position": null,
+      "depth_chart_order": null,
       "injury_status": null,
-      "change_detection_key": "HOU:RB:4:healthy",
+      "change_detection_key": "HOU:RB:NA:healthy",
       "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 36,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 1751,
-      "position_rank": 273
+      "opportunity_score": 16,
+      "actionable_label": "Core Starter",
+      "overall_rank": 1289,
+      "position_rank": 169
     },
     "9510": {
       "player_id": "9510",
@@ -3877,8 +3826,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2131,
-      "position_rank": 389
+      "overall_rank": 2134,
+      "position_rank": 391
     },
     "9998": {
       "player_id": "9998",
@@ -3894,7 +3843,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 755,
+      "overall_rank": 756,
       "position_rank": 246
     },
     "9999": {
@@ -3928,7 +3877,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 17,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1366,
+      "overall_rank": 1369,
       "position_rank": 446
     },
     "10212": {
@@ -3945,8 +3894,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 758,
-      "position_rank": 364
+      "overall_rank": 759,
+      "position_rank": 365
     },
     "10214": {
       "player_id": "10214",
@@ -3962,8 +3911,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 929,
-      "position_rank": 369
+      "overall_rank": 930,
+      "position_rank": 370
     },
     "10215": {
       "player_id": "10215",
@@ -3979,7 +3928,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 543,
+      "overall_rank": 542,
       "position_rank": 215
     },
     "10218": {
@@ -3996,8 +3945,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1816,
-      "position_rank": 749
+      "overall_rank": 1818,
+      "position_rank": 752
     },
     "10220": {
       "player_id": "10220",
@@ -4013,25 +3962,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 970,
-      "position_rank": 371
-    },
-    "10221": {
-      "player_id": "10221",
-      "full_name": "Ronnie Bell",
-      "position": "WR",
-      "team": "NO",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "RWR",
-      "depth_chart_order": 9,
-      "injury_status": null,
-      "change_detection_key": "NO:RWR:9:healthy",
-      "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 14,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 2114,
-      "position_rank": 930
+      "overall_rank": 971,
+      "position_rank": 372
     },
     "10223": {
       "player_id": "10223",
@@ -4047,8 +3979,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2389,
-      "position_rank": 465
+      "overall_rank": 2392,
+      "position_rank": 467
     },
     "10224": {
       "player_id": "10224",
@@ -4064,7 +3996,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 1204,
+      "overall_rank": 1206,
       "position_rank": 412
     },
     "10225": {
@@ -4081,8 +4013,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1943,
-      "position_rank": 852
+      "overall_rank": 1946,
+      "position_rank": 855
     },
     "10227": {
       "player_id": "10227",
@@ -4098,8 +4030,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 274,
-      "position_rank": 100
+      "overall_rank": 277,
+      "position_rank": 101
     },
     "10228": {
       "player_id": "10228",
@@ -4115,8 +4047,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2283,
-      "position_rank": 1037
+      "overall_rank": 2286,
+      "position_rank": 1039
     },
     "10231": {
       "player_id": "10231",
@@ -4133,7 +4065,7 @@
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
       "overall_rank": 169,
-      "position_rank": 51
+      "position_rank": 52
     },
     "10234": {
       "player_id": "10234",
@@ -4149,8 +4081,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1942,
-      "position_rank": 851
+      "overall_rank": 1945,
+      "position_rank": 854
     },
     "10857": {
       "player_id": "10857",
@@ -4166,8 +4098,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 390,
-      "position_rank": 185
+      "overall_rank": 395,
+      "position_rank": 188
     },
     "10860": {
       "player_id": "10860",
@@ -4183,8 +4115,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2289,
-      "position_rank": 1043
+      "overall_rank": 2292,
+      "position_rank": 1045
     },
     "10866": {
       "player_id": "10866",
@@ -4200,8 +4132,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 268,
-      "position_rank": 151
+      "overall_rank": 271,
+      "position_rank": 153
     },
     "10871": {
       "player_id": "10871",
@@ -4217,8 +4149,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 1019,
-      "position_rank": 383
+      "overall_rank": 1020,
+      "position_rank": 384
     },
     "10983": {
       "player_id": "10983",
@@ -4234,7 +4166,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 756,
+      "overall_rank": 757,
       "position_rank": 247
     },
     "11034": {
@@ -4251,8 +4183,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1809,
-      "position_rank": 742
+      "overall_rank": 1810,
+      "position_rank": 744
     },
     "11065": {
       "player_id": "11065",
@@ -4261,15 +4193,15 @@
       "team": "SF",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "QB",
-      "depth_chart_order": 3,
+      "depth_chart_position": null,
+      "depth_chart_order": null,
       "injury_status": null,
-      "change_detection_key": "SF:QB:3:healthy",
-      "estimated_role": "Developmental or emergency quarterback",
-      "opportunity_score": 51,
+      "change_detection_key": "SF:QB:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 164,
-      "position_rank": 110
+      "overall_rank": 185,
+      "position_rank": 121
     },
     "11068": {
       "player_id": "11068",
@@ -4285,8 +4217,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1813,
-      "position_rank": 746
+      "overall_rank": 1815,
+      "position_rank": 749
     },
     "11082": {
       "player_id": "11082",
@@ -4319,8 +4251,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 757,
-      "position_rank": 363
+      "overall_rank": 758,
+      "position_rank": 364
     },
     "11157": {
       "player_id": "11157",
@@ -4336,8 +4268,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2108,
-      "position_rank": 924
+      "overall_rank": 2112,
+      "position_rank": 926
     },
     "11168": {
       "player_id": "11168",
@@ -4353,8 +4285,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2381,
-      "position_rank": 1072
+      "overall_rank": 2385,
+      "position_rank": 1074
     },
     "11186": {
       "player_id": "11186",
@@ -4370,8 +4302,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2471,
-      "position_rank": 489
+      "overall_rank": 2474,
+      "position_rank": 491
     },
     "11199": {
       "player_id": "11199",
@@ -4387,8 +4319,8 @@
       "estimated_role": "Primary handcuff or committee running back",
       "opportunity_score": 75,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2217,
-      "position_rank": 397
+      "overall_rank": 2221,
+      "position_rank": 399
     },
     "11201": {
       "player_id": "11201",
@@ -4404,8 +4336,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 416,
-      "position_rank": 189
+      "overall_rank": 420,
+      "position_rank": 191
     },
     "11237": {
       "player_id": "11237",
@@ -4421,8 +4353,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2129,
-      "position_rank": 387
+      "overall_rank": 2132,
+      "position_rank": 389
     },
     "11257": {
       "player_id": "11257",
@@ -4438,7 +4370,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2116,
+      "overall_rank": 2118,
       "position_rank": 932
     },
     "11280": {
@@ -4455,7 +4387,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 17,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1638,
+      "overall_rank": 1641,
       "position_rank": 465
     },
     "11292": {
@@ -4472,7 +4404,7 @@
       "estimated_role": "Direct quarterback replacement",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 204,
+      "overall_rank": 205,
       "position_rank": 140
     },
     "11299": {
@@ -4489,8 +4421,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2473,
-      "position_rank": 491
+      "overall_rank": 2476,
+      "position_rank": 493
     },
     "11304": {
       "player_id": "11304",
@@ -4506,7 +4438,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 17,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1639,
+      "overall_rank": 1642,
       "position_rank": 466
     },
     "11306": {
@@ -4517,14 +4449,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "SWR",
-      "depth_chart_order": 11,
+      "depth_chart_order": 10,
       "injury_status": null,
-      "change_detection_key": "NYG:SWR:11:healthy",
+      "change_detection_key": "NYG:SWR:10:healthy",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1946,
-      "position_rank": 855
+      "overall_rank": 1949,
+      "position_rank": 858
     },
     "11311": {
       "player_id": "11311",
@@ -4540,8 +4472,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2286,
-      "position_rank": 1040
+      "overall_rank": 2289,
+      "position_rank": 1042
     },
     "11320": {
       "player_id": "11320",
@@ -4557,8 +4489,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2113,
-      "position_rank": 929
+      "overall_rank": 2116,
+      "position_rank": 930
     },
     "11370": {
       "player_id": "11370",
@@ -4574,7 +4506,7 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 54,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1955,
+      "overall_rank": 1957,
       "position_rank": 314
     },
     "11371": {
@@ -4591,8 +4523,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 26,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1802,
-      "position_rank": 484
+      "overall_rank": 1803,
+      "position_rank": 485
     },
     "11378": {
       "player_id": "11378",
@@ -4608,8 +4540,25 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2349,
-      "position_rank": 441
+      "overall_rank": 2353,
+      "position_rank": 443
+    },
+    "11381": {
+      "player_id": "11381",
+      "full_name": "Travis Vokolek",
+      "position": "TE",
+      "team": "ARI",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": null,
+      "depth_chart_order": null,
+      "injury_status": null,
+      "change_detection_key": "ARI:TE:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 13,
+      "actionable_label": "Core Starter",
+      "overall_rank": 722,
+      "position_rank": 348
     },
     "11384": {
       "player_id": "11384",
@@ -4618,15 +4567,15 @@
       "team": "HOU",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "RB",
+      "depth_chart_position": null,
       "depth_chart_order": null,
       "injury_status": null,
       "change_detection_key": "HOU:RB:NA:healthy",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2355,
-      "position_rank": 447
+      "overall_rank": 2359,
+      "position_rank": 449
     },
     "11421": {
       "player_id": "11421",
@@ -4642,7 +4591,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2115,
+      "overall_rank": 2117,
       "position_rank": 931
     },
     "11433": {
@@ -4659,7 +4608,7 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 555,
+      "overall_rank": 554,
       "position_rank": 271
     },
     "11474": {
@@ -4676,8 +4625,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1808,
-      "position_rank": 741
+      "overall_rank": 1809,
+      "position_rank": 743
     },
     "11520": {
       "player_id": "11520",
@@ -4693,7 +4642,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2630,
+      "overall_rank": 2631,
       "position_rank": 1171
     },
     "11557": {
@@ -4710,8 +4659,8 @@
       "estimated_role": "Direct quarterback replacement",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 49,
-      "position_rank": 36
+      "overall_rank": 50,
+      "position_rank": 37
     },
     "11558": {
       "player_id": "11558",
@@ -4727,8 +4676,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 292,
-      "position_rank": 161
+      "overall_rank": 294,
+      "position_rank": 163
     },
     "11565": {
       "player_id": "11565",
@@ -4744,8 +4693,8 @@
       "estimated_role": "Direct quarterback replacement",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 23,
-      "position_rank": 16
+      "overall_rank": 24,
+      "position_rank": 17
     },
     "11566": {
       "player_id": "11566",
@@ -4778,8 +4727,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2122,
-      "position_rank": 385
+      "overall_rank": 2125,
+      "position_rank": 387
     },
     "11573": {
       "player_id": "11573",
@@ -4795,8 +4744,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1717,
-      "position_rank": 240
+      "overall_rank": 1721,
+      "position_rank": 241
     },
     "11574": {
       "player_id": "11574",
@@ -4812,8 +4761,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2241,
-      "position_rank": 406
+      "overall_rank": 2243,
+      "position_rank": 407
     },
     "11577": {
       "player_id": "11577",
@@ -4829,7 +4778,7 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 54,
       "actionable_label": "Core Starter",
-      "overall_rank": 1026,
+      "overall_rank": 1027,
       "position_rank": 85
     },
     "11579": {
@@ -4846,7 +4795,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Core Starter",
-      "overall_rank": 1203,
+      "overall_rank": 1205,
       "position_rank": 91
     },
     "11582": {
@@ -4863,7 +4812,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Core Starter",
-      "overall_rank": 938,
+      "overall_rank": 939,
       "position_rank": 44
     },
     "11588": {
@@ -4880,8 +4829,8 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 54,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2440,
-      "position_rank": 474
+      "overall_rank": 2443,
+      "position_rank": 476
     },
     "11592": {
       "player_id": "11592",
@@ -4897,8 +4846,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 163,
-      "position_rank": 48
+      "overall_rank": 164,
+      "position_rank": 49
     },
     "11593": {
       "player_id": "11593",
@@ -4914,8 +4863,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 748,
-      "position_rank": 358
+      "overall_rank": 749,
+      "position_rank": 359
     },
     "11595": {
       "player_id": "11595",
@@ -4931,8 +4880,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 536,
-      "position_rank": 264
+      "overall_rank": 537,
+      "position_rank": 265
     },
     "11596": {
       "player_id": "11596",
@@ -4948,8 +4897,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 325,
-      "position_rank": 115
+      "overall_rank": 329,
+      "position_rank": 116
     },
     "11600": {
       "player_id": "11600",
@@ -4982,8 +4931,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1630,
-      "position_rank": 702
+      "overall_rank": 1633,
+      "position_rank": 704
     },
     "11616": {
       "player_id": "11616",
@@ -4999,8 +4948,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2227,
-      "position_rank": 999
+      "overall_rank": 2230,
+      "position_rank": 1000
     },
     "11617": {
       "player_id": "11617",
@@ -5016,8 +4965,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1360,
-      "position_rank": 472
+      "overall_rank": 1363,
+      "position_rank": 474
     },
     "11623": {
       "player_id": "11623",
@@ -5033,8 +4982,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1632,
-      "position_rank": 704
+      "overall_rank": 1635,
+      "position_rank": 706
     },
     "11629": {
       "player_id": "11629",
@@ -5050,8 +4999,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1629,
-      "position_rank": 701
+      "overall_rank": 1632,
+      "position_rank": 703
     },
     "11643": {
       "player_id": "11643",
@@ -5067,7 +5016,7 @@
       "estimated_role": "Primary handcuff or committee running back",
       "opportunity_score": 75,
       "actionable_label": "Core Starter",
-      "overall_rank": 423,
+      "overall_rank": 427,
       "position_rank": 16
     },
     "11644": {
@@ -5084,8 +5033,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2399,
-      "position_rank": 470
+      "overall_rank": 2403,
+      "position_rank": 473
     },
     "11648": {
       "player_id": "11648",
@@ -5118,8 +5067,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1719,
-      "position_rank": 242
+      "overall_rank": 1723,
+      "position_rank": 243
     },
     "11650": {
       "player_id": "11650",
@@ -5135,8 +5084,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1634,
-      "position_rank": 706
+      "overall_rank": 1637,
+      "position_rank": 708
     },
     "11716": {
       "player_id": "11716",
@@ -5152,8 +5101,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 26,
       "actionable_label": "Upside Stash",
-      "overall_rank": 744,
-      "position_rank": 355
+      "overall_rank": 745,
+      "position_rank": 356
     },
     "11729": {
       "player_id": "11729",
@@ -5169,25 +5118,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2123,
-      "position_rank": 386
-    },
-    "11748": {
-      "player_id": "11748",
-      "full_name": "Bub Means",
-      "position": "WR",
-      "team": "NO",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "SWR",
-      "depth_chart_order": 4,
-      "injury_status": null,
-      "change_detection_key": "NO:SWR:4:healthy",
-      "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 30,
-      "actionable_label": "Upside Stash",
-      "overall_rank": 1624,
-      "position_rank": 696
+      "overall_rank": 2126,
+      "position_rank": 388
     },
     "11762": {
       "player_id": "11762",
@@ -5203,8 +5135,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1934,
-      "position_rank": 845
+      "overall_rank": 1937,
+      "position_rank": 848
     },
     "11806": {
       "player_id": "11806",
@@ -5220,25 +5152,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1935,
-      "position_rank": 846
-    },
-    "11815": {
-      "player_id": "11815",
-      "full_name": "Cornelius Johnson",
-      "position": "WR",
-      "team": "BAL",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "LWR",
-      "depth_chart_order": 5,
-      "injury_status": null,
-      "change_detection_key": "BAL:LWR:5:healthy",
-      "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 30,
-      "actionable_label": "Upside Stash",
-      "overall_rank": 1627,
-      "position_rank": 699
+      "overall_rank": 1938,
+      "position_rank": 849
     },
     "11820": {
       "player_id": "11820",
@@ -5254,8 +5169,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 413,
-      "position_rank": 188
+      "overall_rank": 417,
+      "position_rank": 190
     },
     "11821": {
       "player_id": "11821",
@@ -5271,8 +5186,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1939,
-      "position_rank": 850
+      "overall_rank": 1942,
+      "position_rank": 853
     },
     "11851": {
       "player_id": "11851",
@@ -5289,7 +5204,7 @@
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
       "overall_rank": 179,
-      "position_rank": 120
+      "position_rank": 119
     },
     "11911": {
       "player_id": "11911",
@@ -5305,8 +5220,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2104,
-      "position_rank": 921
+      "overall_rank": 2109,
+      "position_rank": 924
     },
     "11931": {
       "player_id": "11931",
@@ -5315,15 +5230,15 @@
       "team": "BAL",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "QB",
-      "depth_chart_order": 4,
+      "depth_chart_position": null,
+      "depth_chart_order": null,
       "injury_status": null,
-      "change_detection_key": "BAL:QB:4:healthy",
+      "change_detection_key": "BAL:QB:NA:healthy",
       "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 33,
-      "actionable_label": "Upside Stash",
-      "overall_rank": 408,
-      "position_rank": 195
+      "opportunity_score": 13,
+      "actionable_label": "Core Starter",
+      "overall_rank": 218,
+      "position_rank": 145
     },
     "11942": {
       "player_id": "11942",
@@ -5339,8 +5254,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 749,
-      "position_rank": 359
+      "overall_rank": 750,
+      "position_rank": 360
     },
     "11959": {
       "player_id": "11959",
@@ -5356,8 +5271,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2103,
-      "position_rank": 920
+      "overall_rank": 2108,
+      "position_rank": 923
     },
     "11964": {
       "player_id": "11964",
@@ -5373,8 +5288,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2226,
-      "position_rank": 998
+      "overall_rank": 2229,
+      "position_rank": 999
     },
     "11994": {
       "player_id": "11994",
@@ -5390,8 +5305,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1712,
-      "position_rank": 720
+      "overall_rank": 1716,
+      "position_rank": 722
     },
     "12036": {
       "player_id": "12036",
@@ -5407,8 +5322,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1718,
-      "position_rank": 241
+      "overall_rank": 1722,
+      "position_rank": 242
     },
     "12045": {
       "player_id": "12045",
@@ -5424,8 +5339,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 1013,
-      "position_rank": 377
+      "overall_rank": 1014,
+      "position_rank": 378
     },
     "12048": {
       "player_id": "12048",
@@ -5441,8 +5356,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2242,
-      "position_rank": 407
+      "overall_rank": 2244,
+      "position_rank": 408
     },
     "12062": {
       "player_id": "12062",
@@ -5458,7 +5373,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 17,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1354,
+      "overall_rank": 1357,
       "position_rank": 445
     },
     "12068": {
@@ -5475,8 +5390,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 753,
-      "position_rank": 361
+      "overall_rank": 754,
+      "position_rank": 362
     },
     "12070": {
       "player_id": "12070",
@@ -5492,8 +5407,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 754,
-      "position_rank": 362
+      "overall_rank": 755,
+      "position_rank": 363
     },
     "12079": {
       "player_id": "12079",
@@ -5509,8 +5424,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 17,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1011,
-      "position_rank": 376
+      "overall_rank": 1012,
+      "position_rank": 377
     },
     "12113": {
       "player_id": "12113",
@@ -5526,8 +5441,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 476,
-      "position_rank": 211
+      "overall_rank": 478,
+      "position_rank": 213
     },
     "12154": {
       "player_id": "12154",
@@ -5543,8 +5458,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 472,
-      "position_rank": 207
+      "overall_rank": 474,
+      "position_rank": 209
     },
     "12171": {
       "player_id": "12171",
@@ -5554,14 +5469,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "RB",
-      "depth_chart_order": 5,
+      "depth_chart_order": 4,
       "injury_status": "Questionable",
-      "change_detection_key": "HOU:RB:5:Questionable",
+      "change_detection_key": "HOU:RB:4:Questionable",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2374,
-      "position_rank": 464
+      "overall_rank": 2378,
+      "position_rank": 466
     },
     "12217": {
       "player_id": "12217",
@@ -5577,8 +5492,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 475,
-      "position_rank": 210
+      "overall_rank": 477,
+      "position_rank": 212
     },
     "12356": {
       "player_id": "12356",
@@ -5589,13 +5504,13 @@
       "roster_status": "available",
       "depth_chart_position": "RB",
       "depth_chart_order": 4,
-      "injury_status": "Questionable",
-      "change_detection_key": "DET:RB:4:Questionable",
+      "injury_status": null,
+      "change_detection_key": "DET:RB:4:healthy",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2240,
-      "position_rank": 405
+      "overall_rank": 2122,
+      "position_rank": 384
     },
     "12357": {
       "player_id": "12357",
@@ -5611,8 +5526,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 750,
-      "position_rank": 360
+      "overall_rank": 751,
+      "position_rank": 361
     },
     "12389": {
       "player_id": "12389",
@@ -5628,8 +5543,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 293,
-      "position_rank": 109
+      "overall_rank": 296,
+      "position_rank": 110
     },
     "12460": {
       "player_id": "12460",
@@ -5645,8 +5560,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1623,
-      "position_rank": 695
+      "overall_rank": 1628,
+      "position_rank": 699
     },
     "12462": {
       "player_id": "12462",
@@ -5662,7 +5577,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Core Starter",
-      "overall_rank": 1206,
+      "overall_rank": 1208,
       "position_rank": 92
     },
     "12470": {
@@ -5679,8 +5594,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 26,
-      "position_rank": 19
+      "overall_rank": 27,
+      "position_rank": 20
     },
     "12471": {
       "player_id": "12471",
@@ -5696,7 +5611,7 @@
       "estimated_role": "Primary handcuff or committee running back",
       "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 420,
+      "overall_rank": 424,
       "position_rank": 15
     },
     "12472": {
@@ -5713,7 +5628,7 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 54,
       "actionable_label": "Core Starter",
-      "overall_rank": 1022,
+      "overall_rank": 1023,
       "position_rank": 83
     },
     "12473": {
@@ -5730,7 +5645,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 291,
+      "overall_rank": 293,
       "position_rank": 108
     },
     "12475": {
@@ -5747,8 +5662,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1362,
-      "position_rank": 474
+      "overall_rank": 1365,
+      "position_rank": 476
     },
     "12476": {
       "player_id": "12476",
@@ -5764,7 +5679,7 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 57,
       "actionable_label": "Core Starter",
-      "overall_rank": 1207,
+      "overall_rank": 1209,
       "position_rank": 93
     },
     "12477": {
@@ -5775,31 +5690,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "QB",
-      "depth_chart_order": 4,
+      "depth_chart_order": 3,
       "injury_status": "Questionable",
-      "change_detection_key": "SF:QB:4:Questionable",
-      "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 33,
+      "change_detection_key": "SF:QB:3:Questionable",
+      "estimated_role": "Developmental or emergency quarterback",
+      "opportunity_score": 51,
       "actionable_label": "Upside Stash",
-      "overall_rank": 451,
-      "position_rank": 211
-    },
-    "12478": {
-      "player_id": "12478",
-      "full_name": "Nick Nash",
-      "position": "WR",
-      "team": "WAS",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "SWR",
-      "depth_chart_order": 9,
-      "injury_status": null,
-      "change_detection_key": "WAS:SWR:9:healthy",
-      "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 14,
-      "actionable_label": "Upside Stash",
-      "overall_rank": 2105,
-      "position_rank": 922
+      "overall_rank": 217,
+      "position_rank": 144
     },
     "12482": {
       "player_id": "12482",
@@ -5815,8 +5713,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1363,
-      "position_rank": 475
+      "overall_rank": 1366,
+      "position_rank": 477
     },
     "12485": {
       "player_id": "12485",
@@ -5832,8 +5730,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1364,
-      "position_rank": 476
+      "overall_rank": 1367,
+      "position_rank": 478
     },
     "12491": {
       "player_id": "12491",
@@ -5843,14 +5741,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "RB",
-      "depth_chart_order": 8,
+      "depth_chart_order": 7,
       "injury_status": null,
-      "change_detection_key": "NE:RB:8:healthy",
+      "change_detection_key": "NE:RB:7:healthy",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2106,
-      "position_rank": 382
+      "overall_rank": 2110,
+      "position_rank": 383
     },
     "12494": {
       "player_id": "12494",
@@ -5866,8 +5764,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 25,
-      "position_rank": 18
+      "overall_rank": 26,
+      "position_rank": 19
     },
     "12496": {
       "player_id": "12496",
@@ -5883,7 +5781,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1009,
+      "overall_rank": 1010,
       "position_rank": 300
     },
     "12500": {
@@ -5934,7 +5832,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Core Starter",
-      "overall_rank": 946,
+      "overall_rank": 947,
       "position_rank": 52
     },
     "12516": {
@@ -5951,7 +5849,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1803,
+      "overall_rank": 1804,
       "position_rank": 306
     },
     "12517": {
@@ -5985,8 +5883,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1715,
-      "position_rank": 723
+      "overall_rank": 1719,
+      "position_rank": 725
     },
     "12523": {
       "player_id": "12523",
@@ -6002,7 +5900,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1004,
+      "overall_rank": 1005,
       "position_rank": 295
     },
     "12530": {
@@ -6019,7 +5917,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1010,
+      "overall_rank": 1011,
       "position_rank": 301
     },
     "12535": {
@@ -6036,7 +5934,7 @@
       "estimated_role": "Developmental depth receiver",
       "opportunity_score": 48,
       "actionable_label": "Core Starter",
-      "overall_rank": 751,
+      "overall_rank": 752,
       "position_rank": 112
     },
     "12538": {
@@ -6053,8 +5951,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 48,
-      "position_rank": 35
+      "overall_rank": 49,
+      "position_rank": 36
     },
     "12539": {
       "player_id": "12539",
@@ -6070,8 +5968,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1706,
-      "position_rank": 714
+      "overall_rank": 1710,
+      "position_rank": 716
     },
     "12541": {
       "player_id": "12541",
@@ -6087,8 +5985,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1495,
-      "position_rank": 594
+      "overall_rank": 1499,
+      "position_rank": 597
     },
     "12542": {
       "player_id": "12542",
@@ -6104,8 +6002,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1707,
-      "position_rank": 715
+      "overall_rank": 1711,
+      "position_rank": 717
     },
     "12543": {
       "player_id": "12543",
@@ -6121,7 +6019,7 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 54,
       "actionable_label": "Core Starter",
-      "overall_rank": 1024,
+      "overall_rank": 1025,
       "position_rank": 84
     },
     "12544": {
@@ -6138,7 +6036,7 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 49,
       "actionable_label": "Core Starter",
-      "overall_rank": 930,
+      "overall_rank": 931,
       "position_rank": 36
     },
     "12634": {
@@ -6155,8 +6053,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1710,
-      "position_rank": 718
+      "overall_rank": 1714,
+      "position_rank": 720
     },
     "12658": {
       "player_id": "12658",
@@ -6172,8 +6070,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
-      "overall_rank": 294,
-      "position_rank": 110
+      "overall_rank": 297,
+      "position_rank": 111
     },
     "12688": {
       "player_id": "12688",
@@ -6183,14 +6081,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "QB",
-      "depth_chart_order": 3,
+      "depth_chart_order": 2,
       "injury_status": null,
-      "change_detection_key": "MIA:QB:3:healthy",
-      "estimated_role": "Developmental or emergency quarterback",
-      "opportunity_score": 51,
+      "change_detection_key": "MIA:QB:2:healthy",
+      "estimated_role": "Direct quarterback replacement",
+      "opportunity_score": 71,
       "actionable_label": "Core Starter",
-      "overall_rank": 90,
-      "position_rank": 67
+      "overall_rank": 23,
+      "position_rank": 16
     },
     "12699": {
       "player_id": "12699",
@@ -6200,14 +6098,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "SWR",
-      "depth_chart_order": 7,
+      "depth_chart_order": 6,
       "injury_status": null,
-      "change_detection_key": "BAL:SWR:7:healthy",
+      "change_detection_key": "BAL:SWR:6:healthy",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1714,
-      "position_rank": 722
+      "overall_rank": 1718,
+      "position_rank": 724
     },
     "12700": {
       "player_id": "12700",
@@ -6223,8 +6121,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 288,
-      "position_rank": 105
+      "overall_rank": 291,
+      "position_rank": 106
     },
     "12705": {
       "player_id": "12705",
@@ -6240,7 +6138,7 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 26,
       "actionable_label": "Upside Stash",
-      "overall_rank": 797,
+      "overall_rank": 798,
       "position_rank": 249
     },
     "12715": {
@@ -6251,14 +6149,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "TE",
-      "depth_chart_order": 6,
+      "depth_chart_order": 5,
       "injury_status": null,
-      "change_detection_key": "NYG:TE:6:healthy",
+      "change_detection_key": "NYG:TE:5:healthy",
       "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 17,
-      "actionable_label": "Upside Stash",
-      "overall_rank": 531,
-      "position_rank": 260
+      "opportunity_score": 33,
+      "actionable_label": "Core Starter",
+      "overall_rank": 295,
+      "position_rank": 109
     },
     "12718": {
       "player_id": "12718",
@@ -6274,7 +6172,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1005,
+      "overall_rank": 1006,
       "position_rank": 296
     },
     "12721": {
@@ -6291,8 +6189,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1498,
-      "position_rank": 597
+      "overall_rank": 1502,
+      "position_rank": 600
     },
     "12732": {
       "player_id": "12732",
@@ -6308,8 +6206,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1497,
-      "position_rank": 596
+      "overall_rank": 1501,
+      "position_rank": 599
     },
     "12735": {
       "player_id": "12735",
@@ -6342,8 +6240,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1591,
-      "position_rank": 188
+      "overall_rank": 1596,
+      "position_rank": 189
     },
     "12746": {
       "player_id": "12746",
@@ -6359,8 +6257,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1711,
-      "position_rank": 719
+      "overall_rank": 1715,
+      "position_rank": 721
     },
     "12765": {
       "player_id": "12765",
@@ -6376,8 +6274,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 410,
-      "position_rank": 186
+      "overall_rank": 414,
+      "position_rank": 188
     },
     "12773": {
       "player_id": "12773",
@@ -6410,8 +6308,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
-      "overall_rank": 287,
-      "position_rank": 160
+      "overall_rank": 290,
+      "position_rank": 162
     },
     "12787": {
       "player_id": "12787",
@@ -6427,8 +6325,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2121,
-      "position_rank": 384
+      "overall_rank": 2124,
+      "position_rank": 386
     },
     "12792": {
       "player_id": "12792",
@@ -6444,8 +6342,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 65,
-      "position_rank": 45
+      "overall_rank": 66,
+      "position_rank": 46
     },
     "12797": {
       "player_id": "12797",
@@ -6461,7 +6359,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Core Starter",
-      "overall_rank": 1212,
+      "overall_rank": 1214,
       "position_rank": 98
     },
     "12817": {
@@ -6478,8 +6376,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 289,
-      "position_rank": 106
+      "overall_rank": 292,
+      "position_rank": 107
     },
     "12826": {
       "player_id": "12826",
@@ -6495,8 +6393,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1748,
-      "position_rank": 270
+      "overall_rank": 1752,
+      "position_rank": 271
     },
     "12851": {
       "player_id": "12851",
@@ -6512,8 +6410,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 412,
-      "position_rank": 187
+      "overall_rank": 416,
+      "position_rank": 189
     },
     "12883": {
       "player_id": "12883",
@@ -6522,15 +6420,15 @@
       "team": "ATL",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "TE",
-      "depth_chart_order": 4,
+      "depth_chart_position": null,
+      "depth_chart_order": null,
       "injury_status": null,
-      "change_detection_key": "ATL:TE:4:healthy",
+      "change_detection_key": "ATL:TE:NA:healthy",
       "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 33,
+      "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 537,
-      "position_rank": 265
+      "overall_rank": 360,
+      "position_rank": 146
     },
     "12888": {
       "player_id": "12888",
@@ -6546,8 +6444,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1936,
-      "position_rank": 847
+      "overall_rank": 1939,
+      "position_rank": 850
     },
     "12889": {
       "player_id": "12889",
@@ -6563,7 +6461,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1000,
+      "overall_rank": 1001,
       "position_rank": 291
     },
     "12897": {
@@ -6580,7 +6478,7 @@
       "estimated_role": "Secondary handcuff or specialist running back",
       "opportunity_score": 54,
       "actionable_label": "Core Starter",
-      "overall_rank": 1020,
+      "overall_rank": 1021,
       "position_rank": 82
     },
     "12901": {
@@ -6597,8 +6495,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 365,
-      "position_rank": 154
+      "overall_rank": 370,
+      "position_rank": 156
     },
     "12908": {
       "player_id": "12908",
@@ -6614,7 +6512,7 @@
       "estimated_role": "Developmental depth receiver",
       "opportunity_score": 48,
       "actionable_label": "Core Starter",
-      "overall_rank": 1012,
+      "overall_rank": 1013,
       "position_rank": 302
     },
     "12928": {
@@ -6631,7 +6529,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1941,
+      "overall_rank": 1944,
       "position_rank": 308
     },
     "12933": {
@@ -6648,8 +6546,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 465,
-      "position_rank": 200
+      "overall_rank": 467,
+      "position_rank": 202
     },
     "12939": {
       "player_id": "12939",
@@ -6665,7 +6563,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Core Starter",
-      "overall_rank": 933,
+      "overall_rank": 934,
       "position_rank": 39
     },
     "12940": {
@@ -6682,7 +6580,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Core Starter",
-      "overall_rank": 969,
+      "overall_rank": 970,
       "position_rank": 74
     },
     "12941": {
@@ -6716,8 +6614,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1720,
-      "position_rank": 243
+      "overall_rank": 1724,
+      "position_rank": 244
     },
     "12971": {
       "player_id": "12971",
@@ -6733,8 +6631,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1713,
-      "position_rank": 721
+      "overall_rank": 1717,
+      "position_rank": 723
     },
     "12975": {
       "player_id": "12975",
@@ -6750,8 +6648,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 351,
-      "position_rank": 140
+      "overall_rank": 355,
+      "position_rank": 141
     },
     "13010": {
       "player_id": "13010",
@@ -6767,8 +6665,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 1734,
-      "position_rank": 256
+      "overall_rank": 1738,
+      "position_rank": 257
     },
     "13013": {
       "player_id": "13013",
@@ -6784,8 +6682,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 250,
-      "position_rank": 81
+      "overall_rank": 253,
+      "position_rank": 82
     },
     "13032": {
       "player_id": "13032",
@@ -6801,8 +6699,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 251,
-      "position_rank": 82
+      "overall_rank": 254,
+      "position_rank": 83
     },
     "13047": {
       "player_id": "13047",
@@ -6818,8 +6716,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2120,
-      "position_rank": 383
+      "overall_rank": 2123,
+      "position_rank": 385
     },
     "13074": {
       "player_id": "13074",
@@ -6835,8 +6733,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1937,
-      "position_rank": 848
+      "overall_rank": 1940,
+      "position_rank": 851
     },
     "13075": {
       "player_id": "13075",
@@ -6852,8 +6750,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1361,
-      "position_rank": 473
+      "overall_rank": 1364,
+      "position_rank": 475
     },
     "13079": {
       "player_id": "13079",
@@ -6869,7 +6767,7 @@
       "estimated_role": "Developmental depth receiver",
       "opportunity_score": 48,
       "actionable_label": "Core Starter",
-      "overall_rank": 752,
+      "overall_rank": 753,
       "position_rank": 113
     },
     "13101": {
@@ -6886,8 +6784,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1708,
-      "position_rank": 716
+      "overall_rank": 1712,
+      "position_rank": 718
     },
     "13110": {
       "player_id": "13110",
@@ -6903,8 +6801,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 162,
-      "position_rank": 47
+      "overall_rank": 163,
+      "position_rank": 48
     },
     "13116": {
       "player_id": "13116",
@@ -6920,8 +6818,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 160,
-      "position_rank": 45
+      "overall_rank": 161,
+      "position_rank": 46
     },
     "13120": {
       "player_id": "13120",
@@ -6937,8 +6835,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1938,
-      "position_rank": 849
+      "overall_rank": 1941,
+      "position_rank": 852
     },
     "13121": {
       "player_id": "13121",
@@ -6955,7 +6853,7 @@
       "opportunity_score": 51,
       "actionable_label": "Core Starter",
       "overall_rank": 181,
-      "position_rank": 53
+      "position_rank": 54
     },
     "13122": {
       "player_id": "13122",
@@ -6971,8 +6869,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 534,
-      "position_rank": 262
+      "overall_rank": 535,
+      "position_rank": 263
     },
     "13150": {
       "player_id": "13150",
@@ -6988,8 +6886,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1356,
-      "position_rank": 468
+      "overall_rank": 1359,
+      "position_rank": 470
     },
     "13151": {
       "player_id": "13151",
@@ -7022,8 +6920,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Core Starter",
-      "overall_rank": 409,
-      "position_rank": 185
+      "overall_rank": 413,
+      "position_rank": 187
     },
     "13217": {
       "player_id": "13217",
@@ -7032,7 +6930,7 @@
       "team": "NO",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "QB",
+      "depth_chart_position": null,
       "depth_chart_order": null,
       "injury_status": null,
       "change_detection_key": "NO:QB:NA:healthy",
@@ -7056,8 +6954,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 369,
-      "position_rank": 158
+      "overall_rank": 374,
+      "position_rank": 160
     },
     "13261": {
       "player_id": "13261",
@@ -7066,15 +6964,15 @@
       "team": "HOU",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "TE",
-      "depth_chart_order": 5,
+      "depth_chart_position": null,
+      "depth_chart_order": null,
       "injury_status": null,
-      "change_detection_key": "HOU:TE:5:healthy",
+      "change_detection_key": "HOU:TE:NA:healthy",
       "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 33,
+      "opportunity_score": 13,
       "actionable_label": "Core Starter",
-      "overall_rank": 290,
-      "position_rank": 107
+      "overall_rank": 155,
+      "position_rank": 40
     },
     "13270": {
       "player_id": "13270",
@@ -7090,8 +6988,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2223,
-      "position_rank": 995
+      "overall_rank": 2226,
+      "position_rank": 996
     },
     "13273": {
       "player_id": "13273",
@@ -7107,8 +7005,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
-      "overall_rank": 444,
-      "position_rank": 192
+      "overall_rank": 447,
+      "position_rank": 194
     },
     "13275": {
       "player_id": "13275",
@@ -7124,8 +7022,8 @@
       "estimated_role": "Direct quarterback replacement",
       "opportunity_score": 71,
       "actionable_label": "Upside Stash",
-      "overall_rank": 47,
-      "position_rank": 34
+      "overall_rank": 48,
+      "position_rank": 35
     },
     "13277": {
       "player_id": "13277",
@@ -7141,8 +7039,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1352,
-      "position_rank": 179
+      "overall_rank": 1355,
+      "position_rank": 180
     },
     "13278": {
       "player_id": "13278",
@@ -7192,8 +7090,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
-      "overall_rank": 443,
-      "position_rank": 191
+      "overall_rank": 446,
+      "position_rank": 193
     },
     "13289": {
       "player_id": "13289",
@@ -7209,8 +7107,8 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Upside Stash",
-      "overall_rank": 89,
-      "position_rank": 66
+      "overall_rank": 90,
+      "position_rank": 67
     },
     "13295": {
       "player_id": "13295",
@@ -7226,7 +7124,7 @@
       "estimated_role": "Developmental or emergency quarterback",
       "opportunity_score": 51,
       "actionable_label": "Upside Stash",
-      "overall_rank": 212,
+      "overall_rank": 213,
       "position_rank": 141
     },
     "13296": {
@@ -7243,7 +7141,7 @@
       "estimated_role": "Direct alignment replacement or rotational receiver",
       "opportunity_score": 68,
       "actionable_label": "Upside Stash",
-      "overall_rank": 527,
+      "overall_rank": 529,
       "position_rank": 39
     },
     "13297": {
@@ -7260,8 +7158,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1490,
-      "position_rank": 591
+      "overall_rank": 1494,
+      "position_rank": 594
     },
     "13299": {
       "player_id": "13299",
@@ -7277,8 +7175,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Upside Stash",
-      "overall_rank": 284,
-      "position_rank": 104
+      "overall_rank": 287,
+      "position_rank": 105
     },
     "13307": {
       "player_id": "13307",
@@ -7294,8 +7192,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Upside Stash",
-      "overall_rank": 322,
-      "position_rank": 113
+      "overall_rank": 326,
+      "position_rank": 114
     },
     "13308": {
       "player_id": "13308",
@@ -7328,8 +7226,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Upside Stash",
-      "overall_rank": 281,
-      "position_rank": 158
+      "overall_rank": 284,
+      "position_rank": 160
     },
     "13313": {
       "player_id": "13313",
@@ -7345,8 +7243,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2092,
-      "position_rank": 913
+      "overall_rank": 2097,
+      "position_rank": 916
     },
     "13314": {
       "player_id": "13314",
@@ -7363,7 +7261,7 @@
       "opportunity_score": 51,
       "actionable_label": "Upside Stash",
       "overall_rank": 176,
-      "position_rank": 117
+      "position_rank": 116
     },
     "13315": {
       "player_id": "13315",
@@ -7379,7 +7277,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2025,
+      "overall_rank": 2028,
       "position_rank": 319
     },
     "13316": {
@@ -7396,8 +7294,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2093,
-      "position_rank": 914
+      "overall_rank": 2098,
+      "position_rank": 917
     },
     "13318": {
       "player_id": "13318",
@@ -7413,8 +7311,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1926,
-      "position_rank": 837
+      "overall_rank": 1929,
+      "position_rank": 840
     },
     "13321": {
       "player_id": "13321",
@@ -7423,15 +7321,15 @@
       "team": "LAR",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "TE",
+      "depth_chart_position": null,
       "depth_chart_order": null,
       "injury_status": null,
       "change_detection_key": "LAR:TE:NA:healthy",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Upside Stash",
-      "overall_rank": 528,
-      "position_rank": 258
+      "overall_rank": 530,
+      "position_rank": 260
     },
     "13322": {
       "player_id": "13322",
@@ -7447,8 +7345,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Upside Stash",
-      "overall_rank": 215,
-      "position_rank": 54
+      "overall_rank": 216,
+      "position_rank": 55
     },
     "13324": {
       "player_id": "13324",
@@ -7464,8 +7362,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Upside Stash",
-      "overall_rank": 449,
-      "position_rank": 197
+      "overall_rank": 452,
+      "position_rank": 199
     },
     "13329": {
       "player_id": "13329",
@@ -7498,8 +7396,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2091,
-      "position_rank": 912
+      "overall_rank": 2096,
+      "position_rank": 915
     },
     "13335": {
       "player_id": "13335",
@@ -7515,8 +7413,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
-      "overall_rank": 399,
-      "position_rank": 190
+      "overall_rank": 404,
+      "position_rank": 193
     },
     "13336": {
       "player_id": "13336",
@@ -7532,8 +7430,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2090,
-      "position_rank": 911
+      "overall_rank": 2095,
+      "position_rank": 914
     },
     "13337": {
       "player_id": "13337",
@@ -7566,8 +7464,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1489,
-      "position_rank": 590
+      "overall_rank": 1493,
+      "position_rank": 593
     },
     "13339": {
       "player_id": "13339",
@@ -7583,7 +7481,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1777,
+      "overall_rank": 1778,
       "position_rank": 282
     },
     "13342": {
@@ -7600,8 +7498,25 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 26,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1924,
-      "position_rank": 498
+      "overall_rank": 1927,
+      "position_rank": 499
+    },
+    "13355": {
+      "player_id": "13355",
+      "full_name": "DJ Rogers",
+      "position": "TE",
+      "team": "DAL",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": "TE",
+      "depth_chart_order": null,
+      "injury_status": "Questionable",
+      "change_detection_key": "DAL:TE:NA:Questionable",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 13,
+      "actionable_label": "Upside Stash",
+      "overall_rank": 792,
+      "position_rank": 368
     },
     "13356": {
       "player_id": "13356",
@@ -7617,8 +7532,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1933,
-      "position_rank": 844
+      "overall_rank": 1936,
+      "position_rank": 847
     },
     "13394": {
       "player_id": "13394",
@@ -7634,8 +7549,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2094,
-      "position_rank": 915
+      "overall_rank": 2099,
+      "position_rank": 918
     },
     "13400": {
       "player_id": "13400",
@@ -7651,8 +7566,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
-      "overall_rank": 445,
-      "position_rank": 193
+      "overall_rank": 448,
+      "position_rank": 195
     },
     "13401": {
       "player_id": "13401",
@@ -7668,8 +7583,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Upside Stash",
-      "overall_rank": 283,
-      "position_rank": 103
+      "overall_rank": 286,
+      "position_rank": 104
     },
     "13408": {
       "player_id": "13408",
@@ -7685,8 +7600,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
-      "overall_rank": 447,
-      "position_rank": 195
+      "overall_rank": 450,
+      "position_rank": 197
     },
     "13410": {
       "player_id": "13410",
@@ -7702,8 +7617,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2280,
-      "position_rank": 1036
+      "overall_rank": 2283,
+      "position_rank": 1038
     },
     "13413": {
       "player_id": "13413",
@@ -7719,8 +7634,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1699,
-      "position_rank": 710
+      "overall_rank": 1703,
+      "position_rank": 712
     },
     "13414": {
       "player_id": "13414",
@@ -7739,6 +7654,23 @@
       "overall_rank": 1108,
       "position_rank": 90
     },
+    "13415": {
+      "player_id": "13415",
+      "full_name": "Haynes King",
+      "position": "QB",
+      "team": "CAR",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": "QB",
+      "depth_chart_order": null,
+      "injury_status": "Questionable",
+      "change_detection_key": "CAR:QB:NA:Questionable",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 13,
+      "actionable_label": "Upside Stash",
+      "overall_rank": 562,
+      "position_rank": 223
+    },
     "13416": {
       "player_id": "13416",
       "full_name": "Roman Hemby",
@@ -7753,7 +7685,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1795,
+      "overall_rank": 1796,
       "position_rank": 300
     },
     "13417": {
@@ -7770,8 +7702,8 @@
       "estimated_role": "Developmental depth receiver",
       "opportunity_score": 48,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1610,
-      "position_rank": 686
+      "overall_rank": 1615,
+      "position_rank": 690
     },
     "13419": {
       "player_id": "13419",
@@ -7787,7 +7719,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2028,
+      "overall_rank": 2031,
       "position_rank": 322
     },
     "13421": {
@@ -7804,7 +7736,7 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Upside Stash",
-      "overall_rank": 88,
+      "overall_rank": 89,
       "position_rank": 22
     },
     "13423": {
@@ -7821,7 +7753,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2026,
+      "overall_rank": 2029,
       "position_rank": 320
     },
     "13425": {
@@ -7839,7 +7771,7 @@
       "opportunity_score": 51,
       "actionable_label": "Upside Stash",
       "overall_rank": 175,
-      "position_rank": 116
+      "position_rank": 115
     },
     "13428": {
       "player_id": "13428",
@@ -7855,8 +7787,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Upside Stash",
-      "overall_rank": 402,
-      "position_rank": 193
+      "overall_rank": 407,
+      "position_rank": 196
     },
     "13429": {
       "player_id": "13429",
@@ -7872,8 +7804,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
-      "overall_rank": 795,
-      "position_rank": 368
+      "overall_rank": 796,
+      "position_rank": 369
     },
     "13430": {
       "player_id": "13430",
@@ -7889,8 +7821,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Upside Stash",
-      "overall_rank": 446,
-      "position_rank": 194
+      "overall_rank": 449,
+      "position_rank": 196
     },
     "13433": {
       "player_id": "13433",
@@ -7906,8 +7838,8 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Upside Stash",
-      "overall_rank": 450,
-      "position_rank": 198
+      "overall_rank": 453,
+      "position_rank": 200
     },
     "13434": {
       "player_id": "13434",
@@ -7923,8 +7855,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Upside Stash",
-      "overall_rank": 323,
-      "position_rank": 114
+      "overall_rank": 327,
+      "position_rank": 115
     },
     "13435": {
       "player_id": "13435",
@@ -7940,8 +7872,8 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Upside Stash",
-      "overall_rank": 448,
-      "position_rank": 196
+      "overall_rank": 451,
+      "position_rank": 198
     },
     "13436": {
       "player_id": "13436",
@@ -7957,7 +7889,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1789,
+      "overall_rank": 1790,
       "position_rank": 294
     },
     "13437": {
@@ -7968,14 +7900,14 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "RB",
-      "depth_chart_order": 6,
+      "depth_chart_order": 5,
       "injury_status": "Questionable",
-      "change_detection_key": "HOU:RB:6:Questionable",
+      "change_detection_key": "HOU:RB:5:Questionable",
       "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 20,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 2438,
-      "position_rank": 473
+      "opportunity_score": 36,
+      "actionable_label": "Upside Stash",
+      "overall_rank": 2309,
+      "position_rank": 417
     },
     "13438": {
       "player_id": "13438",
@@ -7991,8 +7923,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 20,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2313,
-      "position_rank": 418
+      "overall_rank": 2317,
+      "position_rank": 420
     },
     "13477": {
       "player_id": "13477",
@@ -8008,8 +7940,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1929,
-      "position_rank": 840
+      "overall_rank": 1932,
+      "position_rank": 843
     },
     "13491": {
       "player_id": "13491",
@@ -8025,8 +7957,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2224,
-      "position_rank": 996
+      "overall_rank": 2227,
+      "position_rank": 997
     },
     "13516": {
       "player_id": "13516",
@@ -8059,8 +7991,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2095,
-      "position_rank": 916
+      "overall_rank": 2100,
+      "position_rank": 919
     },
     "13557": {
       "player_id": "13557",
@@ -8076,8 +8008,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
-      "overall_rank": 396,
-      "position_rank": 187
+      "overall_rank": 401,
+      "position_rank": 190
     },
     "13577": {
       "player_id": "13577",
@@ -8127,8 +8059,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2222,
-      "position_rank": 994
+      "overall_rank": 2225,
+      "position_rank": 995
     },
     "13595": {
       "player_id": "13595",
@@ -8144,7 +8076,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1775,
+      "overall_rank": 1776,
       "position_rank": 280
     },
     "13602": {
@@ -8178,7 +8110,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1781,
+      "overall_rank": 1782,
       "position_rank": 286
     },
     "13630": {
@@ -8195,8 +8127,25 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Upside Stash",
-      "overall_rank": 404,
-      "position_rank": 181
+      "overall_rank": 409,
+      "position_rank": 183
+    },
+    "13661": {
+      "player_id": "13661",
+      "full_name": "Ethan Conner",
+      "position": "TE",
+      "team": "MIA",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": null,
+      "depth_chart_order": null,
+      "injury_status": null,
+      "change_detection_key": "MIA:TE:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 13,
+      "actionable_label": "Upside Stash",
+      "overall_rank": 1334,
+      "position_rank": 425
     },
     "13705": {
       "player_id": "13705",
@@ -8212,8 +8161,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Upside Stash",
-      "overall_rank": 407,
-      "position_rank": 184
+      "overall_rank": 412,
+      "position_rank": 186
     },
     "13712": {
       "player_id": "13712",
@@ -8229,8 +8178,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Upside Stash",
-      "overall_rank": 529,
-      "position_rank": 259
+      "overall_rank": 531,
+      "position_rank": 261
     },
     "13725": {
       "player_id": "13725",
@@ -8246,8 +8195,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2160,
-      "position_rank": 395
+      "overall_rank": 2164,
+      "position_rank": 397
     },
     "13778": {
       "player_id": "13778",
@@ -8263,7 +8212,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1780,
+      "overall_rank": 1781,
       "position_rank": 285
     },
     "13780": {
@@ -8280,7 +8229,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1798,
+      "overall_rank": 1799,
       "position_rank": 303
     },
     "13802": {
@@ -8297,8 +8246,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Upside Stash",
-      "overall_rank": 400,
-      "position_rank": 191
+      "overall_rank": 405,
+      "position_rank": 194
     },
     "13816": {
       "player_id": "13816",
@@ -8314,8 +8263,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Upside Stash",
-      "overall_rank": 280,
-      "position_rank": 157
+      "overall_rank": 283,
+      "position_rank": 159
     },
     "13827": {
       "player_id": "13827",
@@ -8331,8 +8280,25 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 13,
       "actionable_label": "Upside Stash",
-      "overall_rank": 406,
-      "position_rank": 183
+      "overall_rank": 411,
+      "position_rank": 185
+    },
+    "13834": {
+      "player_id": "13834",
+      "full_name": "Cody Hardy",
+      "position": "TE",
+      "team": "NO",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": "TE",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "change_detection_key": "NO:TE:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 13,
+      "actionable_label": "Upside Stash",
+      "overall_rank": 1328,
+      "position_rank": 419
     },
     "13844": {
       "player_id": "13844",
@@ -8348,8 +8314,25 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1776,
+      "overall_rank": 1777,
       "position_rank": 281
+    },
+    "13846": {
+      "player_id": "13846",
+      "full_name": "Jack Velling",
+      "position": "TE",
+      "team": "ATL",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": "TE",
+      "depth_chart_order": null,
+      "injury_status": null,
+      "change_detection_key": "ATL:TE:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 13,
+      "actionable_label": "Upside Stash",
+      "overall_rank": 1335,
+      "position_rank": 426
     },
     "13852": {
       "player_id": "13852",
@@ -8358,14 +8341,14 @@
       "team": "BAL",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "RB",
+      "depth_chart_position": null,
       "depth_chart_order": null,
       "injury_status": null,
       "change_detection_key": "BAL:RB:NA:healthy",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1778,
+      "overall_rank": 1779,
       "position_rank": 283
     },
     "13906": {
@@ -8382,7 +8365,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1783,
+      "overall_rank": 1784,
       "position_rank": 288
     },
     "13909": {
@@ -8399,8 +8382,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1620,
-      "position_rank": 192
+      "overall_rank": 1625,
+      "position_rank": 193
     },
     "13946": {
       "player_id": "13946",
@@ -8416,7 +8399,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Upside Stash",
-      "overall_rank": 2027,
+      "overall_rank": 2030,
       "position_rank": 321
     },
     "13949": {
@@ -8426,15 +8409,15 @@
       "team": "NYG",
       "roster_id": null,
       "roster_status": "available",
-      "depth_chart_position": "RB",
+      "depth_chart_position": null,
       "depth_chart_order": null,
       "injury_status": null,
       "change_detection_key": "NYG:RB:NA:healthy",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1619,
-      "position_rank": 191
+      "overall_rank": 1624,
+      "position_rank": 192
     },
     "14008": {
       "player_id": "14008",
@@ -8450,8 +8433,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1621,
-      "position_rank": 193
+      "overall_rank": 1626,
+      "position_rank": 194
     },
     "14041": {
       "player_id": "14041",
@@ -8467,7 +8450,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1773,
+      "overall_rank": 1774,
       "position_rank": 278
     },
     "14064": {
@@ -8484,8 +8467,25 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1796,
+      "overall_rank": 1797,
       "position_rank": 301
+    },
+    "14069": {
+      "player_id": "14069",
+      "full_name": "Connor Hulstein",
+      "position": "TE",
+      "team": "NYJ",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": null,
+      "depth_chart_order": null,
+      "injury_status": null,
+      "change_detection_key": "NYJ:TE:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 13,
+      "actionable_label": "Upside Stash",
+      "overall_rank": 1329,
+      "position_rank": 420
     },
     "14076": {
       "player_id": "14076",
@@ -8501,7 +8501,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Upside Stash",
-      "overall_rank": 1788,
+      "overall_rank": 1789,
       "position_rank": 293
     }
   },
@@ -8592,6 +8592,14 @@
       "priority": "low",
       "player_id": "4219",
       "player_name": "Jeremy McNichols",
+      "recommendation": "Monitor the current designation; no major opportunity penalty is applied yet."
+    },
+    "live_player_injury_designation:12477": {
+      "key": "live_player_injury_designation:12477",
+      "alert_type": "live_player_injury_designation",
+      "priority": "low",
+      "player_id": "12477",
+      "player_name": "Kurtis Rourke",
       "recommendation": "Monitor the current designation; no major opportunity penalty is applied yet."
     },
     "live_player_injury_designation:11596": {
@@ -8753,6 +8761,22 @@
       "player_id": "6964",
       "player_name": "Sean McKeon",
       "recommendation": "Monitor the current designation; no major opportunity penalty is applied yet."
+    },
+    "live_player_injury_designation:12479": {
+      "key": "live_player_injury_designation:12479",
+      "alert_type": "live_player_injury_designation",
+      "priority": "medium",
+      "player_id": "12479",
+      "player_name": "Ja'Quinden Jackson",
+      "recommendation": "Reassess availability and the next healthy player in the replacement chain."
+    },
+    "live_player_injury_designation:11589": {
+      "key": "live_player_injury_designation:11589",
+      "alert_type": "live_player_injury_designation",
+      "priority": "medium",
+      "player_id": "11589",
+      "player_name": "Trey Benson",
+      "recommendation": "Reassess availability and the next healthy player in the replacement chain."
     },
     "live_player_injury_designation:11651": {
       "key": "live_player_injury_designation:11651",
@@ -8984,22 +9008,6 @@
       "priority": "medium",
       "player_id": "13967",
       "player_name": "Jimmy Kibble",
-      "recommendation": "Reassess availability and the next healthy player in the replacement chain."
-    },
-    "live_player_injury_designation:12479": {
-      "key": "live_player_injury_designation:12479",
-      "alert_type": "live_player_injury_designation",
-      "priority": "medium",
-      "player_id": "12479",
-      "player_name": "Ja'Quinden Jackson",
-      "recommendation": "Reassess availability and the next healthy player in the replacement chain."
-    },
-    "live_player_injury_designation:11589": {
-      "key": "live_player_injury_designation:11589",
-      "alert_type": "live_player_injury_designation",
-      "priority": "medium",
-      "player_id": "11589",
-      "player_name": "Trey Benson",
       "recommendation": "Reassess availability and the next healthy player in the replacement chain."
     },
     "live_player_injury_designation:9489": {
