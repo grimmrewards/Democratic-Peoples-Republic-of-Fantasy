@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-09-17T04:51:26.113Z",
+  "observed_at": "2026-09-17T11:40:13.160Z",
   "source_endpoint": "https://democratic-peoples-republic-of-fant.vercel.app/api/opportunities?scope=purdy_and_available&limit=500",
   "model": "dprf-opportunity-engine-v1.3",
   "players": {
@@ -360,23 +360,6 @@
       "actionable_label": "Cut Candidate",
       "overall_rank": 3030,
       "position_rank": 1356
-    },
-    "3161": {
-      "player_id": "3161",
-      "full_name": "Carson Wentz",
-      "position": "QB",
-      "team": "MIN",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "QB",
-      "depth_chart_order": 1,
-      "injury_status": null,
-      "change_detection_key": "MIN:QB:1:healthy",
-      "estimated_role": "Starting quarterback",
-      "opportunity_score": 87,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 2304,
-      "position_rank": 296
     },
     "3200": {
       "player_id": "3200",
@@ -1075,23 +1058,6 @@
       "overall_rank": 757,
       "position_rank": 244
     },
-    "4993": {
-      "player_id": "4993",
-      "full_name": "Mike Gesicki",
-      "position": "TE",
-      "team": "CIN",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "TE",
-      "depth_chart_order": 1,
-      "injury_status": null,
-      "change_detection_key": "CIN:TE:1:healthy",
-      "estimated_role": "Starting tight end",
-      "opportunity_score": 87,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 2153,
-      "position_rank": 508
-    },
     "4995": {
       "player_id": "4995",
       "full_name": "Ian Thomas",
@@ -1312,23 +1278,6 @@
       "actionable_label": "Cut Candidate",
       "overall_rank": 3037,
       "position_rank": 1359
-    },
-    "5854": {
-      "player_id": "5854",
-      "full_name": "Drew Lock",
-      "position": "QB",
-      "team": "SEA",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "QB",
-      "depth_chart_order": 1,
-      "injury_status": null,
-      "change_detection_key": "SEA:QB:1:healthy",
-      "estimated_role": "Starting quarterback",
-      "opportunity_score": 87,
-      "actionable_label": "Core Starter",
-      "overall_rank": 444,
-      "position_rank": 210
     },
     "5857": {
       "player_id": "5857",
@@ -1584,23 +1533,6 @@
       "actionable_label": "Cut Candidate",
       "overall_rank": 2799,
       "position_rank": 1223
-    },
-    "6130": {
-      "player_id": "6130",
-      "full_name": "Devin Singletary",
-      "position": "RB",
-      "team": "NYG",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "RB",
-      "depth_chart_order": 2,
-      "injury_status": null,
-      "change_detection_key": "NYG:RB:2:healthy",
-      "estimated_role": "Primary handcuff or committee running back",
-      "opportunity_score": 74,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 2653,
-      "position_rank": 552
     },
     "6136": {
       "player_id": "6136",
@@ -3183,6 +3115,23 @@
       "overall_rank": 2388,
       "position_rank": 1071
     },
+    "8177": {
+      "player_id": "8177",
+      "full_name": "Grant Calcaterra",
+      "position": "TE",
+      "team": "PHI",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": "TE",
+      "depth_chart_order": 4,
+      "injury_status": "IR",
+      "change_detection_key": "PHI:TE:4:IR",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 8,
+      "actionable_label": "Waiver Watch",
+      "overall_rank": 2245,
+      "position_rank": 530
+    },
     "8181": {
       "player_id": "8181",
       "full_name": "Connor Heyward",
@@ -3625,6 +3574,23 @@
       "overall_rank": 739,
       "position_rank": 352
     },
+    "8698": {
+      "player_id": "8698",
+      "full_name": "Jake Tonges",
+      "position": "TE",
+      "team": "SF",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": "TE",
+      "depth_chart_order": 4,
+      "injury_status": "IR",
+      "change_detection_key": "SF:TE:4:IR",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 8,
+      "actionable_label": "Waiver Watch",
+      "overall_rank": 2246,
+      "position_rank": 531
+    },
     "8755": {
       "player_id": "8755",
       "full_name": "Kaden Davis",
@@ -3868,8 +3834,8 @@
       "full_name": "Kendre Miller",
       "position": "RB",
       "team": "NO",
-      "roster_id": null,
-      "roster_status": "available",
+      "roster_id": 2,
+      "roster_status": "active",
       "depth_chart_position": "RB",
       "depth_chart_order": 3,
       "injury_status": null,
@@ -4628,6 +4594,23 @@
       "overall_rank": 1046,
       "position_rank": 318
     },
+    "11508": {
+      "player_id": "11508",
+      "full_name": "Princeton Fant",
+      "position": "TE",
+      "team": "DAL",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": "TE",
+      "depth_chart_order": 5,
+      "injury_status": "IR",
+      "change_detection_key": "DAL:TE:5:IR",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 8,
+      "actionable_label": "Waiver Watch",
+      "overall_rank": 2247,
+      "position_rank": 532
+    },
     "11520": {
       "player_id": "11520",
       "full_name": "Lucky Jackson",
@@ -5279,15 +5262,15 @@
       "full_name": "George Holani",
       "position": "RB",
       "team": "SEA",
-      "roster_id": 2,
-      "roster_status": "active",
+      "roster_id": null,
+      "roster_status": "available",
       "depth_chart_position": "RB",
       "depth_chart_order": 2,
       "injury_status": null,
       "change_detection_key": "SEA:RB:2:healthy",
       "estimated_role": "Primary handcuff or committee running back",
       "opportunity_score": 74,
-      "actionable_label": "Roster Bubble",
+      "actionable_label": "Waiver Watch",
       "overall_rank": 1617,
       "position_rank": 200
     },
@@ -5460,6 +5443,23 @@
       "actionable_label": "Core Starter",
       "overall_rank": 350,
       "position_rank": 137
+    },
+    "12457": {
+      "player_id": "12457",
+      "full_name": "Jaydon Blue",
+      "position": "RB",
+      "team": "PHI",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": null,
+      "depth_chart_order": null,
+      "injury_status": null,
+      "change_detection_key": "PHI:RB:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 16,
+      "actionable_label": "Core Starter",
+      "overall_rank": 696,
+      "position_rank": 28
     },
     "12460": {
       "player_id": "12460",
@@ -8688,6 +8688,14 @@
       "priority": "medium",
       "player_id": "8177",
       "player_name": "Grant Calcaterra",
+      "recommendation": "Reassess availability and the next healthy player in the replacement chain."
+    },
+    "live_player_injury_designation:8698": {
+      "key": "live_player_injury_designation:8698",
+      "alert_type": "live_player_injury_designation",
+      "priority": "medium",
+      "player_id": "8698",
+      "player_name": "Jake Tonges",
       "recommendation": "Reassess availability and the next healthy player in the replacement chain."
     },
     "live_player_injury_designation:11508": {
