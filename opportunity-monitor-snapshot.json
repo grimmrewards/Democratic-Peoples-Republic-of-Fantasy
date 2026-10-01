@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-10-01T05:51:35.010Z",
+  "observed_at": "2026-10-01T13:12:12.572Z",
   "source_endpoint": "https://democratic-peoples-republic-of-fant.vercel.app/api/opportunities?scope=purdy_and_available&limit=500",
   "model": "dprf-opportunity-engine-v1.3",
   "players": {
@@ -513,23 +513,6 @@
       "actionable_label": "Waiver Watch",
       "overall_rank": 2238,
       "position_rank": 295
-    },
-    "4035": {
-      "player_id": "4035",
-      "full_name": "Alvin Kamara",
-      "position": "RB",
-      "team": "NO",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "RB",
-      "depth_chart_order": 1,
-      "injury_status": null,
-      "change_detection_key": "NO:RB:1:healthy",
-      "estimated_role": "Lead or primary committee running back",
-      "opportunity_score": 90,
-      "actionable_label": "Waiver Watch",
-      "overall_rank": 2519,
-      "position_rank": 511
     },
     "4054": {
       "player_id": "4054",
@@ -4576,6 +4559,23 @@
       "actionable_label": "Core Starter",
       "overall_rank": 558,
       "position_rank": 277
+    },
+    "11439": {
+      "player_id": "11439",
+      "full_name": "Jaleel McLaughlin",
+      "position": "RB",
+      "team": "CLE",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": "RB",
+      "depth_chart_order": 3,
+      "injury_status": null,
+      "change_detection_key": "CLE:RB:3:healthy",
+      "estimated_role": "Secondary handcuff or specialist running back",
+      "opportunity_score": 54,
+      "actionable_label": "Waiver Watch",
+      "overall_rank": 1961,
+      "position_rank": 323
     },
     "11474": {
       "player_id": "11474",
