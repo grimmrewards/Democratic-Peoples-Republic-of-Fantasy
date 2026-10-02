@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-10-02T05:35:35.381Z",
+  "observed_at": "2026-10-02T12:33:09.318Z",
   "source_endpoint": "https://democratic-peoples-republic-of-fant.vercel.app/api/opportunities?scope=purdy_and_available&limit=500",
   "model": "dprf-opportunity-engine-v1.3",
   "players": {
@@ -205,7 +205,7 @@
       "estimated_role": "Starting quarterback",
       "opportunity_score": 87,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2438,
+      "overall_rank": 2437,
       "position_rank": 314
     },
     "1979": {
@@ -409,7 +409,7 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 71,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2434,
+      "overall_rank": 2433,
       "position_rank": 560
     },
     "3239": {
@@ -477,7 +477,7 @@
       "estimated_role": "Starting tight end",
       "opportunity_score": 87,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2446,
+      "overall_rank": 2445,
       "position_rank": 567
     },
     "3309": {
@@ -494,8 +494,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2456,
-      "position_rank": 485
+      "overall_rank": 2455,
+      "position_rank": 484
     },
     "3333": {
       "player_id": "3333",
@@ -596,7 +596,7 @@
       "estimated_role": "Starting tight end",
       "opportunity_score": 87,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2443,
+      "overall_rank": 2442,
       "position_rank": 564
     },
     "4147": {
@@ -715,7 +715,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Cut Candidate",
-      "overall_rank": 3037,
+      "overall_rank": 3038,
       "position_rank": 1358
     },
     "4314": {
@@ -732,7 +732,7 @@
       "estimated_role": "Direct tight-end replacement or rotational tight end",
       "opportunity_score": 91,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2435,
+      "overall_rank": 2434,
       "position_rank": 561
     },
     "4349": {
@@ -749,8 +749,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2514,
-      "position_rank": 506
+      "overall_rank": 2513,
+      "position_rank": 505
     },
     "4443": {
       "player_id": "4443",
@@ -1106,7 +1106,7 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2537,
+      "overall_rank": 2536,
       "position_rank": 573
     },
     "5086": {
@@ -1174,7 +1174,7 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 51,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2543,
+      "overall_rank": 2542,
       "position_rank": 574
     },
     "5154": {
@@ -1262,6 +1262,23 @@
       "overall_rank": 837,
       "position_rank": 181
     },
+    "5773": {
+      "player_id": "5773",
+      "full_name": "KhaDarel Hodge",
+      "position": "WR",
+      "team": "SF",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": null,
+      "depth_chart_order": null,
+      "injury_status": "Questionable",
+      "change_detection_key": "SF:WR:NA:Questionable",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 10,
+      "actionable_label": "Cut Candidate",
+      "overall_rank": 3029,
+      "position_rank": 1354
+    },
     "5781": {
       "player_id": "5781",
       "full_name": "Malik Turner",
@@ -1310,8 +1327,8 @@
       "estimated_role": "Lead or primary committee running back",
       "opportunity_score": 91,
       "actionable_label": "Roster Bubble",
-      "overall_rank": 2520,
-      "position_rank": 512
+      "overall_rank": 2519,
+      "position_rank": 511
     },
     "5906": {
       "player_id": "5906",
@@ -1378,7 +1395,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2463,
+      "overall_rank": 2462,
       "position_rank": 1090
     },
     "5973": {
@@ -1395,7 +1412,7 @@
       "estimated_role": "Developmental depth tight end",
       "opportunity_score": 26,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2532,
+      "overall_rank": 2531,
       "position_rank": 571
     },
     "5985": {
@@ -1429,8 +1446,8 @@
       "estimated_role": "Primary handcuff or committee running back",
       "opportunity_score": 74,
       "actionable_label": "Roster Bubble",
-      "overall_rank": 2548,
-      "position_rank": 522
+      "overall_rank": 2547,
+      "position_rank": 521
     },
     "6001": {
       "player_id": "6001",
@@ -1854,7 +1871,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 14,
       "actionable_label": "Roster Bubble",
-      "overall_rank": 2465,
+      "overall_rank": 2464,
       "position_rank": 1091
     },
     "6828": {
@@ -1871,8 +1888,8 @@
       "estimated_role": "Primary handcuff or committee running back",
       "opportunity_score": 74,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2457,
-      "position_rank": 486
+      "overall_rank": 2456,
+      "position_rank": 485
     },
     "6847": {
       "player_id": "6847",
@@ -1973,8 +1990,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2455,
-      "position_rank": 484
+      "overall_rank": 2454,
+      "position_rank": 483
     },
     "6920": {
       "player_id": "6920",
@@ -2007,8 +2024,8 @@
       "estimated_role": "Primary handcuff or committee running back",
       "opportunity_score": 74,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2458,
-      "position_rank": 487
+      "overall_rank": 2457,
+      "position_rank": 486
     },
     "6960": {
       "player_id": "6960",
@@ -2109,7 +2126,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 10,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2483,
+      "overall_rank": 2482,
       "position_rank": 1107
     },
     "7075": {
@@ -2262,7 +2279,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 10,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2493,
+      "overall_rank": 2492,
       "position_rank": 1117
     },
     "7521": {
@@ -2534,8 +2551,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 36,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2464,
-      "position_rank": 489
+      "overall_rank": 2463,
+      "position_rank": 488
     },
     "7608": {
       "player_id": "7608",
@@ -2551,8 +2568,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2507,
-      "position_rank": 499
+      "overall_rank": 2506,
+      "position_rank": 498
     },
     "7618": {
       "player_id": "7618",
@@ -2670,7 +2687,7 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2473,
+      "overall_rank": 2472,
       "position_rank": 1098
     },
     "7812": {
@@ -2874,8 +2891,8 @@
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 16,
       "actionable_label": "Waiver Watch",
-      "overall_rank": 2432,
-      "position_rank": 474
+      "overall_rank": 2431,
+      "position_rank": 473
     },
     "8117": {
       "player_id": "8117",
@@ -7671,23 +7688,6 @@
       "overall_rank": 204,
       "position_rank": 51
     },
-    "13423": {
-      "player_id": "13423",
-      "full_name": "Eli Heidenreich",
-      "position": "RB",
-      "team": "PIT",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "RB",
-      "depth_chart_order": 4,
-      "injury_status": "Out",
-      "change_detection_key": "PIT:RB:4:Out",
-      "estimated_role": "Depth-chart reserve",
-      "opportunity_score": 11,
-      "actionable_label": "Upside Stash",
-      "overall_rank": 2431,
-      "position_rank": 473
-    },
     "13428": {
       "player_id": "13428",
       "full_name": "Joey Aguilar",
@@ -7764,9 +7764,9 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "RB",
-      "depth_chart_order": 5,
+      "depth_chart_order": 4,
       "injury_status": null,
-      "change_detection_key": "PIT:RB:5:healthy",
+      "change_detection_key": "PIT:RB:4:healthy",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 33,
       "actionable_label": "Upside Stash",
@@ -8754,14 +8754,6 @@
       "player_name": "Brandon Aiyuk",
       "recommendation": "Monitor the current designation; no major opportunity penalty is applied yet."
     },
-    "live_player_injury_designation:13423": {
-      "key": "live_player_injury_designation:13423",
-      "alert_type": "live_player_injury_designation",
-      "priority": "medium",
-      "player_id": "13423",
-      "player_name": "Eli Heidenreich",
-      "recommendation": "Reassess availability and the next healthy player in the replacement chain."
-    },
     "live_player_injury_designation:8195": {
       "key": "live_player_injury_designation:8195",
       "alert_type": "live_player_injury_designation",
@@ -9104,6 +9096,14 @@
       "priority": "medium",
       "player_id": "13898",
       "player_name": "Corey Rucker",
+      "recommendation": "Reassess availability and the next healthy player in the replacement chain."
+    },
+    "live_player_injury_designation:13423": {
+      "key": "live_player_injury_designation:13423",
+      "alert_type": "live_player_injury_designation",
+      "priority": "medium",
+      "player_id": "13423",
+      "player_name": "Eli Heidenreich",
       "recommendation": "Reassess availability and the next healthy player in the replacement chain."
     },
     "live_player_injury_designation:7595": {
