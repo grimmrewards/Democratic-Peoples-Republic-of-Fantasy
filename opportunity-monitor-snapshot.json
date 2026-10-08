@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "observed_at": "2026-10-08T06:02:12.882Z",
+  "observed_at": "2026-10-08T13:27:31.894Z",
   "source_endpoint": "https://democratic-peoples-republic-of-fant.vercel.app/api/opportunities?scope=purdy_and_available&limit=500",
   "model": "dprf-opportunity-engine-v1.3",
   "players": {
@@ -310,6 +310,23 @@
       "overall_rank": 2770,
       "position_rank": 1213
     },
+    "2334": {
+      "player_id": "2334",
+      "full_name": "Phillip Dorsett",
+      "position": "WR",
+      "team": "LV",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": null,
+      "depth_chart_order": null,
+      "injury_status": null,
+      "change_detection_key": "LV:WR:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 10,
+      "actionable_label": "Cut Candidate",
+      "overall_rank": 2995,
+      "position_rank": 1322
+    },
     "2359": {
       "player_id": "2359",
       "full_name": "Ameer Abdullah",
@@ -377,6 +394,23 @@
       "actionable_label": "Cut Candidate",
       "overall_rank": 2810,
       "position_rank": 1228
+    },
+    "3200": {
+      "player_id": "3200",
+      "full_name": "Sterling Shepard",
+      "position": "WR",
+      "team": "NYJ",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": null,
+      "depth_chart_order": null,
+      "injury_status": null,
+      "change_detection_key": "NYJ:WR:NA:healthy",
+      "estimated_role": "Depth-chart reserve",
+      "opportunity_score": 10,
+      "actionable_label": "Cut Candidate",
+      "overall_rank": 3004,
+      "position_rank": 1331
     },
     "3202": {
       "player_id": "3202",
@@ -1049,9 +1083,9 @@
       "roster_id": null,
       "roster_status": "available",
       "depth_chart_position": "LWR",
-      "depth_chart_order": 4,
+      "depth_chart_order": 5,
       "injury_status": null,
-      "change_detection_key": "LAC:LWR:4:healthy",
+      "change_detection_key": "LAC:LWR:5:healthy",
       "estimated_role": "Depth-chart reserve",
       "opportunity_score": 30,
       "actionable_label": "Cut Candidate",
@@ -2095,23 +2129,6 @@
       "overall_rank": 1501,
       "position_rank": 431
     },
-    "7083": {
-      "player_id": "7083",
-      "full_name": "Tyler Huntley",
-      "position": "QB",
-      "team": "BAL",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "QB",
-      "depth_chart_order": 1,
-      "injury_status": null,
-      "change_detection_key": "BAL:QB:1:healthy",
-      "estimated_role": "Starting quarterback",
-      "opportunity_score": 87,
-      "actionable_label": "Championship Piece",
-      "overall_rank": 170,
-      "position_rank": 110
-    },
     "7087": {
       "player_id": "7087",
       "full_name": "Jonathan Ward",
@@ -2451,6 +2468,23 @@
       "actionable_label": "Upside Stash",
       "overall_rank": 1804,
       "position_rank": 749
+    },
+    "7591": {
+      "player_id": "7591",
+      "full_name": "Justin Fields",
+      "position": "QB",
+      "team": "KC",
+      "roster_id": null,
+      "roster_status": "available",
+      "depth_chart_position": "QB",
+      "depth_chart_order": 2,
+      "injury_status": null,
+      "change_detection_key": "KC:QB:2:healthy",
+      "estimated_role": "Direct quarterback replacement",
+      "opportunity_score": 71,
+      "actionable_label": "Core Starter",
+      "overall_rank": 106,
+      "position_rank": 75
     },
     "7593": {
       "player_id": "7593",
@@ -4815,23 +4849,6 @@
       "overall_rank": 2225,
       "position_rank": 402
     },
-    "11577": {
-      "player_id": "11577",
-      "full_name": "Will Shipley",
-      "position": "RB",
-      "team": "PHI",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "RB",
-      "depth_chart_order": 1,
-      "injury_status": null,
-      "change_detection_key": "PHI:RB:1:healthy",
-      "estimated_role": "Lead or primary committee running back",
-      "opportunity_score": 90,
-      "actionable_label": "Core Starter",
-      "overall_rank": 203,
-      "position_rank": 8
-    },
     "11579": {
       "player_id": "11579",
       "full_name": "Audric Estime",
@@ -6803,23 +6820,6 @@
       "actionable_label": "Core Starter",
       "overall_rank": 474,
       "position_rank": 213
-    },
-    "13264": {
-      "player_id": "13264",
-      "full_name": "Dohnte Meyers",
-      "position": "WR",
-      "team": "CIN",
-      "roster_id": null,
-      "roster_status": "available",
-      "depth_chart_position": "SWR",
-      "depth_chart_order": 3,
-      "injury_status": null,
-      "change_detection_key": "CIN:SWR:3:healthy",
-      "estimated_role": "Developmental depth receiver",
-      "opportunity_score": 48,
-      "actionable_label": "Upside Stash",
-      "overall_rank": 1937,
-      "position_rank": 858
     },
     "13270": {
       "player_id": "13270",
